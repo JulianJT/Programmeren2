@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 import java.sql.*;
 
+// Als je dit ziet werkt het goed.
+
 public class Main extends Application {
 
     @Override
@@ -37,7 +39,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch(Main.class);
-                                    //hopelijk veranderd dit
+
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=Bibliotheek;user=sa;password=12345;portNumber=1433\n;";
 
         // Connection beheert informatie over de connectie met de database.
