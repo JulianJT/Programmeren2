@@ -1,0 +1,108 @@
+Index: src/sample/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sample;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.Label;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.sql.*;\r\n\r\npublic class Main extends Application {\r\n\r\n    @Override\r\n    public void start(Stage primaryStage) throws Exception{\r\n\r\n        Parent root = FXMLLoader.load(getClass().getResource(\"sample.fxml\"));\r\n\r\n        Button student = new Button(\"Add student\");\r\n        Label studentText = new Label(\"Student \");\r\n\r\n        Button course = new Button(\"Add course\");\r\n        Label courseText = new Label(\"Course \");\r\n\r\n        Button registration = new Button(\"Add registration\");\r\n        Label regText = new Label(\"Registration(s)\");\r\n\r\n        Button certificate = new Button(\"Add certificate\");\r\n        Label certText = new Label(\"Certificate(s)\");\r\n\r\n        primaryStage.setTitle(\"CC Statistics\");\r\n        primaryStage.setScene(new Scene(root, 300, 275));\r\n        primaryStage.show();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n\r\n        launch(Main.class);\r\n\r\n        // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.\r\n        String connectionUrl = \"jdbc:sqlserver://localhost\\\\SQLEXPRESS;databaseName=Bibliotheek;user=sa;password=12345;portNumber=1433\\n;\";\r\n\r\n        // Connection beheert informatie over de connectie met de database.\r\n        Connection con = null;\r\n\r\n        // Statement zorgt dat we een SQL query kunnen uitvoeren.\r\n        Statement stmt = null;\r\n\r\n        // ResultSet is de tabel die we van de database terugkrijgen.\r\n        // We kunnen door de rows heen stappen en iedere kolom lezen.\r\n        ResultSet rs = null;\r\n\r\n        try\r\n\r\n        {\r\n            // 'Importeer' de driver die je gedownload hebt.\r\n            Class.forName(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\");\r\n            // Maak de verbinding met de database.\r\n            con = DriverManager.getConnection(connectionUrl);\r\n\r\n            // Stel een SQL query samen.\r\n            String SQL = \"SELECT TOP 10 * FROM Boek\";\r\n            stmt = con.createStatement();\r\n            // Voer de query uit op de database.\r\n            rs = stmt.executeQuery(SQL);\r\n\r\n            System.out.print(String.format(\"| %7s | %-32s | %-24s |\\n\", \" \", \" \", \" \").replace(\" \", \"-\"));\r\n\r\n            // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.\r\n            while (rs.next()) {\r\n                // Vraag per row de kolommen in die row op.\r\n                int ISBN = rs.getInt(\"ISBN\");\r\n                String title = rs.getString(\"Titel\");\r\n                String author = rs.getString(\"Auteur\");\r\n\r\n                // Print de kolomwaarden.\r\n                // System.out.println(ISBN + \" \" + title + \" \" + author);\r\n\r\n                // Met 'format' kun je de string die je print het juiste formaat geven, als je dat wilt.\r\n                // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.\r\n                System.out.format(\"| %7d | %-32s | %-24s | \\n\", ISBN, title, author);\r\n            }\r\n            System.out.println(String.format(\"| %7s | %-32s | %-24s |\\n\", \" \", \" \", \" \").replace(\" \", \"-\"));\r\n\r\n        }\r\n\r\n        // Handle any errors that may have occurred.\r\n        catch(\r\n                Exception e)\r\n\r\n        {\r\n            e.printStackTrace();\r\n        }\r\n        finally\r\n\r\n        {\r\n            if (rs != null) try {\r\n                rs.close();\r\n            } catch (Exception e) {\r\n            }\r\n            if (stmt != null) try {\r\n                stmt.close();\r\n            } catch (Exception e) {\r\n            }\r\n            if (con != null) try {\r\n                con.close();\r\n            } catch (Exception e) {\r\n            }\r\n        }\r\n\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/sample/Main.java b/src/sample/Main.java
+--- a/src/sample/Main.java	
++++ b/src/sample/Main.java	
+@@ -37,8 +37,7 @@
+     public static void main(String[] args) {
+ 
+         launch(Main.class);
+-
+-        // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
++                                    //hopelijk veranderd dit
+         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=Bibliotheek;user=sa;password=12345;portNumber=1433\n;";
+ 
+         // Connection beheert informatie over de connectie met de database.
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+deleted file mode 100644
+--- a/.idea/compiler.xml	
++++ /dev/null	
+@@ -1,23 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CompilerConfiguration">
+-    <option name="DEFAULT_COMPILER" value="Javac" />
+-    <resourceExtensions />
+-    <wildcardResourcePatterns>
+-      <entry name="!?*.java" />
+-      <entry name="!?*.form" />
+-      <entry name="!?*.class" />
+-      <entry name="!?*.groovy" />
+-      <entry name="!?*.scala" />
+-      <entry name="!?*.flex" />
+-      <entry name="!?*.kt" />
+-      <entry name="!?*.clj" />
+-    </wildcardResourcePatterns>
+-    <annotationProcessing>
+-      <profile default="true" name="Default" enabled="false">
+-        <processorPath useClasspath="true" />
+-      </profile>
+-    </annotationProcessing>
+-  </component>
+-</project>
+-
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+deleted file mode 100644
+--- a/.idea/encodings.xml	
++++ /dev/null	
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Encoding">
+-    <file url="PROJECT" charset="UTF-8" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+deleted file mode 100644
+--- a/.idea/misc.xml	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectKey">
+-    <option name="state" value="project://e79810c8-c5c8-43b1-b19c-90c1f4095425" />
+-  </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/out" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: Programmeren2.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx-swt.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.web.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.swing.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.media.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.graphics.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.fxml.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.controls.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"module-library\">\r\n      <library>\r\n        <CLASSES>\r\n          <root url=\"jar://C:/Program Files (x86)/Java/javafx-sdk-11.0.2/lib/javafx.base.jar!/\" />\r\n        </CLASSES>\r\n        <JAVADOC />\r\n        <SOURCES />\r\n      </library>\r\n    </orderEntry>\r\n    <orderEntry type=\"library\" name=\"mssql-jdbc-8.4.1.jre11\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"mssql-jdbc-8.4.1.jre111\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Programmeren2.iml b/Programmeren2.iml
+--- a/Programmeren2.iml	
++++ b/Programmeren2.iml	
+@@ -80,6 +80,5 @@
+       </library>
+     </orderEntry>
+     <orderEntry type="library" name="mssql-jdbc-8.4.1.jre11" level="project" />
+-    <orderEntry type="library" name="mssql-jdbc-8.4.1.jre111" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
