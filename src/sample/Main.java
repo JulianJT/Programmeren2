@@ -38,7 +38,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-//        launch(Main.class);
+       launch(Main.class);
 
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
