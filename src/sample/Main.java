@@ -37,8 +37,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch(Main.class);
-
-        // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
+                                    //hopelijk veranderd dit
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=Bibliotheek;user=sa;password=12345;portNumber=1433\n;";
 
         // Connection beheert informatie over de connectie met de database.
