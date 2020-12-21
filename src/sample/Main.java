@@ -26,9 +26,12 @@ import java.sql.*;
 
 public class Main extends Application {
 
+    private static String userName;
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Image image = new Image(new FileInputStream(""));
+        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
         //Setting the image view
         ImageView imageView = new ImageView(image);
         //Setting the position of the image
@@ -130,9 +133,16 @@ public class Main extends Application {
         });
 
 
+        apply.setOnAction((event) -> {
+             userName = fullName.getText();
+            System.out.println(userName);
+        });
+
+
         Scene view = new Scene(layout, 500, 300);
 
         backStudent.setOnAction((event) -> {
+
             primaryStage.setScene(view);
         });
 
@@ -170,7 +180,7 @@ public class Main extends Application {
             con = DriverManager.getConnection(connectionUrl);
 
             // Stel een SQL query samen.
-            String SQL = "SELECT TOP 10 * FROM Boek";
+            String SQL = "ALTER TABLE Boek ADD " + userName + " varchar(255)";
             stmt = con.createStatement();
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
