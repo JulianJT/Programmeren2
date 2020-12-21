@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.sql.*;
@@ -20,10 +23,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-
-
-
         Button student = new Button("Add student");
 
         Button course = new Button("Add course");
@@ -32,23 +31,27 @@ public class Main extends Application {
 
         Button certificate = new Button("Add certificate");
 
-
-
         VBox mainPage = new VBox();
         mainPage.setSpacing(10);
         mainPage.getChildren().addAll(student, course, registration, certificate);
 
+        Text t = new Text();
+        t.setFont(new Font(20));
+        t.setWrappingWidth(200);
+        t.setTextAlignment(TextAlignment.JUSTIFY);
+        t.setText("This is the CC Statistics app.");
 
-        Label textM = new Label("This is the CC statistics app.");
+        BorderPane layout = new BorderPane();
+        layout.setRight(t);
+        layout.setLeft(mainPage);
 
-        BorderPane firstView = new BorderPane();
-        Scene main = new Scene(mainPage);
-        firstView.setRight(textM);
-
+        Scene view = new Scene(layout, 500, 300);
 
         primaryStage.setTitle("CC Statistics");
-        primaryStage.setScene(main);
+        primaryStage.setScene(view);
         primaryStage.show();
+
+
     }
 
     public static void main(String[] args) {
