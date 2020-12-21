@@ -2,18 +2,24 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.scene.image.Image ;
 
+import java.awt.*;
+import java.io.FileInputStream;
 import java.sql.*;
 
 // Als je dit ziet werkt het goed.
@@ -22,13 +28,26 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+        //Setting the image view
+        ImageView imageView = new ImageView(image);
+        //Setting the position of the image
+        imageView.setX(500);
+        imageView.setY(75);
+        //setting the fit height and width of the image view
+        imageView.setFitHeight(103);
+        imageView.setFitWidth(489);
+
 
         Button student = new Button("Add student");
+            Button addStudents = new Button("Add student(s)");
+            Button removeStudents = new Button("Remove Student(s)");
+            Button viewStudents = new Button("View Student(s)");
+            Button viewProfile = new Button("View profile");
+            Button backStudent = new Button("Back");
 
         Button course = new Button("Add course");
-
         Button registration = new Button("Add registration");
-
         Button certificate = new Button("Add certificate");
 
         VBox mainPage = new VBox();
@@ -41,11 +60,33 @@ public class Main extends Application {
         t.setTextAlignment(TextAlignment.JUSTIFY);
         t.setText("This is the CC Statistics app.");
 
+        GridPane studentPage = new GridPane();
+        studentPage.setVgap(8);
+        studentPage.setHgap(8);
+        Scene studentPageSc = new Scene(studentPage, 500, 300);
+
+        studentPage.add(addStudents, 0, 0);
+        studentPage.add(removeStudents, 0,1);
+        studentPage.add(viewStudents, 1,0);
+        studentPage.add(viewProfile, 1,1);
+        studentPage.add(backStudent,0,3);
+        
         BorderPane layout = new BorderPane();
+        layout.setTop(imageView);
         layout.setRight(t);
         layout.setLeft(mainPage);
 
+
+        student.setOnAction((event) -> {
+            primaryStage.setScene(studentPageSc);
+        });
+
+
         Scene view = new Scene(layout, 500, 300);
+
+        backStudent.setOnAction((event) -> {
+            primaryStage.setScene(view);
+        });
 
         primaryStage.setTitle("CC Statistics");
         primaryStage.setScene(view);
