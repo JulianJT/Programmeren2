@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -18,7 +19,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.image.Image ;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.sql.*;
 
@@ -28,7 +28,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+        Image image = new Image(new FileInputStream(""));
         //Setting the image view
         ImageView imageView = new ImageView(image);
         //Setting the position of the image
@@ -38,46 +38,94 @@ public class Main extends Application {
         imageView.setFitHeight(103);
         imageView.setFitWidth(489);
 
-
         Button student = new Button("Add student");
-            Button addStudents = new Button("Add student(s)");
-            Button removeStudents = new Button("Remove Student(s)");
-            Button viewStudents = new Button("View Student(s)");
-            Button viewProfile = new Button("View profile");
-            Button backStudent = new Button("Back");
+        Button addStudents = new Button("Add student(s)");
+        Button removeStudents = new Button("Remove Student(s)");
+        Button viewStudents = new Button("View Student(s)");
+        Button viewProfile = new Button("View profile");
+        Button backStudent = new Button("Back");
 
         Button course = new Button("Add course");
         Button registration = new Button("Add registration");
         Button certificate = new Button("Add certificate");
 
+        Button apply = new Button("Apply");
+        Button cancel = new Button("Cancel");
+        Button backFromInput = new Button("Back");
+
         VBox mainPage = new VBox();
-        mainPage.setSpacing(10);
-        mainPage.getChildren().addAll(student, course, registration, certificate);
+            mainPage.setSpacing(10);
+            mainPage.getChildren().addAll(student, course, registration, certificate);
 
         Text t = new Text();
-        t.setFont(new Font(20));
-        t.setWrappingWidth(200);
-        t.setTextAlignment(TextAlignment.JUSTIFY);
-        t.setText("This is the CC Statistics app.");
+            t.setFont(new Font(20));
+            t.setWrappingWidth(200);
+            t.setTextAlignment(TextAlignment.JUSTIFY);
+            t.setText("This is the CC Statistics app.");
 
         GridPane studentPage = new GridPane();
-        studentPage.setVgap(8);
-        studentPage.setHgap(8);
-        Scene studentPageSc = new Scene(studentPage, 500, 300);
+            studentPage.setVgap(8);
+            studentPage.setHgap(8);
+            Scene studentPageSc = new Scene(studentPage, 500, 200);
 
-        studentPage.add(addStudents, 0, 0);
-        studentPage.add(removeStudents, 0,1);
-        studentPage.add(viewStudents, 1,0);
-        studentPage.add(viewProfile, 1,1);
-        studentPage.add(backStudent,0,3);
-        
+            studentPage.add(addStudents, 0, 0);
+            studentPage.add(removeStudents, 0,1);
+            studentPage.add(viewStudents, 1,0);
+            studentPage.add(viewProfile, 1,1);
+            studentPage.add(backStudent,0,3);
+
+        TextField email = new TextField();
+            TextField fullName = new TextField();
+            TextField dateOfBirth = new TextField();
+            TextField gender = new TextField();
+            TextField address = new TextField();
+            TextField residence = new TextField();
+            TextField country = new TextField();
+
+
+            Label emailText = new Label("E-mail Address");
+            Label nameText = new Label("Full name");
+            Label birthdayText = new Label("Date of birth");
+            Label genderText = new Label("Gender");
+            Label addressText = new Label("Address");
+            Label residenceText = new Label("Residence");
+            Label countryText = new Label("Country");
+
+        GridPane studentInput = new GridPane();
+            Scene studentInputView = new Scene(studentInput, 500, 200);
+            studentInput.add(emailText, 0,0);
+            studentInput.add(email, 0,1);
+            studentInput.add(nameText,0,2);
+            studentInput.add(fullName,0,3);
+            studentInput.add(birthdayText,0,4);
+            studentInput.add(dateOfBirth,0,5);
+            studentInput.add(genderText,0,6);
+            studentInput.add(gender,0,7);
+            studentInput.add(addressText,1,0);
+            studentInput.add(address,1,1);
+            studentInput.add(residenceText,1, 2);
+            studentInput.add(residence,1,3);
+            studentInput.add(countryText,1,4);
+            studentInput.add(country,1,5);
+            studentInput.add(backFromInput, 0,8);
+            studentInput.add(apply, 1,8);
+            studentInput.add(cancel,2,8);
+
         BorderPane layout = new BorderPane();
-        layout.setTop(imageView);
-        layout.setRight(t);
-        layout.setLeft(mainPage);
+            layout.setTop(imageView);
+            layout.setRight(t);
+            layout.setLeft(mainPage);
 
 
         student.setOnAction((event) -> {
+            primaryStage.setScene(studentPageSc);
+        });
+
+        addStudents.setOnAction((event) -> {
+            primaryStage.setScene(studentInputView);
+        });
+
+        backFromInput.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
 
