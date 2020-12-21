@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.*;
@@ -19,20 +22,32 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
+
+
         Button student = new Button("Add student");
-        Label studentText = new Label("Student ");
 
         Button course = new Button("Add course");
-        Label courseText = new Label("Course ");
 
         Button registration = new Button("Add registration");
-        Label regText = new Label("Registration(s)");
 
         Button certificate = new Button("Add certificate");
-        Label certText = new Label("Certificate(s)");
+
+
+
+        VBox mainPage = new VBox();
+        mainPage.setSpacing(10);
+        mainPage.getChildren().addAll(student, course, registration, certificate);
+
+
+        Label textM = new Label("This is the CC statistics app.");
+
+        BorderPane firstView = new BorderPane();
+        Scene main = new Scene(mainPage);
+        firstView.setRight(textM);
+
 
         primaryStage.setTitle("CC Statistics");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(main);
         primaryStage.show();
     }
 
