@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -18,15 +19,24 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.image.Image ;
+import java.sql.Date;
 
 import java.io.FileInputStream;
 import java.sql.*;
+import java.time.LocalDate;
 
 // Als je dit ziet werkt het goed.
 
 public class Main extends Application {
 
     private static String userName;
+    private static String email;
+    private static Date birthday;
+    private static String gender;
+    private static String address;
+    private static String residence;
+    private static String country;
+
 
 
     @Override
@@ -79,7 +89,7 @@ public class Main extends Application {
 
         TextField email = new TextField();
             TextField fullName = new TextField();
-            TextField dateOfBirth = new TextField();
+            DatePicker datePicker = new DatePicker();
             TextField gender = new TextField();
             TextField address = new TextField();
             TextField residence = new TextField();
@@ -101,7 +111,7 @@ public class Main extends Application {
             studentInput.add(nameText,0,2);
             studentInput.add(fullName,0,3);
             studentInput.add(birthdayText,0,4);
-            studentInput.add(dateOfBirth,0,5);
+            studentInput.add(datePicker,0,5);
             studentInput.add(genderText,0,6);
             studentInput.add(gender,0,7);
             studentInput.add(addressText,1,0);
@@ -134,7 +144,15 @@ public class Main extends Application {
 
 
         apply.setOnAction((event) -> {
-             userName = fullName.getText();
+
+            userName = fullName.getText();
+            this.email = email.getText();
+            birthday = java.sql.Date.valueOf(datePicker.getValue());
+            this.gender = gender.getText();
+            this.address = address.getText();
+            this.residence = residence.getText();
+            this.country = country.getText();
+
             System.out.println(userName);
         });
 
@@ -142,7 +160,6 @@ public class Main extends Application {
         Scene view = new Scene(layout, 500, 300);
 
         backStudent.setOnAction((event) -> {
-
             primaryStage.setScene(view);
         });
 
@@ -159,7 +176,7 @@ public class Main extends Application {
 
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
-        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=Bibliotheek;user=sa;password=12345;portNumber=1433\n;";
+        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
 
         // Connection beheert informatie over de connectie met de database.
         Connection con = null;
@@ -180,28 +197,10 @@ public class Main extends Application {
             con = DriverManager.getConnection(connectionUrl);
 
             // Stel een SQL query samen.
-            String SQL = "ALTER TABLE Boek ADD " + userName + " varchar(255)";
+            String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "')";
             stmt = con.createStatement();
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
-
-            System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
-
-            // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
-            while (rs.next()) {
-                // Vraag per row de kolommen in die row op.
-                int ISBN = rs.getInt("ISBN");
-                String title = rs.getString("Titel");
-                String author = rs.getString("Auteur");
-
-                // Print de kolomwaarden.
-                // System.out.println(ISBN + " " + title + " " + author);
-
-                // Met 'format' kun je de string die je print het juiste formaat geven, als je dat wilt.
-                // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.
-                System.out.format("| %7d | %-32s | %-24s | \n", ISBN, title, author);
-            }
-            System.out.println(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
 
         }
 
@@ -210,7 +209,7 @@ public class Main extends Application {
                 Exception e)
 
         {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         finally
 
