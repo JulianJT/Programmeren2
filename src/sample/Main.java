@@ -1,9 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -12,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -65,6 +61,7 @@ public class Main extends Application {
         Button apply = new Button("Apply");
         Button cancel = new Button("Cancel");
         Button backFromInput = new Button("Back");
+
 
         VBox mainPage = new VBox();
             mainPage.setSpacing(10);
@@ -130,6 +127,7 @@ public class Main extends Application {
             layout.setLeft(mainPage);
 
 
+
         student.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
@@ -167,6 +165,55 @@ public class Main extends Application {
         primaryStage.setScene(view);
         primaryStage.show();
 
+
+        Button viewPersonRegistrations = new Button("Select person");
+        Button viewCourseRegistrations = new Button("Select course");
+        Button backFromRegistration = new Button("Back");
+        Button backFromPersonRegistration = new Button("Back");
+        Button backFromCourseRegistration = new Button("Back");
+
+        Label RegistrationText = new Label("Here you can take a look at the registration overview.");
+
+
+        GridPane registrationPage = new GridPane();
+        registrationPage.setVgap(8);
+        registrationPage.setHgap(10);
+        Scene registrationPageSc = new Scene(registrationPage, 500, 200);
+        registrationPage.add(RegistrationText, 1,1);
+        registrationPage.add(viewPersonRegistrations, 1,2);
+        registrationPage.add(viewCourseRegistrations, 1,3);
+        registrationPage.add(backFromRegistration, 1,6);
+
+
+
+
+        GridPane selectPersonReg = new GridPane();
+        selectPersonReg.getChildren().addAll(backFromPersonRegistration);
+        Scene selectPersonRegView = new Scene(selectPersonReg, 500, 200);
+
+        GridPane selectCourseReg = new GridPane();
+        selectCourseReg.getChildren().addAll(backFromCourseRegistration);
+        Scene selectCourseRegView = new Scene(selectCourseReg, 500, 200);
+
+
+        registration.setOnAction((event) -> {
+            primaryStage.setScene(registrationPageSc);
+        });
+        backFromRegistration.setOnAction((event) -> {
+            primaryStage.setScene(view);
+        });
+        viewPersonRegistrations.setOnAction((event) -> {
+            primaryStage.setScene(selectPersonRegView);
+        });
+        viewCourseRegistrations.setOnAction((event) -> {
+            primaryStage.setScene(selectCourseRegView);
+        });
+        backFromPersonRegistration.setOnAction((event) -> {
+            primaryStage.setScene(registrationPageSc);
+        });
+        backFromCourseRegistration.setOnAction((event) -> {
+            primaryStage.setScene(registrationPageSc);
+        });
 
     }
 
