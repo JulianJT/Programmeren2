@@ -192,6 +192,10 @@ public class Main extends Application {
             primaryStage.setScene(coursePagesc);
         });
 
+        backCourse.setOnAction((event) -> {
+            primaryStage.setScene(view);
+        });
+
         primaryStage.setTitle("CC Statistics");
         primaryStage.setScene(view);
         primaryStage.show();
