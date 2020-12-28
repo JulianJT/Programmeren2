@@ -134,7 +134,6 @@ public class UserInterface extends Application {
             });
 
 
-
             apply.setOnAction((event) -> {
 
                 userName = fullName.getText();
