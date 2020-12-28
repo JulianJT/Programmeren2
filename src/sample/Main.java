@@ -37,18 +37,11 @@ public class Main extends Application {
     private static String residence;
     private static String country;
 
-    //course
-    private static String courseName;
-    private static String subject;
-    private static String introductionText;
-    private static String level_indication;
-
-
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-       /* Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
         //Setting the image view
         ImageView imageView = new ImageView(image);
         //Setting the position of the image
@@ -56,7 +49,7 @@ public class Main extends Application {
         imageView.setY(75);
         //setting the fit height and width of the image view
         imageView.setFitHeight(103);
-        imageView.setFitWidth(489);*/
+        imageView.setFitWidth(489);
 
         Button student = new Button("Add student");
         Button addStudents = new Button("Add student(s)");
@@ -66,13 +59,6 @@ public class Main extends Application {
         Button backStudent = new Button("Back");
 
         Button course = new Button("Add course");
-        Button addCourses = new Button("Add Course(s)");
-        Button removeCourses = new Button("Remove Course(s)");
-        Button viewCourses = new Button("View Course(s)");
-        Button viewProfileCourse = new Button("View Profile");
-        Button backCourse = new Button("Back");
-
-
         Button registration = new Button("Add registration");
         Button certificate = new Button("Add certificate");
 
@@ -90,17 +76,7 @@ public class Main extends Application {
             t.setTextAlignment(TextAlignment.JUSTIFY);
             t.setText("This is the CC Statistics app.");
 
-        GridPane coursePage = new GridPane();
-        coursePage.setVgap(8);
-        coursePage.setHgap(8);
-        Scene coursePagesc = new Scene(coursePage, 500, 200);
-            coursePage.add(addCourses, 0, 0);
-            coursePage.add(removeCourses, 0, 1);
-            coursePage.add(viewCourses, 1, 0);
-            coursePage.add(viewProfileCourse, 1, 1);
-            coursePage.add(backCourse,0,3);
-
-            GridPane studentPage = new GridPane();
+        GridPane studentPage = new GridPane();
             studentPage.setVgap(8);
             studentPage.setHgap(8);
             Scene studentPageSc = new Scene(studentPage, 500, 200);
@@ -149,7 +125,7 @@ public class Main extends Application {
             studentInput.add(cancel,2,8);
 
         BorderPane layout = new BorderPane();
-            //layout.setTop(imageView);
+            layout.setTop(imageView);
             layout.setRight(t);
             layout.setLeft(mainPage);
 
@@ -157,7 +133,6 @@ public class Main extends Application {
         student.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
-
 
         addStudents.setOnAction((event) -> {
             primaryStage.setScene(studentInputView);
@@ -188,14 +163,6 @@ public class Main extends Application {
             primaryStage.setScene(view);
         });
 
-        course.setOnAction((event) -> {
-            primaryStage.setScene(coursePagesc);
-        });
-
-        backCourse.setOnAction((event) -> {
-            primaryStage.setScene(view);
-        });
-
         primaryStage.setTitle("CC Statistics");
         primaryStage.setScene(view);
         primaryStage.show();
@@ -209,7 +176,7 @@ public class Main extends Application {
 
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
-        String connectionUrl = "jdbc:sqlserver://localhost//SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
 
         // Connection beheert informatie over de connectie met de database.
         Connection con = null;
