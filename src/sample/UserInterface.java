@@ -284,6 +284,40 @@ public class UserInterface extends Application {
             backFromCourseRegistration.setOnAction((event) -> {
                 primaryStage.setScene(registrationPageSc);
             });
+                
+                
+               
+                
+            GridPane certificateLayout = new GridPane();
+            Scene certificatePage = new Scene(certificateLayout, 500, 200);
+
+            GridPane addCertificateLayout = new GridPane();
+            Scene addCertificate = new Scene(addCertificateLayout,500, 200);
+
+
+            Button add_certificate = new Button("Add Certificate");
+            Button backFromCertificate = new Button("Back");
+            Button backFromAddCertificate = new Button("Back");
+
+            certificateLayout.add(backFromCertificate, 1,6);
+            addCertificateLayout.add(backFromAddCertificate, 1,6);
+            certificateLayout.add(add_certificate, 1,2);
+
+            backFromCertificate.setOnAction((event) -> {
+                primaryStage.setScene(view);
+            });
+
+            backFromAddCertificate.setOnAction((event) -> {
+                primaryStage.setScene(certificatePage);
+            });
+
+            certificate.setOnAction((event) -> {
+                primaryStage.setScene(certificatePage);
+            });
+
+            add_certificate.setOnAction((event) -> {
+                primaryStage.setScene(addCertificate);
+            });
 
         }
 
