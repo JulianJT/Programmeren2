@@ -14,11 +14,10 @@
         import javafx.stage.Stage;
         import javafx.scene.image.Image ;
         import java.sql.Date;
-
         import java.io.FileInputStream;
         import java.sql.*;
 
-public class UserInterface extends Application {
+    public class UserInterface extends Application {
 
     public static String userName;
     public static String email;
@@ -154,16 +153,14 @@ public class UserInterface extends Application {
                 alert.setTitle("Error Dialog");
                 alert.setHeaderText("Oh no, an Error occurred!");
                 alert.setContentText("Birthday is empty.");
-
                 alert.showAndWait();
-
 
                 return;
 
             }
 
             // Checks if gender is either Male or Female, ignoring case.
-            if (!this.gender.equalsIgnoreCase("Male") || this.gender.equalsIgnoreCase("Female")) {
+            if (!(this.gender.equalsIgnoreCase("Male") || this.gender.equalsIgnoreCase("Female"))) {
 
                 System.out.println("Invalid gender error occurred!");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -174,7 +171,6 @@ public class UserInterface extends Application {
                 alert.showAndWait();
                 return;
             }
-
 
 
             // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
@@ -222,7 +218,7 @@ public class UserInterface extends Application {
                 }
             }
 
-            System.out.println(userName + "was added to the database.");
+            System.out.println(userName + " was added to the database.");
         });
 
 
@@ -288,8 +284,6 @@ public class UserInterface extends Application {
         });
 
 
-
-
         GridPane certificateLayout = new GridPane();
         Scene certificatePage = new Scene(certificateLayout, 500, 200);
 
@@ -323,7 +317,7 @@ public class UserInterface extends Application {
 
     }
 
-    }
+}
 
 
 
