@@ -284,37 +284,96 @@
             primaryStage.setScene(registrationPageSc);
         });
 
-
-        BorderPane certificateLayout = new BorderPane();
-        VBox certificateVBox = new VBox();
-        HBox radioHBox = new HBox();
-        HBox buttonHBox = new HBox();
-        Scene certificatePage = new Scene(certificateLayout, 500, 300);
+        // Certificate Part starts here...
+        BorderPane certificateLayout =new BorderPane();
+        VBox mainCertVBox = new VBox();
+        HBox certButtonHBox = new HBox();
+        Scene certificatePage = new Scene(certificateLayout,500, 300);
 
         Text certificateText = new Text();
-        certificateText.setFont(new Font(15));
+        certificateText.setFont(new Font(30));
         certificateText.setTextAlignment(TextAlignment.JUSTIFY);
-        certificateText.setText("Here you can view the percentages of students that achieved a certificate.");
+        certificateText.setText("Certificate Menu");
+
+        Button addCertificate = new Button("Add Certificate");
+        Button getCertificate = new Button("View Certificates");
+        Button backFromCertificate = new Button("Back");
+        // Add Most Given Certificates (top 3)
+
+        mainCertVBox.setSpacing(10);
+        mainCertVBox.getChildren().addAll(certificateText, certButtonHBox, backFromCertificate);
+        certButtonHBox.setSpacing(10);
+        certButtonHBox.getChildren().addAll(addCertificate, getCertificate);
+
+        certificateLayout.setLeft(mainCertVBox);
+
+
+        BorderPane getCertificateLayout = new BorderPane();
+        VBox getCertVBox = new VBox();
+        HBox radioHBox = new HBox();
+        HBox buttonHBox = new HBox();
+        Scene getCertificatePage = new Scene(getCertificateLayout, 500, 300);
+
+        Text getCertText = new Text();
+        getCertText.setFont(new Font(15));
+        getCertText.setTextAlignment(TextAlignment.JUSTIFY);
+        getCertText.setText("Here you can view the percentages of students that achieved a certificate.");
 
         RadioButton male = new RadioButton("Male");
         RadioButton female = new RadioButton("Female");
-        Button backFromCertificate = new Button("Back");
-        Button applyDB = new Button("Apply");
+        Button backFromGetCertificate = new Button("Back");
+        Button search = new Button("Search");
 
-        certificateLayout.setLeft(certificateVBox);
+        getCertificateLayout.setLeft(getCertVBox);
 
-        certificateVBox.setSpacing(10);
-        certificateVBox.getChildren().addAll(certificateText, radioHBox, buttonHBox);
+        getCertVBox.setSpacing(10);
+        getCertVBox.getChildren().addAll(getCertText, radioHBox, buttonHBox);
         radioHBox.setSpacing(10);
         radioHBox.getChildren().addAll(male, female);
         buttonHBox.setSpacing(10);
-        buttonHBox.getChildren().addAll(applyDB, backFromCertificate);
+        buttonHBox.getChildren().addAll(search, backFromGetCertificate);
+
+        // Implement getting certificates from specific student (name).
+
+
+        BorderPane addCertificateLayout = new BorderPane();
+        VBox addCertVBox = new VBox();
+        Scene addCertificatePage = new Scene(addCertificateLayout, 500, 300);
+
+        Text addCertText = new Text();
+        addCertText.setFont(new Font(15));
+        addCertText.setTextAlignment(TextAlignment.JUSTIFY);
+        addCertText.setText("Here you can add certificates to students.");
+
+        Button backFromAddCertificate = new Button("Back");
+
+        addCertificateLayout.setLeft(addCertVBox);
+
+        addCertVBox.setSpacing(10);
+        addCertVBox.getChildren().addAll(addCertText, backFromAddCertificate);
+
+        
+        backFromGetCertificate.setOnAction((event) -> {
+            primaryStage.setScene(certificatePage);
+        });
+
+        certificate.setOnAction((event) -> {
+            primaryStage.setScene(certificatePage);
+        });
+
+        getCertificate.setOnAction((event) -> {
+            primaryStage.setScene(getCertificatePage);
+        });
+
+        addCertificate.setOnAction((event) -> {
+            primaryStage.setScene(addCertificatePage);
+        });
 
         backFromCertificate.setOnAction((event) -> {
             primaryStage.setScene(view);
         });
 
-        certificate.setOnAction((event) -> {
+        backFromAddCertificate.setOnAction((event) -> {
             primaryStage.setScene(certificatePage);
         });
 
