@@ -16,6 +16,7 @@
         import java.sql.Date;
         import java.io.FileInputStream;
         import java.sql.*;
+        import javafx.scene.layout.HBox;
 
     public class UserInterface extends Application {
 
