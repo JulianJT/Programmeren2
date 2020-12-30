@@ -284,35 +284,37 @@
         });
 
 
-        GridPane certificateLayout = new GridPane();
-        Scene certificatePage = new Scene(certificateLayout, 500, 200);
+        BorderPane certificateLayout = new BorderPane();
+        VBox certificateVBox = new VBox();
+        HBox radioHBox = new HBox();
+        HBox buttonHBox = new HBox();
+        Scene certificatePage = new Scene(certificateLayout, 500, 300);
 
-        GridPane addCertificateLayout = new GridPane();
-        Scene addCertificate = new Scene(addCertificateLayout,500, 200);
+        Text certificateText = new Text();
+        certificateText.setFont(new Font(15));
+        certificateText.setTextAlignment(TextAlignment.JUSTIFY);
+        certificateText.setText("Here you can view the percentages of students that achieved a certificate.");
 
-
-        Button add_certificate = new Button("Add Certificate");
+        RadioButton male = new RadioButton("Male");
+        RadioButton female = new RadioButton("Female");
         Button backFromCertificate = new Button("Back");
-        Button backFromAddCertificate = new Button("Back");
+        Button applyDB = new Button("Apply");
 
-        certificateLayout.add(backFromCertificate, 1,6);
-        addCertificateLayout.add(backFromAddCertificate, 1,6);
-        certificateLayout.add(add_certificate, 1,2);
+        certificateLayout.setLeft(certificateVBox);
+
+        certificateVBox.setSpacing(10);
+        certificateVBox.getChildren().addAll(certificateText, radioHBox, buttonHBox);
+        radioHBox.setSpacing(10);
+        radioHBox.getChildren().addAll(male, female);
+        buttonHBox.setSpacing(10);
+        buttonHBox.getChildren().addAll(applyDB, backFromCertificate);
 
         backFromCertificate.setOnAction((event) -> {
             primaryStage.setScene(view);
         });
 
-        backFromAddCertificate.setOnAction((event) -> {
-            primaryStage.setScene(certificatePage);
-        });
-
         certificate.setOnAction((event) -> {
             primaryStage.setScene(certificatePage);
-        });
-
-        add_certificate.setOnAction((event) -> {
-            primaryStage.setScene(addCertificate);
         });
 
     }
