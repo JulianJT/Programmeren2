@@ -29,7 +29,7 @@
 
     @Override
     public void start (Stage primaryStage) throws Exception {
-        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+        /*Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
         //Setting the image view
         ImageView imageView = new ImageView(image);
         //Setting the position of the image
@@ -37,7 +37,10 @@
         imageView.setY(75);
         //setting the fit height and width of the image view
         imageView.setFitHeight(103);
-        imageView.setFitWidth(489);
+        imageView.setFitWidth(489);*/
+
+
+
 
         Button student = new Button("Add student");
         Button addStudents = new Button("Add student(s)");
@@ -113,7 +116,7 @@
         studentInput.add(cancel, 2, 8);
 
         BorderPane layout = new BorderPane();
-        layout.setTop(imageView);
+        //layout.setTop(imageView);
         layout.setRight(t);
         layout.setLeft(mainPage);
 
@@ -128,8 +131,6 @@
         backFromInput.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
-
-
 
         apply.setOnAction((event) -> {
 
@@ -313,6 +314,73 @@
 
         add_certificate.setOnAction((event) -> {
             primaryStage.setScene(addCertificate);
+        });
+
+        Button addCourses = new Button("add courses");
+        Button removeCourses = new Button("remove courses");
+        Button viewCourses = new Button("View Courses");
+        Button courseProfile = new Button("View Profile");
+        Button backCourse = new Button("Back");
+
+        GridPane coursePage = new GridPane();
+        coursePage.setVgap(8);
+        coursePage.setHgap(8);
+        Scene coursePageSc = new Scene(coursePage, 500, 200);
+        coursePage.add(addCourses, 0, 0);
+        coursePage.add(removeCourses, 0, 1);
+        coursePage.add(viewCourses, 1, 0);
+        coursePage.add(courseProfile, 1, 1);
+        coursePage.add(backCourse, 0, 3);
+
+        Button backAddCourse = new Button("Back");
+        TextField nameInput = new TextField();
+        TextField subjectInput = new TextField();
+        TextArea intro = new TextArea();
+        ComboBox levels = new ComboBox();
+
+        levels.getItems().add("beginner");
+        levels.getItems().add("advanced");
+        levels.getItems().add("expert");
+
+        Label courseName = new Label("Name:");
+        Label subject = new Label("Subject:");
+        Label introduction = new Label("Introduction:");
+        Label levelIndication = new Label("Level:");
+
+        GridPane addCoursePage = new GridPane();
+        addCoursePage.setVgap(8);
+        addCoursePage.setHgap(4);
+        Scene addCourseScr = new Scene(addCoursePage, 500, 200);
+
+        addCoursePage.add(courseName, 0, 0);
+        addCoursePage.add(nameInput, 0, 1);
+        addCoursePage.add(subject, 1, 0);
+        addCoursePage.add(subjectInput, 1, 1);
+        addCoursePage.add(levelIndication, 0, 2);
+        addCoursePage.add(levels, 0, 3);
+        addCoursePage.add(introduction, 0, 4);
+        addCoursePage.add(intro, 0, 5);
+
+
+
+        addCoursePage.add(backAddCourse, 0, 6);
+
+
+
+
+        course.setOnAction((event) -> {
+            primaryStage.setScene(coursePageSc);
+        });
+
+        backCourse.setOnAction((event) -> {
+            primaryStage.setScene(view);
+        });
+        addCourses.setOnAction((event) -> {
+            primaryStage.setScene(addCourseScr);
+        });
+
+        backAddCourse.setOnAction((event) -> {
+            primaryStage.setScene(coursePageSc);
         });
 
     }
