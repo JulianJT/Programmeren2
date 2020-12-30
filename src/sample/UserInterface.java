@@ -30,15 +30,15 @@
 
     @Override
     public void start (Stage primaryStage) throws Exception {
-        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+        //Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
         //Setting the image view
-        ImageView imageView = new ImageView(image);
+        //ImageView imageView = new ImageView(image);
         //Setting the position of the image
-        imageView.setX(500);
-        imageView.setY(75);
+        //imageView.setX(500);
+        //imageView.setY(75);
         //setting the fit height and width of the image view
-        imageView.setFitHeight(103);
-        imageView.setFitWidth(489);
+        //imageView.setFitHeight(103);
+        //imageView.setFitWidth(489);
 
         Button student = new Button("Add student");
         Button addStudents = new Button("Add student(s)");
@@ -114,7 +114,7 @@
         studentInput.add(cancel, 2, 8);
 
         BorderPane layout = new BorderPane();
-        layout.setTop(imageView);
+        //layout.setTop(imageView);
         layout.setRight(t);
         layout.setLeft(mainPage);
 
@@ -341,16 +341,42 @@
         Scene addCertificatePage = new Scene(addCertificateLayout, 500, 300);
 
         Text addCertText = new Text();
-        addCertText.setFont(new Font(15));
+        addCertText.setFont(new Font(18));
         addCertText.setTextAlignment(TextAlignment.JUSTIFY);
         addCertText.setText("Here you can add certificates to students.");
 
+        Button applyToDB = new Button("Apply");
+        Button cancelCert = new Button("Cancel");
         Button backFromAddCertificate = new Button("Back");
+        TextField studentName = new TextField();
+        TextField review = new TextField(); // Has to be [0-10]
+        TextField workerName = new TextField();
+        TextField registrationName = new TextField();
+
+        Label nameStudentText = new Label("Student Name");
+        Label reviewText = new Label("Review [0-10]");
+        Label workerNameText = new Label("Full Name");
+        Label registrationText = new Label("Registration");
+
+        GridPane addCertificateInput = new GridPane();
+        addCertificateInput.add(workerNameText,0,0);
+        addCertificateInput.add(workerName,0,1);
+        addCertificateInput.add(nameStudentText, 1, 0);
+        addCertificateInput.add(studentName, 1, 1);
+        addCertificateInput.add(registrationText, 0, 2);
+        addCertificateInput.add(registrationName, 0, 3);
+        addCertificateInput.add(reviewText, 1, 2);
+        addCertificateInput.add(review, 1, 3);
+
+        addCertificateInput.add(backFromAddCertificate, 0, 4);
+        addCertificateInput.add(apply, 1, 4);
 
         addCertificateLayout.setLeft(addCertVBox);
 
+        addCertificateInput.setHgap(8);
+        addCertificateInput.setVgap(8);
         addCertVBox.setSpacing(10);
-        addCertVBox.getChildren().addAll(addCertText, backFromAddCertificate);
+        addCertVBox.getChildren().addAll(addCertText, addCertificateInput);
 
         
         backFromGetCertificate.setOnAction((event) -> {
