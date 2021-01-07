@@ -2,6 +2,8 @@
         package sample;
 
         import javafx.application.Application;
+        import javafx.collections.FXCollections;
+        import javafx.collections.ObservableList;
         import javafx.scene.Scene;
         import javafx.scene.control.*;
         import javafx.scene.image.ImageView;
@@ -16,7 +18,21 @@
         import java.sql.Date;
         import java.io.FileInputStream;
         import java.sql.*;
+<<<<<<< Updated upstream
         import javafx.scene.layout.HBox;
+=======
+        import java.sql.Connection;
+        import java.sql.ResultSet;
+
+        import javafx.beans.property.SimpleStringProperty;
+        import javafx.beans.value.ObservableValue;
+
+        import javafx.scene.control.TableColumn;
+        import javafx.scene.control.TableColumn.CellDataFeatures;
+        import javafx.scene.control.TableView;
+
+        import javafx.util.Callback;
+>>>>>>> Stashed changes
 
     public class UserInterface extends Application {
 
@@ -28,9 +44,87 @@
     public static String residence;
     public static String country;
 
+        private TableView tableview;
+        private ObservableList<ObservableList> data ;
+
+        public void buildData(){
+
+            // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
+            String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+
+            // Connection beheert informatie over de connectie met de database.
+            Connection con = null;
+
+            // Statement zorgt dat we een SQL query kunnen uitvoeren.
+            Statement stmt = null;
+
+            // ResultSet is de tabel die we van de database terugkrijgen.
+            // We kunnen door de rows heen stappen en iedere kolom lezen.
+            ResultSet rs = null;
+
+            try {
+                // 'Importeer' de driver die je gedownload hebt.
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                // Maak de verbinding met de database.
+                con = DriverManager.getConnection(connectionUrl);
+
+                // Stel een SQL query samen.
+                String SQL = "SELECT * FROM Student";
+                stmt = con.createStatement();
+                // Voer de query uit op de database.
+                rs = stmt.executeQuery(SQL);
+
+                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                    //We are using non property style for making dynamic table
+                    final int j = i;
+                    TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1));
+                    col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                        public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                            return new SimpleStringProperty(param.getValue().get(j).toString());
+                        }
+                    });
+
+                    tableview.getColumns().addAll(col);
+                    System.out.println("Column [" + i + "] ");
+                }
+
+                /********************************
+                 * Data added to ObservableList *
+                 ********************************/
+                int count = 0;
+                while (rs.next()) {
+
+                    //Iterate Row
+                    ObservableList<String> row = FXCollections.observableArrayList();
+                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                        //Iterate Column
+                        row.add(rs.getString(i));
+//                        data.add(row);
+                    }
+                    count+=1;
+
+                    System.out.println("Row " + count + " added "  + row);
+
+                }
+                tableview.setItems(data);
+
+                //FINALLY ADDED TO TableView
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error on Building Data");
+            }
+
+        }
+
     @Override
     public void start (Stage primaryStage) throws Exception {
+<<<<<<< Updated upstream
         //Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+=======
+
+        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+>>>>>>> Stashed changes
         //Setting the image view
         //ImageView imageView = new ImageView(image);
         //Setting the position of the image
@@ -118,6 +212,19 @@
         layout.setRight(t);
         layout.setLeft(mainPage);
 
+        Button backFromStudentList = new Button("Back");
+        tableview = new TableView();
+
+        VBox students = new VBox(tableview);
+        Scene studentView = new Scene(students, 560, 200);
+        students.getChildren().addAll(backFromStudentList);
+
+
+        backFromStudentList.setOnAction((event) -> {
+            primaryStage.setScene(studentPageSc);
+        });
+
+
         student.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
@@ -130,6 +237,13 @@
             primaryStage.setScene(studentPageSc);
         });
 
+
+        viewStudents.setOnAction((event) -> {
+            buildData();
+            primaryStage.setScene(studentView);
+
+
+        });
 
 
         apply.setOnAction((event) -> {
@@ -173,6 +287,61 @@
                 return;
             }
 
+            if(userName.isEmpty()) {
+                System.out.println("Username was empty");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Name is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.email.isEmpty()) {
+                System.out.println("Email was empty");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Email is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.address.isEmpty()) {
+                System.out.println("Address was empty!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Address is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.residence.isEmpty()) {
+                System.out.println("Residence was empty!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Residence is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.country.isEmpty()) {
+                System.out.println("Country was empty!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Country is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
 
             // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
             String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
@@ -198,6 +367,23 @@
                 stmt = con.createStatement();
                 // Voer de query uit op de database.
                 rs = stmt.executeQuery(SQL);
+
+                System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
+
+                // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
+                while (rs.next()) {
+                    // Vraag per row de kolommen in die row op.
+                    String title = rs.getString("name");
+                    String author = rs.getString("emailAddress");
+
+                    // Print de kolomwaarden.
+                    // System.out.println(ISBN + " " + title + " " + author);
+
+                    // Met 'format' kun je de string die je print het juiste formaat geven, als je dat wilt.
+                    // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.
+                    System.out.format("| %7d | %-32s | %-24s | \n", title, author);
+                }
+                System.out.println(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
 
             }
 
