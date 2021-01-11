@@ -2,6 +2,8 @@
         package sample;
 
         import javafx.application.Application;
+        import javafx.collections.FXCollections;
+        import javafx.collections.ObservableList;
         import javafx.scene.Scene;
         import javafx.scene.control.*;
         import javafx.scene.image.ImageView;
@@ -17,6 +19,21 @@
         import java.io.FileInputStream;
         import java.sql.*;
 
+        import javafx.scene.layout.HBox;
+
+        import java.sql.Connection;
+        import java.sql.ResultSet;
+
+        import javafx.beans.property.SimpleStringProperty;
+        import javafx.beans.value.ObservableValue;
+
+        import javafx.scene.control.TableColumn;
+        import javafx.scene.control.TableColumn.CellDataFeatures;
+        import javafx.scene.control.TableView;
+
+        import javafx.util.Callback;
+
+
     public class UserInterface extends Application {
 
     public static String userName;
@@ -27,20 +44,95 @@
     public static String residence;
     public static String country;
 
+        private TableView tableview;
+        private ObservableList<ObservableList> data ;
+
+        public void buildData(){
+
+            // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
+            String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+
+            // Connection beheert informatie over de connectie met de database.
+            Connection con = null;
+
+            // Statement zorgt dat we een SQL query kunnen uitvoeren.
+            Statement stmt = null;
+
+            // ResultSet is de tabel die we van de database terugkrijgen.
+            // We kunnen door de rows heen stappen en iedere kolom lezen.
+            ResultSet rs = null;
+
+            try {
+                // 'Importeer' de driver die je gedownload hebt.
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                // Maak de verbinding met de database.
+                con = DriverManager.getConnection(connectionUrl);
+
+                // Stel een SQL query samen.
+                String SQL = "SELECT * FROM Student";
+                stmt = con.createStatement();
+                // Voer de query uit op de database.
+                rs = stmt.executeQuery(SQL);
+
+                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                    //We are using non property style for making dynamic table
+                    final int j = i;
+                    TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1));
+                    col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                        public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                            return new SimpleStringProperty(param.getValue().get(j).toString());
+                        }
+                    });
+
+                    tableview.getColumns().addAll(col);
+                    System.out.println("Column [" + i + "] ");
+                }
+
+                /********************************
+                 * Data added to ObservableList *
+                 ********************************/
+                int count = 0;
+                while (rs.next()) {
+
+                    //Iterate Row
+                    ObservableList<String> row = FXCollections.observableArrayList();
+                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                        //Iterate Column
+                        row.add(rs.getString(i));
+//                        data.add(row);
+                    }
+                    count+=1;
+
+                    System.out.println("Row " + count + " added "  + row);
+
+                }
+                tableview.setItems(data);
+
+                //FINALLY ADDED TO TableView
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error on Building Data");
+            }
+
+        }
+
     @Override
     public void start (Stage primaryStage) throws Exception {
-        /*Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+
+        //Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+
+
+        Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
+
         //Setting the image view
-        ImageView imageView = new ImageView(image);
+        //ImageView imageView = new ImageView(image);
         //Setting the position of the image
-        imageView.setX(500);
-        imageView.setY(75);
+        //imageView.setX(500);
+        //imageView.setY(75);
         //setting the fit height and width of the image view
-        imageView.setFitHeight(103);
-        imageView.setFitWidth(489);*/
-
-
-
+        //imageView.setFitHeight(103);
+        //imageView.setFitWidth(489);
 
         Button student = new Button("Add student");
         Button addStudents = new Button("Add student(s)");
@@ -120,6 +212,19 @@
         layout.setRight(t);
         layout.setLeft(mainPage);
 
+        Button backFromStudentList = new Button("Back");
+        tableview = new TableView();
+
+        VBox students = new VBox(tableview);
+        Scene studentView = new Scene(students, 560, 200);
+        students.getChildren().addAll(backFromStudentList);
+
+
+        backFromStudentList.setOnAction((event) -> {
+            primaryStage.setScene(studentPageSc);
+        });
+
+
         student.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
@@ -131,6 +236,15 @@
         backFromInput.setOnAction((event) -> {
             primaryStage.setScene(studentPageSc);
         });
+
+
+        viewStudents.setOnAction((event) -> {
+            buildData();
+            primaryStage.setScene(studentView);
+
+
+        });
+
 
         apply.setOnAction((event) -> {
 
@@ -173,6 +287,61 @@
                 return;
             }
 
+            if(userName.isEmpty()) {
+                System.out.println("Username was empty");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Name is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.email.isEmpty()) {
+                System.out.println("Email was empty");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Email is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.address.isEmpty()) {
+                System.out.println("Address was empty!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Address is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.residence.isEmpty()) {
+                System.out.println("Residence was empty!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Residence is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if(this.country.isEmpty()) {
+                System.out.println("Country was empty!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Country is empty");
+
+                alert.showAndWait();
+                return;
+            }
+
 
             // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
             String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
@@ -198,6 +367,23 @@
                 stmt = con.createStatement();
                 // Voer de query uit op de database.
                 rs = stmt.executeQuery(SQL);
+
+                System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
+
+                // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
+                while (rs.next()) {
+                    // Vraag per row de kolommen in die row op.
+                    String title = rs.getString("name");
+                    String author = rs.getString("emailAddress");
+
+                    // Print de kolomwaarden.
+                    // System.out.println(ISBN + " " + title + " " + author);
+
+                    // Met 'format' kun je de string die je print het juiste formaat geven, als je dat wilt.
+                    // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.
+                    System.out.format("| %7d | %-32s | %-24s | \n", title, author);
+                }
+                System.out.println(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
 
             }
 
@@ -284,27 +470,102 @@
             primaryStage.setScene(registrationPageSc);
         });
 
+        // Certificate Part starts here...
+        BorderPane certificateLayout =new BorderPane();
+        VBox mainCertVBox = new VBox();
+        HBox certButtonHBox = new HBox();
+        Scene certificatePage = new Scene(certificateLayout,500, 300);
 
-        GridPane certificateLayout = new GridPane();
-        Scene certificatePage = new Scene(certificateLayout, 500, 200);
+        Text certificateText = new Text();
+        certificateText.setFont(new Font(30));
+        certificateText.setTextAlignment(TextAlignment.JUSTIFY);
+        certificateText.setText("Certificate Menu");
 
-        GridPane addCertificateLayout = new GridPane();
-        Scene addCertificate = new Scene(addCertificateLayout,500, 200);
-
-
-        Button add_certificate = new Button("Add Certificate");
+        Button addCertificate = new Button("Add Certificate");
+        Button getCertificate = new Button("View Certificates");
         Button backFromCertificate = new Button("Back");
+        // Add Most Given Certificates (top 3)
+
+        mainCertVBox.setSpacing(10);
+        mainCertVBox.getChildren().addAll(certificateText, certButtonHBox, backFromCertificate);
+        certButtonHBox.setSpacing(10);
+        certButtonHBox.getChildren().addAll(addCertificate, getCertificate);
+
+        certificateLayout.setLeft(mainCertVBox);
+
+
+        BorderPane getCertificateLayout = new BorderPane();
+        VBox getCertVBox = new VBox();
+        HBox radioHBox = new HBox();
+        HBox buttonHBox = new HBox();
+        Scene getCertificatePage = new Scene(getCertificateLayout, 500, 300);
+
+        Text getCertText = new Text();
+        getCertText.setFont(new Font(15));
+        getCertText.setTextAlignment(TextAlignment.JUSTIFY);
+        getCertText.setText("Here you can view the percentages of students that achieved a certificate.");
+
+        RadioButton male = new RadioButton("Male");
+        RadioButton female = new RadioButton("Female");
+        Button backFromGetCertificate = new Button("Back");
+        Button search = new Button("Search");
+
+        getCertificateLayout.setLeft(getCertVBox);
+
+        getCertVBox.setSpacing(10);
+        getCertVBox.getChildren().addAll(getCertText, radioHBox, buttonHBox);
+        radioHBox.setSpacing(10);
+        radioHBox.getChildren().addAll(male, female);
+        buttonHBox.setSpacing(10);
+        buttonHBox.getChildren().addAll(search, backFromGetCertificate);
+
+        // Implement getting certificates from specific student (name).
+
+
+        BorderPane addCertificateLayout = new BorderPane();
+        VBox addCertVBox = new VBox();
+        Scene addCertificatePage = new Scene(addCertificateLayout, 500, 300);
+
+        Text addCertText = new Text();
+        addCertText.setFont(new Font(18));
+        addCertText.setTextAlignment(TextAlignment.JUSTIFY);
+        addCertText.setText("Here you can add certificates to students.");
+
+        Button applyToDB = new Button("Apply");
+        Button cancelCert = new Button("Cancel");
         Button backFromAddCertificate = new Button("Back");
+        TextField studentName = new TextField();
+        TextField review = new TextField(); // Has to be [0-10]
+        TextField workerName = new TextField();
+        TextField registrationName = new TextField();
 
-        certificateLayout.add(backFromCertificate, 1,6);
-        addCertificateLayout.add(backFromAddCertificate, 1,6);
-        certificateLayout.add(add_certificate, 1,2);
+        Label nameStudentText = new Label("Student Name");
+        Label reviewText = new Label("Review [0-10]");
+        Label workerNameText = new Label("Full Name");
+        Label registrationText = new Label("Registration");
 
-        backFromCertificate.setOnAction((event) -> {
-            primaryStage.setScene(view);
-        });
+        GridPane addCertificateInput = new GridPane();
+        addCertificateInput.add(workerNameText,0,0);
+        addCertificateInput.add(workerName,0,1);
+        addCertificateInput.add(nameStudentText, 1, 0);
+        addCertificateInput.add(studentName, 1, 1);
+        addCertificateInput.add(registrationText, 0, 2);
+        addCertificateInput.add(registrationName, 0, 3);
+        addCertificateInput.add(reviewText, 1, 2);
+        addCertificateInput.add(review, 1, 3);
 
-        backFromAddCertificate.setOnAction((event) -> {
+        addCertificateInput.add(backFromAddCertificate, 0, 4);
+        addCertificateInput.add(apply, 1, 4);
+
+        addCertificateLayout.setLeft(addCertVBox);
+
+        addCertificateInput.setHgap(8);
+        addCertificateInput.setVgap(8);
+        addCertVBox.setSpacing(10);
+        addCertVBox.getChildren().addAll(addCertText, addCertificateInput);
+
+
+        backFromGetCertificate.setOnAction((event) -> {
             primaryStage.setScene(certificatePage);
         });
 
@@ -312,75 +573,20 @@
             primaryStage.setScene(certificatePage);
         });
 
-        add_certificate.setOnAction((event) -> {
-            primaryStage.setScene(addCertificate);
+        getCertificate.setOnAction((event) -> {
+            primaryStage.setScene(getCertificatePage);
         });
 
-        Button addCourses = new Button("add courses");
-        Button removeCourses = new Button("remove courses");
-        Button viewCourses = new Button("View Courses");
-        Button courseProfile = new Button("View Profile");
-        Button backCourse = new Button("Back");
-
-        GridPane coursePage = new GridPane();
-        coursePage.setVgap(8);
-        coursePage.setHgap(8);
-        Scene coursePageSc = new Scene(coursePage, 500, 200);
-        coursePage.add(addCourses, 0, 0);
-        coursePage.add(removeCourses, 0, 1);
-        coursePage.add(viewCourses, 1, 0);
-        coursePage.add(courseProfile, 1, 1);
-        coursePage.add(backCourse, 0, 3);
-
-        Button backAddCourse = new Button("Back");
-        TextField nameInput = new TextField();
-        TextField subjectInput = new TextField();
-        TextArea intro = new TextArea();
-        ComboBox levels = new ComboBox();
-
-        levels.getItems().add("beginner");
-        levels.getItems().add("advanced");
-        levels.getItems().add("expert");
-
-        Label courseName = new Label("Name:");
-        Label subject = new Label("Subject:");
-        Label introduction = new Label("Introduction:");
-        Label levelIndication = new Label("Level:");
-
-        GridPane addCoursePage = new GridPane();
-        addCoursePage.setVgap(8);
-        addCoursePage.setHgap(4);
-        Scene addCourseScr = new Scene(addCoursePage, 500, 200);
-
-        addCoursePage.add(courseName, 0, 0);
-        addCoursePage.add(nameInput, 0, 1);
-        addCoursePage.add(subject, 1, 0);
-        addCoursePage.add(subjectInput, 1, 1);
-        addCoursePage.add(levelIndication, 0, 2);
-        addCoursePage.add(levels, 0, 3);
-        addCoursePage.add(introduction, 0, 4);
-        addCoursePage.add(intro, 0, 5);
-
-
-
-        addCoursePage.add(backAddCourse, 0, 6);
-
-
-
-
-        course.setOnAction((event) -> {
-            primaryStage.setScene(coursePageSc);
+        addCertificate.setOnAction((event) -> {
+            primaryStage.setScene(addCertificatePage);
         });
 
-        backCourse.setOnAction((event) -> {
+        backFromCertificate.setOnAction((event) -> {
             primaryStage.setScene(view);
         });
-        addCourses.setOnAction((event) -> {
-            primaryStage.setScene(addCourseScr);
-        });
 
-        backAddCourse.setOnAction((event) -> {
-            primaryStage.setScene(coursePageSc);
+        backFromAddCertificate.setOnAction((event) -> {
+            primaryStage.setScene(certificatePage);
         });
 
     }
