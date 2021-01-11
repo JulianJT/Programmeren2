@@ -1,6 +1,6 @@
 package GUI;
 
-import Domain.Student;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 
-class StudentScene {
+class StudentSc {
 
     private final BorderPane rootPane ; // or any other kind of pane, or  Group...
 
-    public StudentScene() {
+    public StudentSc() {
 
         rootPane = new BorderPane();
 

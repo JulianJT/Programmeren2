@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 
 public class StartScene extends Application {
+
     @Override
     public void start (Stage primaryStage) throws Exception {
 
@@ -69,7 +70,7 @@ public class StartScene extends Application {
         primaryStage.show();
 
         student.setOnAction((event) -> {
-            StudentScene students = new StudentScene();
+            StudentSc students = new StudentSc();
             primaryStage.getScene().setRoot(students.getRootPane());
         });
        }
