@@ -18,9 +18,9 @@
         import java.sql.Date;
         import java.io.FileInputStream;
         import java.sql.*;
-<<<<<<< Updated upstream
+
         import javafx.scene.layout.HBox;
-=======
+
         import java.sql.Connection;
         import java.sql.ResultSet;
 
@@ -32,7 +32,7 @@
         import javafx.scene.control.TableView;
 
         import javafx.util.Callback;
->>>>>>> Stashed changes
+
 
     public class UserInterface extends Application {
 
@@ -119,12 +119,12 @@
 
     @Override
     public void start (Stage primaryStage) throws Exception {
-<<<<<<< Updated upstream
+
         //Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
-=======
+
 
         Image image = new Image(new FileInputStream("C:\\Users\\jdtji\\Desktop\\download.png"));
->>>>>>> Stashed changes
+
         //Setting the image view
         //ImageView imageView = new ImageView(image);
         //Setting the position of the image
@@ -564,7 +564,7 @@
         addCertVBox.setSpacing(10);
         addCertVBox.getChildren().addAll(addCertText, addCertificateInput);
 
-        
+
         backFromGetCertificate.setOnAction((event) -> {
             primaryStage.setScene(certificatePage);
         });
