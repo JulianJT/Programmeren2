@@ -13,24 +13,33 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 
-class StudentSc {
+class StudentScene {
 
-    private final GridPane rootPane ; // or any other kind of pane, or  Group...
+    private static GridPane studentPane ; // or any other kind of pane, or  Group...
 
-    public StudentSc() {
+    public StudentScene() {
 
-        rootPane = new GridPane();
-        rootPane.add(new Button("test"), 1,2);
-        rootPane.add(new Button("test2"), 8,2);
-        rootPane.add(new Button("test3"), 1,8);
-        rootPane.add(new Button("test4"), 5,2);
+        studentPane = new GridPane();
+        Button addStudents = new Button("Add student(s)");
+        Button removeStudents = new Button("Remove Student(s)");
+        Button viewStudents = new Button("View Student(s)");
+        Button viewProfile = new Button("View profile");
 
         Button back = new Button("Back");
-        rootPane.add(back, 1, 0);
+        studentPane.add(addStudents, 0, 0);
+        studentPane.add(removeStudents, 0, 1);
+        studentPane.add(viewStudents, 1, 0);
+        studentPane.add(viewProfile, 1, 1);
+        studentPane.add(back, 0, 3);
 
 
         back.setOnAction((event) -> {
-            rootPane.getScene().setRoot(StartScene.getStartMenu());
+            studentPane.getScene().setRoot(StartScene.getStartMenu());
+        });
+
+        addStudents.setOnAction((event) -> {
+            StudentInputScene input = new StudentInputScene();
+            studentPane.getScene().setRoot(input.getStudentInput());
         });
 
         // build UI, register event handlers, etc etc
@@ -38,8 +47,8 @@ class StudentSc {
 
     }
 
-    public Pane getRootPane() {
-        return rootPane ;
+    public static Pane getRootPane() {
+        return studentPane ;
     }
 
 }

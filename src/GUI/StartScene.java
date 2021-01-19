@@ -40,7 +40,7 @@ public class StartScene extends Application {
         primaryStage.show();
 
         student.setOnAction((event) -> {
-            StudentSc students = new StudentSc();
+            StudentScene students = new StudentScene();
             primaryStage.getScene().setRoot(students.getRootPane());
         });
 

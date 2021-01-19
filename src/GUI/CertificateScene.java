@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-class certificateStage extends Application {
+class CertificateScene extends Application {
 
     public void start(Stage CertificateStage) throws Exception {
         BorderPane certificateLayout = new BorderPane();
