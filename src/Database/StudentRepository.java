@@ -24,104 +24,83 @@ public class StudentRepository {
 
     public void addStudent() {
 
-
-        StudentInputScene student = new StudentInputScene();
-
-        String userName = student.getUsername();
-        String email = student.getEmail();
-        Date birthday = student.getBirthday();
-        String gender = student.getGender();
-        String address = student.getAddress();
-        String residence = student.getResidence();
-        String country = student.getCountry();
+        String userName = StudentInputScene.getUsername();
+        String email = StudentInputScene.getEmail();
+        Date birthday = StudentInputScene.getBirthday();
+        String gender = StudentInputScene.getGender();
+        String address = StudentInputScene.getAddress();
+        String residence = StudentInputScene.getResidence();
+        String country = StudentInputScene.getCountry();
 
 
-//        try {
-//
-//            birthday = java.sql.Date.valueOf(datePicker.getValue());
-//
-//        } catch (NullPointerException e){
-//
-//            System.out.println("Birthday is empty");
-//
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Birthday is empty.");
-//            alert.showAndWait();
-//
-//            return;
-//
-//        }
+        // Checks if gender is either Male or Female, ignoring case.
+        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
 
-//        // Checks if gender is either Male or Female, ignoring case.
-//        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
-//
-//            System.out.println("Invalid gender error occurred!");
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Invalid gender specified.");
-//
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if(userName.isEmpty()) {
-//            System.out.println("Username was empty");
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Name is empty");
-//
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if(email.isEmpty()) {
-//            System.out.println("Email was empty");
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Email is empty");
-//
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if(address.isEmpty()) {
-//            System.out.println("Address was empty!");
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Address is empty");
-//
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if(residence.isEmpty()) {
-//            System.out.println("Residence was empty!");
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Residence is empty");
-//
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if(country.isEmpty()) {
-//            System.out.println("Country was empty!");
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Dialog");
-//            alert.setHeaderText("Oh no, an Error occurred!");
-//            alert.setContentText("Country is empty");
-//
-//            alert.showAndWait();
-//            return;
-//        }
-//
+            System.out.println("Invalid gender error occurred!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Invalid gender specified.");
+
+            alert.showAndWait();
+            return;
+        }
+
+        if(userName.isEmpty()) {
+            System.out.println("Username was empty");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Name is empty");
+
+            alert.showAndWait();
+            return;
+        }
+
+        if(email.isEmpty()) {
+            System.out.println("Email was empty");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Email is empty");
+
+            alert.showAndWait();
+            return;
+        }
+
+        if(address.isEmpty()) {
+            System.out.println("Address was empty!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Address is empty");
+
+            alert.showAndWait();
+            return;
+        }
+
+        if(residence.isEmpty()) {
+            System.out.println("Residence was empty!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Residence is empty");
+
+            alert.showAndWait();
+            return;
+        }
+
+        if(country.isEmpty()) {
+            System.out.println("Country was empty!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Country is empty");
+
+            alert.showAndWait();
+            return;
+        }
+
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
@@ -186,13 +165,11 @@ public class StudentRepository {
         }
 
         System.out.println(userName + " was added to the database.");
+        System.out.println(userName + " " + gender + " " + residence + " " + country + " " + address + " " + birthday);
 
 }
 
-
-
     // build UI, register event handlers, etc etc
-
 
 }
 

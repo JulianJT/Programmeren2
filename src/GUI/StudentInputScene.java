@@ -12,13 +12,13 @@ import java.sql.ResultSet;
 import java.util.Date;
 
 public class StudentInputScene {
-    public String userName;
-    public String email;
-    public Date birthday;
-    public String gender;
-    public String address;
-    public String residence;
-    public String country;
+    private static String userName;
+    private static String email;
+    private static Date birthday;
+    private static String gender;
+    private static String address;
+    private static String residence;
+    private static String country;
 
     private static GridPane studentInputPane;
 
@@ -26,13 +26,14 @@ public class StudentInputScene {
 
         studentInputPane = new GridPane();
 
-        TextField email = new TextField();
+        TextField emailField = new TextField();
         TextField fullName = new TextField();
         DatePicker datePicker = new DatePicker();
-        TextField gender = new TextField();
-        TextField address = new TextField();
-        TextField residence = new TextField();
-        TextField country = new TextField();
+        TextField genderField = new TextField();
+        TextField addressField = new TextField();
+        TextField residenceField = new TextField();
+        TextField countryField = new TextField();
+
         Label emailText = new Label("E-mail Address");
         Label nameText = new Label("Full name");
         Label birthdayText = new Label("Date of birth");
@@ -45,19 +46,19 @@ public class StudentInputScene {
         Button cancel = new Button("Cancel");
 
         studentInputPane.add(emailText, 0, 0);
-        studentInputPane.add(email, 0, 1);
+        studentInputPane.add(emailField, 0, 1);
         studentInputPane.add(nameText, 0, 2);
         studentInputPane.add(fullName, 0, 3);
         studentInputPane.add(birthdayText, 0, 4);
         studentInputPane.add(datePicker, 0, 5);
         studentInputPane.add(genderText, 0, 6);
-        studentInputPane.add(gender, 0, 7);
+        studentInputPane.add(genderField, 0, 7);
         studentInputPane.add(addressText, 1, 0);
-        studentInputPane.add(address, 1, 1);
+        studentInputPane.add(addressField, 1, 1);
         studentInputPane.add(residenceText, 1, 2);
-        studentInputPane.add(residence, 1, 3);
+        studentInputPane.add(residenceField, 1, 3);
         studentInputPane.add(countryText, 1, 4);
-        studentInputPane.add(country, 1, 5);
+        studentInputPane.add(countryField, 1, 5);
         studentInputPane.add(back, 0, 8);
         studentInputPane.add(apply, 1, 8);
         studentInputPane.add(cancel, 2, 8);
@@ -69,44 +70,60 @@ public class StudentInputScene {
 
         StudentRepository addstudent = new StudentRepository();
 
-
         apply.setOnAction((event) -> {
+
+            try {
+
+                birthday = java.sql.Date.valueOf(datePicker.getValue());
+
+            } catch (NullPointerException e){
+
+                System.out.println("Birthday is empty");
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Birthday is empty.");
+                alert.showAndWait();
+
+                return;
+
+            }
             userName = fullName.getText();
-            this.email = email.getText();
-            this.gender = gender.getText();
-            this.address = address.getText();
-            this.residence = residence.getText();
-            this.country = country.getText();
+            email = emailField.getText();
+            gender = genderField.getText();
+            address = addressField.getText();
+            residence = residenceField.getText();
+            country = countryField.getText();
+
             addstudent.addStudent();
 
 
         });
 
     }
-    public String getUsername(){
+
+    public static String getUsername(){
         return userName;
     }
-    public String getEmail(){
+    public static String getEmail(){
         return email;
     }
-    public String getGender(){
+    public static String getGender(){
         return gender;
     }
-    public String getAddress(){
+    public static String getAddress(){
         return address;
     }
-
-    public String getResidence(){
+    public static String getResidence(){
         return residence;
     }
-    public String getCountry(){
+    public static String getCountry(){
         return country;
     }
-
-    public Date getBirthday() {
+    public static Date getBirthday() {
         return birthday;
     }
-
 
     public static GridPane getStudentInput() {
         return studentInputPane ;
