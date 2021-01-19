@@ -27,10 +27,10 @@ public class StartScene extends Application {
         Button registration = new Button("Registrations");
         Button certificate = new Button("Certificates");
 
-        getStartPane.getChildren().add(student);
-//        getStartPane.getChildren().add(course);
-//        getStartPane.getChildren().add(registration);
-//        getStartPane.getChildren().add(certificate);
+        getStartPane.add(student,1,1);
+        getStartPane.add(course,1,2);
+        getStartPane.add(registration,1,3);
+//        getStartPane.add(certificate,1,4);
 
 
         Scene view = new Scene(getStartPane, 500, 300);
@@ -44,10 +44,19 @@ public class StartScene extends Application {
             primaryStage.getScene().setRoot(students.getRootPane());
         });
 
+        registration.setOnAction((event) -> {
+            RegistrationScene registrations = new RegistrationScene();
+            primaryStage.getScene().setRoot(registrations.getRegistrationPane());
+        });
+
+        course.setOnAction((event) -> {
+            CourseScene courses = new CourseScene();
+            primaryStage.getScene().setRoot(courses.getCoursePane());
+        });
+
 
     }
     public static Pane getStartMenu() {
-
         return getStartPane ;
     }
 
