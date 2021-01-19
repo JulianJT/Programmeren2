@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StudentRepository {
 
@@ -34,6 +36,25 @@ public class StudentRepository {
 
 
         // Checks if gender is either Male or Female, ignoring case.
+        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+            Matcher matcher = pattern.matcher(email);
+            System.out.println(email +" : "+ matcher.matches());
+
+        if(!(matcher.matches())){
+
+            System.out.println("Invalid email error occurred!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Invalid email specified.");
+
+            alert.showAndWait();
+            return;
+        }
+
         if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
 
             System.out.println("Invalid gender error occurred!");
