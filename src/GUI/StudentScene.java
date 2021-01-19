@@ -15,20 +15,31 @@ import java.io.FileInputStream;
 
 class StudentSc {
 
-    private final BorderPane rootPane ; // or any other kind of pane, or  Group...
+    private final GridPane rootPane ; // or any other kind of pane, or  Group...
 
     public StudentSc() {
 
-        rootPane = new BorderPane();
+        rootPane = new GridPane();
+        rootPane.add(new Button("test"), 1,2);
+        rootPane.add(new Button("test2"), 8,2);
+        rootPane.add(new Button("test3"), 1,8);
+        rootPane.add(new Button("test4"), 5,2);
+
+        Button back = new Button("Back");
+        rootPane.add(back, 1, 0);
+
+
+        back.setOnAction((event) -> {
+            rootPane.getScene().setRoot(StartScene.getStartMenu());
+        });
 
         // build UI, register event handlers, etc etc
+
 
     }
 
     public Pane getRootPane() {
         return rootPane ;
     }
-
-    // other methods you may need to access, etc...
 
 }
