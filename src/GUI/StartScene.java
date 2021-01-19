@@ -30,7 +30,7 @@ public class StartScene extends Application {
         getStartPane.add(student,1,1);
         getStartPane.add(course,1,2);
         getStartPane.add(registration,1,3);
-//        getStartPane.add(certificate,1,4);
+        getStartPane.add(certificate,1,4);
 
 
         Scene view = new Scene(getStartPane, 500, 300);
@@ -52,6 +52,10 @@ public class StartScene extends Application {
         course.setOnAction((event) -> {
             CourseScene courses = new CourseScene();
             primaryStage.getScene().setRoot(courses.getCoursePane());
+        });
+        certificate.setOnAction((event) -> {
+            CertificateScene certificates = new CertificateScene();
+            primaryStage.getScene().setRoot(certificates.getCertificatePane());
         });
 
 
