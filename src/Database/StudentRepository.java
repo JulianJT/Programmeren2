@@ -26,6 +26,13 @@ public class StudentRepository {
 
     public void addStudent() {
 
+        StudentInputCheck checkInput = new StudentInputCheck();
+        checkInput.checkInput();
+
+        if (checkInput.checkInput()) {
+            return;
+        }
+
         String userName = StudentInputScene.getUsername();
         String email = StudentInputScene.getEmail();
         Date birthday = StudentInputScene.getBirthday();
@@ -34,94 +41,7 @@ public class StudentRepository {
         String residence = StudentInputScene.getResidence();
         String country = StudentInputScene.getCountry();
 
-
         // Checks if gender is either Male or Female, ignoring case.
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-
-        Pattern pattern = Pattern.compile(regex);
-
-            Matcher matcher = pattern.matcher(email);
-            System.out.println(email +" : "+ matcher.matches());
-
-        if(!(matcher.matches())){
-
-            System.out.println("Invalid email error occurred!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Invalid email specified.");
-
-            alert.showAndWait();
-            return;
-        }
-
-        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
-
-            System.out.println("Invalid gender error occurred!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Invalid gender specified.");
-
-            alert.showAndWait();
-            return;
-        }
-
-        if(userName.isEmpty()) {
-            System.out.println("Username was empty");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Name is empty");
-
-            alert.showAndWait();
-            return;
-        }
-
-        if(email.isEmpty()) {
-            System.out.println("Email was empty");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Email is empty");
-
-            alert.showAndWait();
-            return;
-        }
-
-        if(address.isEmpty()) {
-            System.out.println("Address was empty!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Address is empty");
-
-            alert.showAndWait();
-            return;
-        }
-
-        if(residence.isEmpty()) {
-            System.out.println("Residence was empty!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Residence is empty");
-
-            alert.showAndWait();
-            return;
-        }
-
-        if(country.isEmpty()) {
-            System.out.println("Country was empty!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Country is empty");
-
-            alert.showAndWait();
-            return;
-        }
-
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
@@ -193,7 +113,6 @@ public class StudentRepository {
     // build UI, register event handlers, etc etc
 
 }
-
 
 //    public void updateStudent(Student student) {
 
