@@ -47,9 +47,10 @@ class StudentScene {
 
         viewStudents.setOnAction((event) -> {
             StudentRepository list = new StudentRepository();
+            StudentListScene studentTable = new StudentListScene();
+            studentPane.getScene().setRoot(studentTable.getStudentTable());
             list.getAllStudents();
         });
-
 
 
 

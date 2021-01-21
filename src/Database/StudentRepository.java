@@ -15,13 +15,11 @@ import java.util.ArrayList;
 
 public class StudentRepository {
 
-    ArrayList<Student> students = new ArrayList<>();
-    String name;
-    String email;
+    public List<Student> getAllStudents() {
 
-
-    public void getAllStudents() {
-
+        ArrayList<Student> students = new ArrayList<>();
+        String name;
+        String email;
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
@@ -48,7 +46,6 @@ public class StudentRepository {
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
 
-            System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
 
             // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
             while (rs.next()) {
@@ -58,8 +55,6 @@ public class StudentRepository {
 
                 Student student = new Student(name, email);
                 students.add(student);
-
-
 
 
                 // Print de kolomwaarden.
@@ -95,11 +90,11 @@ public class StudentRepository {
             }
         }
 
+        return students;
+
     }
-//
-////    public Student getStudent(String email) {
-//
-////    }
+
+
 
     public void addStudent() {
 

@@ -22,6 +22,6 @@ public class Student {
 
     public String toString(){
 
-        return "[" + name + "," + address + "]";
+        return name + "," + address + "\n";
     }
 }
