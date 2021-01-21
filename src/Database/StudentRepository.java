@@ -64,11 +64,6 @@ public class StudentRepository {
                 // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.
 
             }
-            for(Student s: students){
-                System.out.print(s);
-            }
-
-
 
         }
 

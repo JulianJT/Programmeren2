@@ -33,21 +33,32 @@ import java.util.ArrayList;
 
 class StudentListScene {
 
+    private static GridPane list;
     private static ListView listView;
 
     public StudentListScene(){
+
+        list = new GridPane();
+        Button back = new Button("back");
 
         StudentRepository stlist = new StudentRepository();
 
         ObservableList<Student> names = FXCollections.observableArrayList(stlist.getAllStudents());
         listView = new ListView<Student>(names);
-        listView.setMaxSize(200, 160);
+        listView.setPrefWidth(500);
+
+        list.add(listView, 0, 0);
+        list.add(back,0,1);
+
+        back.setOnAction((event) -> {
+            list.getScene().setRoot(StudentScene.getRootPane());
+        });
 
 
     }
 
-    public static ListView getStudentTable() {
-        return listView;
+    public static GridPane getStudentTable() {
+        return list;
     }
 
 }
