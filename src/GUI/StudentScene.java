@@ -1,6 +1,7 @@
 package GUI;
 
 
+import Database.StudentRepository;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -42,6 +43,11 @@ class StudentScene {
         addStudents.setOnAction((event) -> {
             StudentInputScene input = new StudentInputScene();
             studentPane.getScene().setRoot(input.getStudentInput());
+        });
+
+        viewStudents.setOnAction((event) -> {
+            StudentRepository list = new StudentRepository();
+            list.getAllStudents();
         });
 
 
