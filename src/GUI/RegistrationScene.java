@@ -6,31 +6,46 @@ import javafx.scene.layout.*;
 
 class RegistrationScene {
 
-    private final GridPane RegistrationPane; // or any other kind of pane, or  Group...
+    private static GridPane RegistrationPane; // or any other kind of pane, or  Group...
 
     public RegistrationScene() {
 
+        Button viewPersonRegistrations = new Button("Select person");
+        Button viewCourseRegistrations = new Button("Select course");
+//        Button viewCourseRegistrations = new Button("Select course");
+//        Button backFromPersonRegistration = new Button("Back");
+        Button backFromRegistration = new Button("Back");
+
+        Label RegistrationText = new Label("Here you can take a look at the registration overview.");
+
         RegistrationPane = new GridPane();
-        RegistrationPane.add(new Button("test"), 1,2);
-        RegistrationPane.add(new Button("test2"), 8,2);
-        RegistrationPane.add(new Button("test3"), 1,8);
-        RegistrationPane.add(new Button("test4"), 5,2);
+        RegistrationPane.setVgap(8);
+        RegistrationPane.setHgap(10);
 
-        Button back = new Button("Back");
-        RegistrationPane.add(back, 1, 0);
+        RegistrationPane.add(RegistrationText,1,1);
+        RegistrationPane.add(viewPersonRegistrations,1,2);
+        RegistrationPane.add(viewCourseRegistrations,1,3);
+        RegistrationPane.add(backFromRegistration,1,7);
 
-
-        back.setOnAction((event) -> {
+        backFromRegistration.setOnAction((event) -> {
             RegistrationPane.getScene().setRoot(StartScene.getStartMenu());
         });
 
+        viewPersonRegistrations.setOnAction((event) -> {
+            RegistrationPersonScene persons = new RegistrationPersonScene();
+            RegistrationPane.getScene().setRoot(persons.getRegistrationPersonPane());
+        });
+
+        viewCourseRegistrations.setOnAction((event) -> {
+            RegistrationCourseScene courses = new RegistrationCourseScene();
+            RegistrationPane.getScene().setRoot(courses.getRegistrationCoursePane());
+        });
 
 
 
     }
 
-    public Pane getRegistrationPane() {
-        return RegistrationPane;
+    public static Pane getRegistrationPane() { return RegistrationPane;
     }
 
 }

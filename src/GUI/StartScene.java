@@ -21,6 +21,8 @@ public class StartScene extends Application {
     public void start (Stage primaryStage) throws Exception {
 
         getStartPane = new GridPane();
+        getStartPane.setVgap(8);
+        getStartPane.setHgap(10);
 
         Button student = new Button("Students");
         Button course = new Button("Courses");
@@ -57,6 +59,7 @@ public class StartScene extends Application {
             CertificateScene certificates = new CertificateScene();
             primaryStage.getScene().setRoot(certificates.getCertificatePane());
         });
+
 
 
     }
