@@ -19,4 +19,9 @@ public class Student {
     public String getName() {
         return name;
     }
+
+    public String toString(){
+
+        return "Name: " + name + " | " + "E-mail: " + address + "\n";
+    }
 }
