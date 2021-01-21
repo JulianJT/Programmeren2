@@ -3,6 +3,7 @@ package GUI;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import Database.RegistrationRepository;
 
 class RegistrationScene {
 
@@ -27,6 +28,9 @@ class RegistrationScene {
         RegistrationPane.add(viewCourseRegistrations,1,3);
         RegistrationPane.add(backFromRegistration,1,7);
 
+        RegistrationRepository showStudents = new RegistrationRepository();
+
+
         backFromRegistration.setOnAction((event) -> {
             RegistrationPane.getScene().setRoot(StartScene.getStartMenu());
         });
@@ -34,13 +38,14 @@ class RegistrationScene {
         viewPersonRegistrations.setOnAction((event) -> {
             RegistrationPersonScene persons = new RegistrationPersonScene();
             RegistrationPane.getScene().setRoot(persons.getRegistrationPersonPane());
+            RegistrationRepository list = new RegistrationRepository();
+            list.showStudents();
         });
 
         viewCourseRegistrations.setOnAction((event) -> {
             RegistrationCourseScene courses = new RegistrationCourseScene();
             RegistrationPane.getScene().setRoot(courses.getRegistrationCoursePane());
         });
-
 
 
     }

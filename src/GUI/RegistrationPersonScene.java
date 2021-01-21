@@ -1,6 +1,9 @@
 package GUI;
 
+import Domain.Registration;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -9,40 +12,41 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import java.util.ArrayList;
+import Database.RegistrationRepository;
+import javafx.scene.control.ListView;
 
 import java.io.FileInputStream;
 
 public class RegistrationPersonScene{
-    private static GridPane RegistrationPersonPane;
+
+    private static GridPane list;
+    private static ListView listViewke;
 
     public RegistrationPersonScene(){
 
-        RegistrationPersonPane = new GridPane();
-        RegistrationPersonPane.setVgap(8);
-        RegistrationPersonPane.setHgap(10);
-        Button showPersons = new Button("Show Persons");
-        Button apply = new Button("Apply");
-//        Button ... = new Button("...");
-//        Button ... = new Button("...");
-
+        list = new GridPane();
+        list.setHgap(8);
         Button back = new Button("Back");
-        RegistrationPersonPane.add(showPersons, 1, 1);
-        RegistrationPersonPane.add(apply, 2, 4);
 
-        RegistrationPersonPane.add(back, 1, 6);
+        RegistrationRepository rglist = new RegistrationRepository();
 
+        ObservableList<Registration> names = FXCollections.observableArrayList(rglist.showStudents());
+        listViewke = new ListView<Registration>(names);
+        listViewke.setPrefWidth(500);
 
-        back.setOnAction((event) -> {
-            RegistrationPersonPane.getScene().setRoot(RegistrationScene.getRegistrationPane());
+        list.add(listViewke,0,0);
+        list.add(back,0,1);
+
+        back.setOnAction(actionEvent -> {
+            list.getScene().setRoot(RegistrationScene.getRegistrationPane());
         });
-
-
 
 
     }
 
-    public static Pane getRegistrationPersonPane() {
-        return RegistrationPersonPane ;
+    public static GridPane getRegistrationPersonPane() {
+        return list ;
     }
 
 }

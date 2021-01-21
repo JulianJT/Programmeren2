@@ -9,6 +9,12 @@ public class Registration {
         this.course = course;
     }
 
-    public String getRegistration() { return name; }
+    public String getName() { return name; }
+
+    public String getCourse() { return course; }
+
+    public String toString(){
+        return name + ", " + course ;
+    }
 
 }
