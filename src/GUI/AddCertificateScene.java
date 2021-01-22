@@ -1,5 +1,8 @@
 package GUI;
 
+import Database.CertificateRepository;
+import Database.StudentRepository;
+import Domain.Registration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,7 +13,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-class AddCertificateScene {
+public class AddCertificateScene {
+
+    private static String userName;
+    private static String studentName;
+    private static String registration;
+    private static int review;
+
+
     private static BorderPane AddCertificatePane;
 
     public AddCertificateScene() {
@@ -31,7 +41,7 @@ class AddCertificateScene {
 
         Label nameStudentText = new Label("Student Name");
         Label reviewText = new Label("Review [0-10]");
-        Label workerNameText = new Label("Full Name");
+        Label workerNameText = new Label("Username");
         Label registrationText = new Label("Registration");
 
         GridPane addCertificateInput = new GridPane();
@@ -55,9 +65,36 @@ class AddCertificateScene {
         backFromAddCertificate.setOnAction((event) -> {
             AddCertificatePane.getScene().setRoot(CertificateScene.getCertificatePane());
         });
+
+        CertificateRepository addCertificate = new CertificateRepository();
+
+        apply.setOnAction((event) -> {
+            AddCertificateScene.userName = workerName.getText();
+            AddCertificateScene.studentName = studentName.getText();
+            AddCertificateScene.registration = registrationName.getText();
+            AddCertificateScene.review = Integer.parseInt(review.getText());
+
+            addCertificate.addCertificate();
+        });
     }
 
     public static BorderPane getAddCertificatePane() {
         return AddCertificatePane;
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static String getStudentName() {
+        return studentName;
+    }
+
+    public static String getRegistration() {
+        return registration;
+    }
+
+    public static int getReview() {
+        return review;
     }
 }

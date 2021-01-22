@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-class GetCertificateScene {
+public class GetCertificateScene {
     private static BorderPane GetCertificatePane;
 
     public GetCertificateScene() {
