@@ -22,16 +22,16 @@ class CourseScene {
         CoursePane = new GridPane();
         CoursePane.setVgap(8);
         CoursePane.setHgap(10);
-        Button addStudents = new Button("Add student(s)");
-        Button removeStudents = new Button("Remove Student(s)");
-        Button viewStudents = new Button("View Student(s)");
-        Button viewProfile = new Button("View profile");
+        Button addCourses = new Button("Add course(s)");
+        Button removeCourses = new Button("Remove course(s)");
+        Button viewCourses = new Button("View course(s)");
+        Button updateCourses = new Button("Update course(s)");
 
         Button back = new Button("Back");
-        CoursePane.add(addStudents, 1, 0);
-        CoursePane.add(removeStudents, 1, 1);
-        CoursePane.add(viewStudents, 2, 0);
-        CoursePane.add(viewProfile, 2, 1);
+        CoursePane.add(addCourses, 1, 0);
+        CoursePane.add(removeCourses, 1, 1);
+        CoursePane.add(viewCourses, 2, 0);
+        CoursePane.add(updateCourses, 2, 1);
         CoursePane.add(back, 1, 5);
 
 
@@ -39,11 +39,15 @@ class CourseScene {
             CoursePane.getScene().setRoot(StartScene.getStartMenu());
         });
 
+        addCourses.setOnAction((event) -> {
+            AddCourseScene addCourseScene = new AddCourseScene();
+            CoursePane.getScene().setRoot(addCourseScene.getAddCoursePane());
+        });
 
 
     }
 
-    public static Pane getCoursePane() {
+    public static GridPane getCoursePane() {
         return CoursePane ;
     }
 
