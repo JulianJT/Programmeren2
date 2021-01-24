@@ -1,7 +1,5 @@
 package GUI;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -24,8 +22,10 @@ public class AddCourseScene {
 
         TextField courseName = new TextField();
         TextField subject = new TextField();
-        TextField levelIndication = new TextField();
-        TextField introduction = new TextField();
+        TextArea introduction = new TextArea();
+        RadioButton Beginner = new RadioButton("Beginner");
+        RadioButton Advanced = new RadioButton("Advanced");
+        RadioButton Expert = new RadioButton("Expert");
 
         Label nameCourseText = new Label("Course Name:");
         Label subjectText = new Label("Subject:");
@@ -37,13 +37,20 @@ public class AddCourseScene {
         addCourseInput.add(courseName, 0, 1);
         addCourseInput.add(subjectText, 1, 0);
         addCourseInput.add(subject, 1, 1);
-        addCourseInput.add(backFromAddCourse, 0, 4);
-        addCourseInput.add(apply, 1, 4);
+        addCourseInput.add(levelIndicationText, 0,2);
+        addCourseInput.add(Beginner, 0, 3);
+        addCourseInput.add(Advanced, 0, 4);
+        addCourseInput.add(Expert, 0, 5);
+        addCourseInput.add(introText, 0, 6);
+        addCourseInput.add(introduction, 0, 7);
 
-       // AddCoursePane.setLeft(addCertVBox);
+        addCourseInput.add(backFromAddCourse, 0, 8);
+        addCourseInput.add(apply, 1, 8);
+
+        AddCoursePane.add(addCourseInput, 1, 1);
         addCourseInput.setHgap(8);
         addCourseInput.setVgap(8);
-        //addCertVBox.getChildren().addAll(addCertText, addCourseInput);
+
 
         backFromAddCourse.setOnAction((event) -> {
             AddCoursePane.getScene().setRoot(CourseScene.getCoursePane());
