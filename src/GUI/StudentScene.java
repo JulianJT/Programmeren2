@@ -2,21 +2,18 @@ package GUI;
 
 
 import Database.StudentRepository;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.io.FileInputStream;
 
 class StudentScene {
 
-    private static GridPane studentPane ; // or any other kind of pane, or  Group...
+    private static GridPane studentPane; // or any other kind of pane, or  Group...
 
     public StudentScene() {
 
@@ -43,7 +40,7 @@ class StudentScene {
         stButtonHBox.setSpacing(10);
         stButtonHBox.getChildren().addAll(addStudents, removeStudents, viewStudents, viewProfile);
 
-        studentPane.add(mainStVBox,1 ,1);
+        studentPane.add(mainStVBox, 1, 1);
 
         back.setOnAction((event) -> {
             studentPane.getScene().setRoot(StartScene.getStartMenu());
@@ -51,13 +48,13 @@ class StudentScene {
 
         addStudents.setOnAction((event) -> {
             StudentInputScene input = new StudentInputScene();
-            studentPane.getScene().setRoot(input.getStudentInput());
+            studentPane.getScene().setRoot(StudentInputScene.getStudentInput());
         });
 
         viewStudents.setOnAction((event) -> {
             StudentRepository list = new StudentRepository();
             StudentListScene studentTable = new StudentListScene();
-            studentPane.getScene().setRoot(studentTable.getStudentTable());
+            studentPane.getScene().setRoot(StudentListScene.getStudentTable());
             list.getAllStudents();
         });
 
@@ -75,7 +72,7 @@ class StudentScene {
     }
 
     public static Pane getRootPane() {
-        return studentPane ;
+        return studentPane;
     }
 
 }

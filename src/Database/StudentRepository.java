@@ -6,15 +6,14 @@ import GUI.StudentRemoveScene;
 import GUI.StudentViewScene;
 import javafx.scene.control.Alert;
 
-import javax.swing.*;
 import java.sql.*;
-import java.util.*;
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class StudentRepository {
+
+    private static String studentProfile = "";
 
     public List<Student> getAllStudents() {
 
@@ -90,7 +89,7 @@ public class StudentRepository {
 
     }
 
-
+    // build UI, register event handlers, etc etc
 
     public void addStudent() {
 
@@ -155,14 +154,7 @@ public class StudentRepository {
             } catch (Exception e) {
             }
         }
-}
-
-    // build UI, register event handlers, etc etc
-
-
-
-    private static String studentProfile = "";
-
+    }
 
     public void viewStudent() {
 
@@ -171,7 +163,7 @@ public class StudentRepository {
 
         String studentName = viewStudent.getStudentName();
 
-        if(studentName.equals("")){
+        if (studentName.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Oh no, an Error occurred!");
@@ -219,14 +211,14 @@ public class StudentRepository {
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
 
-                while (rs.next()) {
+            while (rs.next()) {
 
-                    for (int i = 1; i <= columnsNumber; i++) {
+                for (int i = 1; i <= columnsNumber; i++) {
 
-                            studentProfile += rsmd.getColumnName(i) + ": " + rs.getString(i) + "\n" ;
+                    studentProfile += rsmd.getColumnName(i) + ": " + rs.getString(i) + "\n";
 
-                    }
                 }
+            }
 
 
         }
@@ -252,7 +244,7 @@ public class StudentRepository {
 
     }
 
-    public String getColumnValues(){
+    public String getColumnValues() {
         return studentProfile;
     }
 
@@ -279,7 +271,7 @@ public class StudentRepository {
         // ResultSet is de tabel die we van de database terugkrijgen.
         // We kunnen door de rows heen stappen en iedere kolom lezen.
         ResultSet rs = null;
-        
+
 
         try {
             // 'Importeer' de driver die je gedownload hebt.
@@ -300,7 +292,7 @@ public class StudentRepository {
 
                 alert.showAndWait();
                 return;
-            } else if (deleted > 0){
+            } else if (deleted > 0) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Confirmation Dialog");
                 alert.setHeaderText("Task completed.");

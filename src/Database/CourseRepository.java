@@ -1,22 +1,17 @@
 package Database;
 
-import Domain.Course;
-import Domain.Registration;
-import GUI.AddCertificateScene;
 import GUI.AddCourseScene;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
 
 
 public class CourseRepository {
     private static String modules;
-    public void Modules(){
+
+    public void Modules() {
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
 
@@ -30,7 +25,7 @@ public class CourseRepository {
         // We kunnen door de rows heen stappen en iedere kolom lezen.
         ResultSet rs = null;
 
-        try{
+        try {
             // 'Importeer' de driver die je gedownload hebt.
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // Maak de verbinding met de database.
@@ -50,16 +45,7 @@ public class CourseRepository {
             }
 
             System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
-        }
-
-
-
-
-
-
-
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
         } finally {
             if (rs != null) try {
@@ -78,7 +64,7 @@ public class CourseRepository {
     }
 
 
-    public void addCourse(){
+    public void addCourse() {
 
         String courseName = AddCourseScene.getCourseName();
         String subjectName = AddCourseScene.getSubjectName();
@@ -98,7 +84,7 @@ public class CourseRepository {
         // We kunnen door de rows heen stappen en iedere kolom lezen.
         ResultSet rs = null;
 
-        try{
+        try {
             // 'Importeer' de driver die je gedownload hebt.
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // Maak de verbinding met de database.
@@ -131,7 +117,8 @@ public class CourseRepository {
             }
         }
     }
-        public String getModules(){
+
+    public String getModules() {
         return modules;
     }
 }

@@ -1,8 +1,6 @@
 package Database;
 
 import Domain.Certificate;
-import Domain.Registration;
-import Domain.Student;
 import GUI.AddCertificateScene;
 import GUI.GetCertificateScene;
 
@@ -10,9 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CertificateRepository {
 
@@ -38,7 +35,7 @@ public class CertificateRepository {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
 
-            String SQL ="INSERT INTO Certificate (review, nameWorker) VALUES("+review+",'"+userName+"')";
+            String SQL = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
 
             stmt = con.createStatement();
 
@@ -46,9 +43,7 @@ public class CertificateRepository {
 
             System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
 
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
         } finally {
             if (rs != null) try {
@@ -80,7 +75,7 @@ public class CertificateRepository {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
 
-            String SQL = "SELECT certificateID, review, nameWorker FROM Certificate WHERE certificateID IN ( SELECT certificateID FROM Registration INNER JOIN Student ON Registration.emailAddress = Student.emailAddress WHERE name = '"+studentName+"')";
+            String SQL = "SELECT certificateID, review, nameWorker FROM Certificate WHERE certificateID IN ( SELECT certificateID FROM Registration INNER JOIN Student ON Registration.emailAddress = Student.emailAddress WHERE name = '" + studentName + "')";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
@@ -94,9 +89,7 @@ public class CertificateRepository {
 
             }
 
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
         } finally {
             if (rs != null) try {
@@ -122,7 +115,7 @@ public class CertificateRepository {
 
         CertificateInputCheck checkInput = new CertificateInputCheck();
 
-        if(checkInput.getGenderCheckInput()) {
+        if (checkInput.getGenderCheckInput()) {
             return 0;
         }
 
@@ -134,18 +127,16 @@ public class CertificateRepository {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT COUNT(emailAddress), COUNT(certificateID) FROM Registration WHERE emailAddress IN ( SELECT emailAddress FROM Student WHERE gender = '"+gender+"')";
+            String SQL = "SELECT COUNT(emailAddress), COUNT(certificateID) FROM Registration WHERE emailAddress IN ( SELECT emailAddress FROM Student WHERE gender = '" + gender + "')";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int registrations = rs.getInt(1);
                 int certificates = rs.getInt(2);
                 return certificates / registrations * 100;
             }
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
         } finally {
             if (rs != null) try {

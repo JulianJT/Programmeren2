@@ -11,7 +11,7 @@ public class Certificate {
         this.certificateId = certificateId;
     }
 
-    public String toString(){
-        return "ID: " + certificateId + " | " + "Review: " + review + " | " + "Worker Name: "+ nameWorker +"\n";
+    public String toString() {
+        return "ID: " + certificateId + " | " + "Review: " + review + " | " + "Worker Name: " + nameWorker + "\n";
     }
 }

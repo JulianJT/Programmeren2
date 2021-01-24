@@ -3,7 +3,6 @@ package Database;
 import GUI.StudentInputScene;
 import javafx.scene.control.Alert;
 
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

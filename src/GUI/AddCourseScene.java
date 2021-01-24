@@ -1,13 +1,8 @@
 package GUI;
-import Database.CertificateRepository;
+
 import Database.CourseRepository;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 public class AddCourseScene {
     private static String userName;
@@ -16,9 +11,9 @@ public class AddCourseScene {
     private static String level;
 
 
-    private static GridPane AddCoursePane ;
+    private static GridPane AddCoursePane;
 
-    public AddCourseScene(){
+    public AddCourseScene() {
         AddCoursePane = new GridPane();
         AddCoursePane.setVgap(8);
         AddCoursePane.setHgap(10);
@@ -49,12 +44,12 @@ public class AddCourseScene {
         addCourseInput.add(courseName, 0, 1);
         addCourseInput.add(subjectText, 1, 0);
         addCourseInput.add(subject, 1, 1);
-        addCourseInput.add(levelIndicationText, 0,2);
-        addCourseInput.add(level, 0,3);
+        addCourseInput.add(levelIndicationText, 0, 2);
+        addCourseInput.add(level, 0, 3);
 
         addCourseInput.add(introText, 0, 4);
         addCourseInput.add(introduction, 0, 5);
-        addCourseInput.add(priorityComboBox,0, 6);
+        addCourseInput.add(priorityComboBox, 0, 6);
 
         addCourseInput.add(backFromAddCourse, 0, 7);
         addCourseInput.add(apply, 1, 7);
@@ -78,6 +73,7 @@ public class AddCourseScene {
             addCourse.addCourse();
         });
     }
+
     public static GridPane getAddCoursePane() {
         return AddCoursePane;
     }

@@ -82,8 +82,7 @@ public class CertificateInputCheck {
         try {
             Integer.parseInt(review);
             return true;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }

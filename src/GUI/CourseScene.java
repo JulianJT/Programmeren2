@@ -1,21 +1,12 @@
 package GUI;
 
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-
-import java.io.FileInputStream;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
 class CourseScene {
 
-    private static GridPane CoursePane ; // or any other kind of pane, or  Group...
+    private static GridPane CoursePane; // or any other kind of pane, or  Group...
 
     public CourseScene() {
 
@@ -41,14 +32,14 @@ class CourseScene {
 
         addCourses.setOnAction((event) -> {
             AddCourseScene addCourseScene = new AddCourseScene();
-            CoursePane.getScene().setRoot(addCourseScene.getAddCoursePane());
+            CoursePane.getScene().setRoot(AddCourseScene.getAddCoursePane());
         });
 
 
     }
 
     public static GridPane getCoursePane() {
-        return CoursePane ;
+        return CoursePane;
     }
 
 }

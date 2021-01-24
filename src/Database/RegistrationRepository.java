@@ -1,26 +1,18 @@
 package Database;
 
 import Domain.Registration;
-import GUI.GetCertificateScene;
-import GUI.RegistrationPersonScene;
-import javafx.scene.control.Alert;
 
-import javax.lang.model.element.VariableElement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrationRepository {
 
 
-
-    public List<Registration> showStudents(){
+    public List<Registration> showStudents() {
 
         ArrayList<Registration> studentRegistration = new ArrayList<>();
         String name;
@@ -58,21 +50,20 @@ public class RegistrationRepository {
             // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
 
 
+            while (rs.next()) {
 
-                while (rs.next()) {
+                // Vraag per row de kolommen in die row op.
+                name = rs.getString("name");
+                course = rs.getString("courseName");
 
-                    // Vraag per row de kolommen in die row op.
-                    name = rs.getString("name");
-                    course = rs.getString("courseName");
-
-                    if(rs.wasNull()){
-                        course = "Not registered for a course yet";
-                    }
-
-
-                    Registration StudReg = new Registration(name, course);
-                    studentRegistration.add(StudReg);
+                if (rs.wasNull()) {
+                    course = "Not registered for a course yet";
                 }
+
+
+                Registration StudReg = new Registration(name, course);
+                studentRegistration.add(StudReg);
+            }
         }
 
         // Handle any errors that may have occurred.
@@ -95,7 +86,7 @@ public class RegistrationRepository {
         return studentRegistration;
     }
 
-    public List<Registration> showCourses(){
+    public List<Registration> showCourses() {
 
         ArrayList<Registration> coursesRegistration = new ArrayList<>();
         String name;
@@ -134,7 +125,7 @@ public class RegistrationRepository {
                 course = rs.getString("courseName");
                 name = rs.getString("name");
 
-                if(rs.wasNull()){
+                if (rs.wasNull()) {
                     name = "No registrations yet";
                 }
 
@@ -178,17 +169,15 @@ public class RegistrationRepository {
             con = DriverManager.getConnection(connectionUrl);
             String SQL = "SELECT COUNT(Student.name) FROM Course " +
                     "LEFT JOIN Registration ON Course.courseName=Registration.courseName " +
-                    "LEFT JOIN STUDENT ON Registration.emailAddress=Student.emailAddress";;
+                    "LEFT JOIN STUDENT ON Registration.emailAddress=Student.emailAddress";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int amount = rs.getInt(1);
                 return amount;
             }
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
 
         } finally {
             if (rs != null) try {
