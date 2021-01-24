@@ -1,6 +1,7 @@
 package Database;
 
 import Domain.Registration;
+import GUI.GetCertificateScene;
 import GUI.RegistrationPersonScene;
 import javafx.scene.control.Alert;
 
@@ -163,4 +164,49 @@ public class RegistrationRepository {
         }
         return coursesRegistration;
     }
+
+    public int getRegistrationAmount() {
+
+
+        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT COUNT(Student.name) FROM Course " +
+                    "LEFT JOIN Registration ON Course.courseName=Registration.courseName " +
+                    "LEFT JOIN STUDENT ON Registration.emailAddress=Student.emailAddress";;
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+
+            while(rs.next()) {
+                int amount = rs.getInt(1);
+                return amount;
+            }
+        }
+
+        catch (Exception e) {
+
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            if (stmt != null) try {
+                stmt.close();
+            } catch (Exception e) {
+            }
+            if (con != null) try {
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+
+        return 0;
+    }
+
+
 }

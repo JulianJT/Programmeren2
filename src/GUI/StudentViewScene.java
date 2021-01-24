@@ -45,13 +45,13 @@ public class StudentViewScene {
         viewStudent.setVgap(8);
         addStVVbox.setSpacing(10);
         addStVVbox.getChildren().addAll(instruction, viewStudent);
+        StudentRepository repository = new StudentRepository();
 
         back.setOnAction((event) -> {
-
+                repository.clearResults();
                 studentViewPane.getScene().setRoot(StudentScene.getRootPane());
         });
 
-        StudentRepository repository = new StudentRepository();
 
         confirm.setOnAction((event) -> {
 

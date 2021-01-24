@@ -24,7 +24,7 @@ public class AddCourseScene {
         AddCoursePane.setHgap(10);
 
 
-
+        CourseRepository getTitle = new CourseRepository();
         Button apply = new Button("Apply");
         Button backFromAddCourse = new Button("Back");
 
@@ -32,6 +32,11 @@ public class AddCourseScene {
         TextField subject = new TextField();
         TextField level = new TextField();
         TextArea introduction = new TextArea();
+        getTitle.Modules();
+        final ComboBox priorityComboBox = new ComboBox();
+        priorityComboBox.getItems().addAll(
+                getTitle.getModules()
+        );
 
 
         Label nameCourseText = new Label("Course Name:");
@@ -49,9 +54,10 @@ public class AddCourseScene {
 
         addCourseInput.add(introText, 0, 4);
         addCourseInput.add(introduction, 0, 5);
+        addCourseInput.add(priorityComboBox,0, 6);
 
-        addCourseInput.add(backFromAddCourse, 0, 6);
-        addCourseInput.add(apply, 1, 6);
+        addCourseInput.add(backFromAddCourse, 0, 7);
+        addCourseInput.add(apply, 1, 7);
 
         AddCoursePane.add(addCourseInput, 1, 1);
         addCourseInput.setHgap(8);
