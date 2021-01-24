@@ -160,11 +160,13 @@ public class StudentRepository {
     // build UI, register event handlers, etc etc
 
 
-    private static String columnValues;
+
     private static String studentProfile = "";
 
 
     public void viewStudent() {
+
+        studentProfile = "";
         StudentViewScene viewStudent = new StudentViewScene();
 
         String studentName = viewStudent.getStudentName();
@@ -220,14 +222,10 @@ public class StudentRepository {
                 while (rs.next()) {
 
                     for (int i = 1; i <= columnsNumber; i++) {
-                        if (i > 1) System.out.print(",  ");
-                        columnValues = rs.getString(i);
 
                             studentProfile += rsmd.getColumnName(i) + ": " + rs.getString(i) + "\n" ;
 
-                        System.out.print(columnValues);
                     }
-                    System.out.println("");
                 }
 
 
@@ -258,6 +256,10 @@ public class StudentRepository {
         return studentProfile;
     }
 
+
+    public void clearResults() {
+        studentProfile = " ";
+    }
 
 
     public void deleteStudent() {
