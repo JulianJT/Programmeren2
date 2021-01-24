@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 
 public class StudentRemoveScene {
 
-    private static GridPane studentRemovePane;
+    private final GridPane studentRemovePane;
     private static String studentName;
 
     public StudentRemoveScene() {
@@ -23,7 +23,6 @@ public class StudentRemoveScene {
         VBox addStRVbox = new VBox();
         studentRemovePane.setVgap(10);
         studentRemovePane.setHgap(8);
-
 
         Text instruction = new Text("Specify which student you would like to remove(First and lastname)");
         instruction.setFont(new Font(14));
@@ -44,23 +43,21 @@ public class StudentRemoveScene {
         addStRVbox.setSpacing(10);
         addStRVbox.getChildren().addAll(instruction, removeStudent);
 
-        back.setOnAction((event) -> {
-            studentRemovePane.getScene().setRoot(StudentScene.getRootPane());
-        });
 
         StudentRepository repository = new StudentRepository();
 
         confirm.setOnAction((event) -> {
-
             studentName = student.getText();
-
                 repository.deleteStudent();
+        });
 
+        back.setOnAction((event) -> {
+            studentRemovePane.getScene().setRoot(StudentScene.getRootPane());
         });
 
     }
 
-   public static GridPane getStudentRemovePane() {
+   public GridPane getStudentRemovePane() {
         return studentRemovePane;
    }
 

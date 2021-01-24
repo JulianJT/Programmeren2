@@ -14,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 public class StudentViewScene {
 
     private static String studentName;
-    private static GridPane studentViewPane;
+    private final GridPane studentViewPane;
 
     public StudentViewScene() {
 
@@ -47,6 +47,7 @@ public class StudentViewScene {
         addStVVbox.getChildren().addAll(instruction, viewStudent);
 
         back.setOnAction((event) -> {
+
                 studentViewPane.getScene().setRoot(StudentScene.getRootPane());
         });
 
@@ -62,7 +63,7 @@ public class StudentViewScene {
 
     }
 
-    public static GridPane getStudentViewPane() {
+    public GridPane getStudentViewPane() {
         return studentViewPane;
     }
 
