@@ -7,10 +7,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 class CertificateScene {
-    private static BorderPane CertificatePane;
+    private static GridPane CertificatePane;
 
     public CertificateScene() {
-        CertificatePane = new BorderPane();
+        CertificatePane = new GridPane();
+        CertificatePane.setVgap(8);
+        CertificatePane.setHgap(10);
         VBox mainCertVBox = new VBox();
         HBox certButtonHBox = new HBox();
 
@@ -29,7 +31,7 @@ class CertificateScene {
         certButtonHBox.setSpacing(10);
         certButtonHBox.getChildren().addAll(addCertificate, getCertificate);
 
-        CertificatePane.setLeft(mainCertVBox);
+        CertificatePane.add(mainCertVBox,1 ,1);
 
         getCertificate.setOnAction((event) -> {
             GetCertificateScene getCertificateScene = new GetCertificateScene();
@@ -40,12 +42,13 @@ class CertificateScene {
             AddCertificateScene addCertificateScene = new AddCertificateScene();
             CertificatePane.getScene().setRoot(addCertificateScene.getAddCertificatePane());
         });
+
         backFromCertificate.setOnAction((event) -> {
             CertificatePane.getScene().setRoot(StartScene.getStartMenu());
         });
     }
 
-    public static BorderPane getCertificatePane() {
+    public static GridPane getCertificatePane() {
         return CertificatePane;
     }
 }

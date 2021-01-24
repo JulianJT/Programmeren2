@@ -1,19 +1,19 @@
 package Domain;
 
 public class Certificate {
-    private int review;
-    private String nameWorker;
+    private final int review;
+    private final int certificateId;
+    private final String nameWorker;
     private String nameStudent;
     private String registration;
 
-    public Certificate(String nameWorker, String nameStudent, String registration, int review) {
-        this.nameStudent = nameStudent;
+    public Certificate(int certificateId, int review, String nameWorker) {
         this.review = review;
-        this.registration = registration;
         this.nameWorker = nameWorker;
+        this.certificateId = certificateId;
     }
 
     public String toString(){
-        return "Name: " + nameStudent + " | " + "E-mail: " + review + "\n";
+        return "ID: " + certificateId + " | " + "Review: " + review + " | " + "Worker Name: "+ nameWorker +"\n";
     }
 }

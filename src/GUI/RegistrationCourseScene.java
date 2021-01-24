@@ -1,7 +1,10 @@
 package GUI;
 
 import Database.RegistrationRepository;
+import Domain.Registration;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,39 +17,32 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 
 public class RegistrationCourseScene{
-    private static GridPane RegistrationCoursePane;
+    private static GridPane list;
+    private static ListView listView;
 
     public RegistrationCourseScene(){
-        RegistrationCoursePane = new GridPane();
-        RegistrationCoursePane.setVgap(8);
-        RegistrationCoursePane.setHgap(10);
-        Button showCourses = new Button("Show Courses");
-        Button apply = new Button("Apply");
 
-
+        list = new GridPane();
+        list.setHgap(8);
         Button back = new Button("Back");
-        RegistrationCoursePane.add(showCourses, 1, 1);
-        RegistrationCoursePane.add(apply, 2, 4);
 
-        RegistrationCoursePane.add(back, 1, 6);
+        RegistrationRepository rgclist = new RegistrationRepository();
 
+        ObservableList<Registration> courses = FXCollections.observableArrayList(rgclist.showCourses());
+        listView = new ListView<Registration>(courses);
+        listView.setPrefWidth(500);
+
+        list.add(listView,0,0);
+        list.add(back,0,1);
 
         back.setOnAction((event) -> {
-            RegistrationCoursePane.getScene().setRoot(RegistrationScene.getRegistrationPane());
-        });
-
-        RegistrationRepository showPersons = new RegistrationRepository();
-
-        showCourses.setOnAction((event) -> {
-
-
-
+            list.getScene().setRoot(RegistrationScene.getRegistrationPane());
         });
 
     }
 
     public static Pane getRegistrationCoursePane() {
-        return RegistrationCoursePane ;
+        return list ;
     }
 
 }

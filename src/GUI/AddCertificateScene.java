@@ -18,13 +18,15 @@ public class AddCertificateScene {
     private static String userName;
     private static String studentName;
     private static String registration;
-    private static int review;
+    private static String review;
 
 
-    private static BorderPane AddCertificatePane;
+    private static GridPane AddCertificatePane;
 
     public AddCertificateScene() {
-        AddCertificatePane = new BorderPane();
+        AddCertificatePane = new GridPane();
+        AddCertificatePane.setVgap(8);
+        AddCertificatePane.setHgap(10);
         VBox addCertVBox = new VBox();
 
         Text addCertText = new Text();
@@ -35,14 +37,14 @@ public class AddCertificateScene {
         Button apply = new Button("Apply");
         Button backFromAddCertificate = new Button("Back");
         TextField studentName = new TextField();
-        TextField review = new TextField(); // Has to be [0-10]
+        TextField review = new TextField();
         TextField workerName = new TextField();
-        TextField registrationName = new TextField();
+        TextField registrationEmail = new TextField();
 
         Label nameStudentText = new Label("Student Name");
         Label reviewText = new Label("Review [0-10]");
         Label workerNameText = new Label("Username");
-        Label registrationText = new Label("Registration");
+        Label registrationText = new Label("Registration Email");
 
         GridPane addCertificateInput = new GridPane();
         addCertificateInput.add(workerNameText, 0, 0);
@@ -50,13 +52,13 @@ public class AddCertificateScene {
         addCertificateInput.add(nameStudentText, 1, 0);
         addCertificateInput.add(studentName, 1, 1);
         addCertificateInput.add(registrationText, 0, 2);
-        addCertificateInput.add(registrationName, 0, 3);
+        addCertificateInput.add(registrationEmail, 0, 3);
         addCertificateInput.add(reviewText, 1, 2);
         addCertificateInput.add(review, 1, 3);
         addCertificateInput.add(backFromAddCertificate, 0, 4);
         addCertificateInput.add(apply, 1, 4);
 
-        AddCertificatePane.setLeft(addCertVBox);
+        AddCertificatePane.add(addCertVBox, 1, 1);
         addCertificateInput.setHgap(8);
         addCertificateInput.setVgap(8);
         addCertVBox.setSpacing(10);
@@ -71,14 +73,14 @@ public class AddCertificateScene {
         apply.setOnAction((event) -> {
             AddCertificateScene.userName = workerName.getText();
             AddCertificateScene.studentName = studentName.getText();
-            AddCertificateScene.registration = registrationName.getText();
-            AddCertificateScene.review = Integer.parseInt(review.getText());
+            AddCertificateScene.registration = registrationEmail.getText();
+            AddCertificateScene.review = review.getText();
 
             addCertificate.addCertificate();
         });
     }
 
-    public static BorderPane getAddCertificatePane() {
+    public static GridPane getAddCertificatePane() {
         return AddCertificatePane;
     }
 
@@ -94,7 +96,7 @@ public class AddCertificateScene {
         return registration;
     }
 
-    public static int getReview() {
+    public static String getReview() {
         return review;
     }
 }

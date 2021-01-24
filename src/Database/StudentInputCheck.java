@@ -33,7 +33,7 @@ public class StudentInputCheck {
             alert.setContentText("Invalid email specified.");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
@@ -45,7 +45,7 @@ public class StudentInputCheck {
             alert.setContentText("Invalid gender specified.");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         if (userName.isEmpty()) {
@@ -56,7 +56,7 @@ public class StudentInputCheck {
             alert.setContentText("Name is empty");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         if (email.isEmpty()) {
@@ -67,7 +67,7 @@ public class StudentInputCheck {
             alert.setContentText("Email is empty");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         if (address.isEmpty()) {
@@ -78,7 +78,7 @@ public class StudentInputCheck {
             alert.setContentText("Address is empty");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         if (residence.isEmpty()) {
@@ -89,7 +89,7 @@ public class StudentInputCheck {
             alert.setContentText("Residence is empty");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         if (country.isEmpty()) {
@@ -100,7 +100,7 @@ public class StudentInputCheck {
             alert.setContentText("Country is empty");
 
             alert.showAndWait();
-            return true;
+            return false;
         }
 
         return false;

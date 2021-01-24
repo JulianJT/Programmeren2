@@ -2,13 +2,14 @@ package Database;
 
 import Domain.Student;
 import GUI.StudentInputScene;
+import GUI.StudentRemoveScene;
+import GUI.StudentViewScene;
 import javafx.scene.control.Alert;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.swing.*;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
@@ -135,22 +136,185 @@ public class StudentRepository {
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
 
-            System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
+        }
 
-            // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
-            while (rs.next()) {
-                // Vraag per row de kolommen in die row op.
-                String title = rs.getString("name");
-                String author = rs.getString("emailAddress");
+        // Handle any errors that may have occurred.
+        catch (Exception e) {
 
-                // Print de kolomwaarden.
-                // System.out.println(ISBN + " " + title + " " + author);
-
-                // Met 'format' kun je de string die je print het juiste formaat geven, als je dat wilt.
-                // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.
-                System.out.format("| %7d | %-32s | %-24s | \n", title, author);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
             }
-            System.out.println(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
+            if (stmt != null) try {
+                stmt.close();
+            } catch (Exception e) {
+            }
+            if (con != null) try {
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+}
+
+    // build UI, register event handlers, etc etc
+
+
+    private static String columnValues;
+    private static String studentProfile;
+
+
+    public void viewStudent() {
+        StudentViewScene viewStudent = new StudentViewScene();
+
+        String studentName = viewStudent.getStudentName();
+
+        if(studentName.equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Name field is empty");
+
+            alert.showAndWait();
+            return;
+        }
+
+        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+
+        // Connection beheert informatie over de connectie met de database.
+        Connection con = null;
+
+        // Statement zorgt dat we een SQL query kunnen uitvoeren.
+        Statement stmt = null;
+
+        // ResultSet is de tabel die we van de database terugkrijgen.
+        // We kunnen door de rows heen stappen en iedere kolom lezen.
+        ResultSet rs = null;
+
+        try {
+            // 'Importeer' de driver die je gedownload hebt.
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            // Maak de verbinding met de database.
+            con = DriverManager.getConnection(connectionUrl);
+
+            // Stel een SQL query samen.
+            String SQL = "SELECT * FROM Student WHERE Name = '" + studentName + "'";
+            stmt = con.createStatement();
+            // Voer de query uit op de database.
+
+            rs = stmt.executeQuery(SQL);
+
+            if (!rs.isBeforeFirst()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Student not found.");
+
+                alert.showAndWait();
+                return;
+            }
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+
+
+                while (rs.next()) {
+
+                    for (int i = 1; i <= columnsNumber; i++) {
+                        if (i > 1) System.out.print(",  ");
+                        columnValues = rs.getString(i);
+
+                            studentProfile += rsmd.getColumnName(i) + ": " + rs.getString(i) + "\n" ;
+
+
+                        if(columnValues.equals(null)) {
+                            System.out.println("");
+                        }
+                        System.out.print(columnValues);
+                    }
+                    System.out.println("");
+                }
+
+
+        }
+
+        // Handle any errors that may have occurred.
+        catch (Exception e) {
+
+        } finally {
+            if (rs != null) try {
+
+                rs.close();
+            } catch (Exception e) {
+            }
+            if (stmt != null) try {
+                stmt.close();
+            } catch (Exception e) {
+            }
+            if (con != null) try {
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
+    public String getColumnValues(){
+        return studentProfile;
+    }
+
+
+
+    public void deleteStudent() {
+
+        StudentRemoveScene removeStudent = new StudentRemoveScene();
+
+        String studentName = removeStudent.getStudentName();
+
+        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+
+        // Connection beheert informatie over de connectie met de database.
+        Connection con = null;
+
+        // Statement zorgt dat we een SQL query kunnen uitvoeren.
+        Statement stmt = null;
+
+        // ResultSet is de tabel die we van de database terugkrijgen.
+        // We kunnen door de rows heen stappen en iedere kolom lezen.
+        ResultSet rs = null;
+
+
+
+        try {
+            // 'Importeer' de driver die je gedownload hebt.
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            // Maak de verbinding met de database.
+            con = DriverManager.getConnection(connectionUrl);
+
+            // Stel een SQL query samen.
+            String SQL = "DELETE FROM Student WHERE Name = '" + studentName + "'";
+            stmt = con.createStatement();
+            int deleted = stmt.executeUpdate(SQL);
+
+            if (deleted == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Student not found!");
+
+                alert.showAndWait();
+                return;
+            } else if (deleted > 0){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Task completed.");
+                alert.setContentText("Student successfuly deleted.");
+
+                alert.showAndWait();
+            }
+
+            // Voer de query uit op de database.
+            rs = stmt.executeQuery(SQL);
 
         }
 
@@ -172,21 +336,7 @@ public class StudentRepository {
             }
         }
 
-        System.out.println(userName + " was added to the database.");
-        System.out.println(userName + " " + gender + " " + residence + " " + country + " " + address + " " + birthday);
-
+    }
 }
-
-    // build UI, register event handlers, etc etc
-
-}
-
-//    public void updateStudent(Student student) {
-
-//    }
-
-//    public void deleteStudent(Student student) {
-
-//    }
 
 
