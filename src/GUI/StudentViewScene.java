@@ -6,52 +6,57 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class StudentViewScene {
-    private static GridPane studentViewPane;
+
     private static String studentName;
+    private static GridPane studentViewPane;
 
     public StudentViewScene() {
-        StudentRepository repository = new StudentRepository();
-        studentViewPane = new GridPane();
 
+        studentViewPane = new GridPane();
+        VBox addStVVbox = new VBox();
+        studentViewPane.setVgap(10);
+        studentViewPane.setHgap(8);
 
         Text instruction = new Text("Specify whose profile you would like to view(First and lastname)");
         instruction.setFont(new Font(14));
         instruction.setTextAlignment(TextAlignment.JUSTIFY);
         Text studentInfo = new Text("");
 
-
         TextField student = new TextField();
 
         Button back = new Button("Back");
         Button confirm = new Button("OK");
 
-        studentViewPane.add(instruction, 0,0);
-        studentViewPane.add(student, 0, 1);
-        studentViewPane.add(back, 0,2);
-        studentViewPane.add(confirm, 2,1);
-        studentViewPane.add(studentInfo, 0,3);
+        GridPane viewStudent = new GridPane();
+        viewStudent.add(instruction, 0,0);
+        viewStudent.add(student, 0, 1);
+        viewStudent.add(back, 0,2);
+        viewStudent.add(confirm, 2,1);
+        viewStudent.add(studentInfo, 0,3);
+
+        studentViewPane.add(addStVVbox, 1, 1);
+        viewStudent.setHgap(8);
+        viewStudent.setVgap(8);
+        addStVVbox.setSpacing(10);
+        addStVVbox.getChildren().addAll(instruction, viewStudent);
 
         back.setOnAction((event) -> {
-            studentInfo.setText("");
-            studentViewPane.getScene().setRoot(StudentScene.getRootPane());
+                studentViewPane.getScene().setRoot(StudentScene.getRootPane());
         });
+
+        StudentRepository repository = new StudentRepository();
 
         confirm.setOnAction((event) -> {
 
             studentName = student.getText();
-
                 repository.viewStudent();
-                studentInfo.setFont(new Font(12));
-                studentInfo.setTextAlignment(TextAlignment.JUSTIFY);
                     studentInfo.setText(repository.getColumnValues());
-
-
-
 
         });
 
