@@ -11,4 +11,14 @@ public class Course {
         this.text=text;
     }
 
+    public String getName() { return name; }
+
+    public String getSubject() { return subject; }
+    public String getText() { return text; }
+
+
+    public String toString(){
+        return name + ", " + subject + ", " + text ;
+    }
+
 }
