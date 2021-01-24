@@ -29,18 +29,21 @@ public class RegistrationPersonScene{
         list.setHgap(8);
         Button back = new Button("Back");
 
+
         RegistrationRepository rglist = new RegistrationRepository();
 
         ObservableList<Registration> names = FXCollections.observableArrayList(rglist.showStudents());
         listViewke = new ListView<Registration>(names);
         listViewke.setPrefWidth(500);
 
+
         list.add(listViewke,0,0);
-        list.add(back,0,1);
+        list.add(back,0,3);
 
         back.setOnAction(actionEvent -> {
             list.getScene().setRoot(RegistrationScene.getRegistrationPane());
         });
+
 
 
     }
