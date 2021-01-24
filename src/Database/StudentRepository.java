@@ -161,7 +161,7 @@ public class StudentRepository {
 
 
     private static String columnValues;
-    private static String studentProfile;
+    private static String studentProfile = "";
 
 
     public void viewStudent() {
@@ -217,7 +217,6 @@ public class StudentRepository {
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
 
-
                 while (rs.next()) {
 
                     for (int i = 1; i <= columnsNumber; i++) {
@@ -226,10 +225,6 @@ public class StudentRepository {
 
                             studentProfile += rsmd.getColumnName(i) + ": " + rs.getString(i) + "\n" ;
 
-
-                        if(columnValues.equals(null)) {
-                            System.out.println("");
-                        }
                         System.out.print(columnValues);
                     }
                     System.out.println("");
@@ -282,8 +277,7 @@ public class StudentRepository {
         // ResultSet is de tabel die we van de database terugkrijgen.
         // We kunnen door de rows heen stappen en iedere kolom lezen.
         ResultSet rs = null;
-
-
+        
 
         try {
             // 'Importeer' de driver die je gedownload hebt.
