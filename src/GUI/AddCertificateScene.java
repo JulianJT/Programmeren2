@@ -17,7 +17,7 @@ public class AddCertificateScene {
 
     private static String userName;
     private static String studentName;
-    private static String registration;
+    private static String course;
     private static String review;
 
 
@@ -39,20 +39,20 @@ public class AddCertificateScene {
         TextField studentName = new TextField();
         TextField review = new TextField();
         TextField workerName = new TextField();
-        TextField registrationEmail = new TextField();
+        TextField course = new TextField();
 
         Label nameStudentText = new Label("Student Name");
-        Label reviewText = new Label("Review [0-10]");
+        Label reviewText = new Label("Review [1-10]");
         Label workerNameText = new Label("Username");
-        Label registrationText = new Label("Registration Email");
+        Label courseText = new Label("Course");
 
         GridPane addCertificateInput = new GridPane();
         addCertificateInput.add(workerNameText, 0, 0);
         addCertificateInput.add(workerName, 0, 1);
         addCertificateInput.add(nameStudentText, 1, 0);
         addCertificateInput.add(studentName, 1, 1);
-        addCertificateInput.add(registrationText, 0, 2);
-        addCertificateInput.add(registrationEmail, 0, 3);
+        addCertificateInput.add(courseText, 0, 2);
+        addCertificateInput.add(course, 0, 3);
         addCertificateInput.add(reviewText, 1, 2);
         addCertificateInput.add(review, 1, 3);
         addCertificateInput.add(backFromAddCertificate, 0, 4);
@@ -73,7 +73,7 @@ public class AddCertificateScene {
         apply.setOnAction((event) -> {
             AddCertificateScene.userName = workerName.getText();
             AddCertificateScene.studentName = studentName.getText();
-            AddCertificateScene.registration = registrationEmail.getText();
+            AddCertificateScene.course = course.getText();
             AddCertificateScene.review = review.getText();
 
             addCertificate.addCertificate();
@@ -92,8 +92,8 @@ public class AddCertificateScene {
         return studentName;
     }
 
-    public static String getRegistration() {
-        return registration;
+    public static String getCourse() {
+        return course;
     }
 
     public static String getReview() {

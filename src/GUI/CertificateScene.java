@@ -17,7 +17,7 @@ class CertificateScene {
         HBox certButtonHBox = new HBox();
 
         Text certificateText = new Text();
-        certificateText.setFont(new Font(30));
+        certificateText.setFont(new Font(24));
         certificateText.setTextAlignment(TextAlignment.JUSTIFY);
         certificateText.setText("Certificate Menu");
 

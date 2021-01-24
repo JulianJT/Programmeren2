@@ -26,7 +26,7 @@ public class CertificateRepository {
 
         String userName = AddCertificateScene.getUserName();
         String studentName = AddCertificateScene.getStudentName();
-        String registration = AddCertificateScene.getRegistration();
+        String course = AddCertificateScene.getCourse();
         int review = Integer.parseInt(AddCertificateScene.getReview());
 
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
@@ -38,7 +38,8 @@ public class CertificateRepository {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
 
-            String SQL = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
+            String SQL ="INSERT INTO Certificate (review, nameWorker) VALUES("+review+",'"+userName+"')";
+
             stmt = con.createStatement();
 
             rs = stmt.executeQuery(SQL);
