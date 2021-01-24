@@ -16,6 +16,7 @@ public class GetCertificateScene {
     private static GridPane GetCertificatePane;
     private static String studentName;
     private static String gender;
+    private static int percentage = 0;
 
     public GetCertificateScene() {
         GetCertificatePane = new GridPane();
@@ -36,6 +37,11 @@ public class GetCertificateScene {
         getCertPercText.setTextAlignment(TextAlignment.JUSTIFY);
         getCertPercText.setText("View percentages of certificates by gender");
 
+        Text percText = new Text();
+        percText.setFont(new Font(18));
+        percText.setTextAlignment(TextAlignment.JUSTIFY);
+        percText.setText("Percentage: "+percentage);
+
         TextField studentName = new TextField("Student Name");
         TextField gender = new TextField("Gender");
         Button searchStudent = new Button( "Search");
@@ -43,7 +49,7 @@ public class GetCertificateScene {
         Button searchPercentage = new Button("Search");
 
         getStudentHbox.getChildren().addAll(studentName, searchStudent);
-        getPercHbox.getChildren().addAll(searchPercentage, backFromGetCertificate);
+        getPercHbox.getChildren().addAll(percText, searchPercentage, backFromGetCertificate);
         GetCertificatePane.add(getCertStudentText, 1, 1);
         GetCertificatePane.add(getStudentHbox, 1, 2);
         GetCertificatePane.add(getCertPercText, 1, 4);
@@ -67,7 +73,8 @@ public class GetCertificateScene {
         searchPercentage.setOnAction((event) -> {
             CertificateRepository getCertificatePerc = new CertificateRepository();
             GetCertificateScene.gender = gender.getText();
-            getCertificatePerc.getCertificatePercentage();
+            percentage = getCertificatePerc.getCertificatePercentage();
+            percText.setText("Percentage: "+percentage);
         });
     }
 

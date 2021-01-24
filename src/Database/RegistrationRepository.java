@@ -4,6 +4,7 @@ import Domain.Registration;
 import GUI.RegistrationPersonScene;
 import javafx.scene.control.Alert;
 
+import javax.lang.model.element.VariableElement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,6 +25,7 @@ public class RegistrationRepository {
         String name;
         String course;
 
+
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
 
@@ -35,6 +37,7 @@ public class RegistrationRepository {
 
         // ResultSet is de tabel die we van de database terugkrijgen.
         // We kunnen door de rows heen stappen en iedere kolom lezen.
+
         ResultSet rs = null;
 
         try {
@@ -52,16 +55,23 @@ public class RegistrationRepository {
 
 
             // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
-            while (rs.next()) {
-                // Vraag per row de kolommen in die row op.
-                name = rs.getString("name");
-                course = rs.getString("courseName");
 
-                Registration StudReg = new Registration(name, course);
-                studentRegistration.add(StudReg);
 
-            }
 
+                while (rs.next()) {
+
+                    // Vraag per row de kolommen in die row op.
+                    name = rs.getString("name");
+                    course = rs.getString("courseName");
+
+                    if(rs.wasNull()){
+                        course = "Not registered for a course yet";
+                    }
+
+
+                    Registration StudReg = new Registration(name, course);
+                    studentRegistration.add(StudReg);
+                }
         }
 
         // Handle any errors that may have occurred.
@@ -120,8 +130,12 @@ public class RegistrationRepository {
             // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
             while (rs.next()) {
                 // Vraag per row de kolommen in die row op.
-                name = rs.getString("name");
                 course = rs.getString("courseName");
+                name = rs.getString("name");
+
+                if(rs.wasNull()){
+                    name = "No registrations yet";
+                }
 
                 Registration CourseReg = new Registration(course, name);
                 coursesRegistration.add(CourseReg);

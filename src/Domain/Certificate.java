@@ -4,8 +4,6 @@ public class Certificate {
     private final int review;
     private final int certificateId;
     private final String nameWorker;
-    private String nameStudent;
-    private String registration;
 
     public Certificate(int certificateId, int review, String nameWorker) {
         this.review = review;
