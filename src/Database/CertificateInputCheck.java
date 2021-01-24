@@ -1,6 +1,7 @@
 package Database;
 
 import GUI.AddCertificateScene;
+import GUI.GetCertificateScene;
 import javafx.scene.control.Alert;
 
 import java.util.regex.Matcher;
@@ -84,6 +85,23 @@ public class CertificateInputCheck {
             return true;
         }
 
+        return false;
+    }
+
+    public boolean getGenderCheckInput() {
+        String gender = GetCertificateScene.getGender();
+
+        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
+
+            System.out.println("Invalid gender error occurred!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Oh no, an Error occurred!");
+            alert.setContentText("Invalid gender specified.");
+
+            alert.showAndWait();
+            return true;
+        }
         return false;
     }
 

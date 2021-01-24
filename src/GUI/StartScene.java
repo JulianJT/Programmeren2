@@ -37,7 +37,7 @@ public class StartScene extends Application {
 
         Scene view = new Scene(getStartPane, 500, 300);
 
-        primaryStage.setTitle("CC Statistics");
+        primaryStage.setTitle("Julian Tjintjelaar (2173067) | Sten Reijerse (2175709) | Wesley Snijdelaar (2176710) | Mohamed Haddouch (2177710)");
         primaryStage.setScene(view);
         primaryStage.show();
 

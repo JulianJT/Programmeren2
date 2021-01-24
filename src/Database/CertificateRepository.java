@@ -47,7 +47,6 @@ public class CertificateRepository {
 
         }
 
-        // Handle any errors that may have occurred.
         catch (Exception e) {
 
         } finally {
@@ -71,35 +70,20 @@ public class CertificateRepository {
         ArrayList<Certificate> certificates = new ArrayList<>();
         String studentName = GetCertificateScene.getStudentName();
 
-        // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
-
-        // Connection beheert informatie over de connectie met de database.
         Connection con = null;
-
-        // Statement zorgt dat we een SQL query kunnen uitvoeren.
         Statement stmt = null;
-
-        // ResultSet is de tabel die we van de database terugkrijgen.
-        // We kunnen door de rows heen stappen en iedere kolom lezen.
         ResultSet rs = null;
 
         try {
-            // 'Importeer' de driver die je gedownload hebt.
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            // Maak de verbinding met de database.
             con = DriverManager.getConnection(connectionUrl);
 
-            // Stel een SQL query samen.
             String SQL = "SELECT certificateID, review, nameWorker FROM Certificate WHERE certificateID IN ( SELECT certificateID FROM Registration INNER JOIN Student ON Registration.emailAddress = Student.emailAddress WHERE name = '"+studentName+"')";
             stmt = con.createStatement();
-            // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
 
-
-            // Als de resultset waarden bevat dan lopen we hier door deze waarden en printen ze.
             while (rs.next()) {
-                // Vraag per row de kolommen in die row op.
                 String nameWorker = rs.getString("nameWorker");
                 int review = rs.getInt("review");
                 int id = rs.getInt("certificateID");
@@ -107,18 +91,10 @@ public class CertificateRepository {
                 Certificate certificate = new Certificate(id, review, nameWorker);
                 certificates.add(certificate);
 
-
-                // Print de kolomwaarden.
-                // System.out.println(ISBN + " " + title + " " + author);
-
-                // Met 'format' kun je de string die je print het juiste formaat geven, als je dat wilt.
-                // %d = decimal, %s = string, %-32s = string, links uitgelijnd, 32 characters breed.
-
             }
 
         }
 
-        // Handle any errors that may have occurred.
         catch (Exception e) {
 
         } finally {
@@ -140,9 +116,52 @@ public class CertificateRepository {
 
     }
 
-    public void getCertificatePercentage() {
+    public int getCertificatePercentage() {
         String gender = GetCertificateScene.getGender();
-    }
 
+        CertificateInputCheck checkInput = new CertificateInputCheck();
+
+        if(checkInput.getGenderCheckInput()) {
+            return 0;
+        }
+
+        String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT COUNT(emailAddress), COUNT(certificateID) FROM Registration WHERE emailAddress IN ( SELECT emailAddress FROM Student WHERE gender = '"+gender+"')";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+
+            while(rs.next()) {
+                int registrations = rs.getInt(1);
+                int certificates = rs.getInt(2);
+                return certificates / registrations * 100;
+            }
+        }
+
+        catch (Exception e) {
+
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            if (stmt != null) try {
+                stmt.close();
+            } catch (Exception e) {
+            }
+            if (con != null) try {
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+
+        return 0;
+    }
 }
 
