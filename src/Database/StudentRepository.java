@@ -271,16 +271,6 @@ public class StudentRepository {
 
         String studentName = removeStudent.getStudentName();
 
-        if (studentName.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Student name empty");
-
-            alert.showAndWait();
-
-        }
-
         String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
 
         // Connection beheert informatie over de connectie met de database.
@@ -304,9 +294,27 @@ public class StudentRepository {
             // Stel een SQL query samen.
             String SQL = "DELETE FROM Student WHERE Name = '" + studentName + "'";
             stmt = con.createStatement();
+            int deleted = stmt.executeUpdate(SQL);
+
+            if (deleted == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Oh no, an Error occurred!");
+                alert.setContentText("Student not found!");
+
+                alert.showAndWait();
+                return;
+            } else if (deleted > 0){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Task completed.");
+                alert.setContentText("Student successfuly deleted.");
+
+                alert.showAndWait();
+            }
+
             // Voer de query uit op de database.
             rs = stmt.executeQuery(SQL);
-
 
         }
 
