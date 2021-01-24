@@ -3,6 +3,10 @@ package GUI;
 import Database.StudentRepository;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.sql.*;
 
@@ -25,6 +29,14 @@ public class StudentInputScene {
     public StudentInputScene() {
 
         studentInputPane = new GridPane();
+        VBox addStVBox = new VBox();
+        studentInputPane.setHgap(8);
+        studentInputPane.setVgap(10);
+
+        Text addStudentText = new Text();
+        addStudentText.setFont(new Font(18));
+        addStudentText.setTextAlignment(TextAlignment.JUSTIFY);
+        addStudentText.setText("Here you can add a student to the database.");
 
         TextField emailField = new TextField();
         TextField fullName = new TextField();
@@ -43,25 +55,30 @@ public class StudentInputScene {
         Label countryText = new Label("Country");
         Button back = new Button("Back");
         Button apply = new Button("Apply");
-        Button cancel = new Button("Cancel");
 
-        studentInputPane.add(emailText, 0, 0);
-        studentInputPane.add(emailField, 0, 1);
-        studentInputPane.add(nameText, 0, 2);
-        studentInputPane.add(fullName, 0, 3);
-        studentInputPane.add(birthdayText, 0, 4);
-        studentInputPane.add(datePicker, 0, 5);
-        studentInputPane.add(genderText, 0, 6);
-        studentInputPane.add(genderField, 0, 7);
-        studentInputPane.add(addressText, 1, 0);
-        studentInputPane.add(addressField, 1, 1);
-        studentInputPane.add(residenceText, 1, 2);
-        studentInputPane.add(residenceField, 1, 3);
-        studentInputPane.add(countryText, 1, 4);
-        studentInputPane.add(countryField, 1, 5);
-        studentInputPane.add(back, 0, 8);
-        studentInputPane.add(apply, 1, 8);
-        studentInputPane.add(cancel, 2, 8);
+        GridPane addStudentInput = new GridPane();
+        addStudentInput.add(emailText, 0, 0);
+        addStudentInput.add(emailField, 0, 1);
+        addStudentInput.add(nameText, 0, 2);
+        addStudentInput.add(fullName, 0, 3);
+        addStudentInput.add(birthdayText, 0, 4);
+        addStudentInput.add(datePicker, 0, 5);
+        addStudentInput.add(genderText, 0, 6);
+        addStudentInput.add(genderField, 0, 7);
+        addStudentInput.add(addressText, 1, 0);
+        addStudentInput.add(addressField, 1, 1);
+        addStudentInput.add(residenceText, 1, 2);
+        addStudentInput.add(residenceField, 1, 3);
+        addStudentInput.add(countryText, 1, 4);
+        addStudentInput.add(countryField, 1, 5);
+        addStudentInput.add(back, 0, 8);
+        addStudentInput.add(apply, 1, 8);
+
+        studentInputPane.add(addStVBox,1,1);
+        addStudentInput.setHgap(8);
+        addStudentInput.setVgap(8);
+        addStVBox.setSpacing(10);
+        addStVBox.getChildren().addAll(addStudentText, addStudentInput);
 
 
         back.setOnAction((event) -> {
@@ -97,6 +114,7 @@ public class StudentInputScene {
             country = countryField.getText();
 
             addstudent.addStudent();
+
 
 
         });

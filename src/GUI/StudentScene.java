@@ -23,18 +23,27 @@ class StudentScene {
         studentPane = new GridPane();
         studentPane.setVgap(8);
         studentPane.setHgap(10);
+        VBox mainStVBox = new VBox();
+        HBox stButtonHBox = new HBox();
+
+        Text studentText = new Text();
+        studentText.setFont(new Font(30));
+        studentText.setTextAlignment(TextAlignment.JUSTIFY);
+        studentText.setText("Student Menu");
+
         Button addStudents = new Button("Add student(s)");
         Button removeStudents = new Button("Remove Student(s)");
         Button viewStudents = new Button("View Student(s)");
         Button viewProfile = new Button("View profile");
-
         Button back = new Button("Back");
-        studentPane.add(addStudents, 1, 0);
-        studentPane.add(removeStudents, 1, 1);
-        studentPane.add(viewStudents, 2, 0);
-        studentPane.add(viewProfile, 2, 1);
-        studentPane.add(back, 1, 5);
 
+        mainStVBox.setSpacing(10);
+        mainStVBox.getChildren().addAll(studentText, stButtonHBox, back);
+
+        stButtonHBox.setSpacing(10);
+        stButtonHBox.getChildren().addAll(addStudents, removeStudents, viewStudents, viewProfile);
+
+        studentPane.add(mainStVBox,1 ,1);
 
         back.setOnAction((event) -> {
             studentPane.getScene().setRoot(StartScene.getStartMenu());
@@ -52,6 +61,15 @@ class StudentScene {
             list.getAllStudents();
         });
 
+        removeStudents.setOnAction((event) -> {
+            StudentRemoveScene remove = new StudentRemoveScene();
+            studentPane.getScene().setRoot(remove.getStudentRemovePane());
+        });
+
+        viewProfile.setOnAction((event) -> {
+            StudentViewScene remove = new StudentViewScene();
+            studentPane.getScene().setRoot(remove.getStudentViewPane());
+        });
 
 
     }
