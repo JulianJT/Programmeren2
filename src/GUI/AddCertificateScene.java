@@ -72,7 +72,7 @@ public class AddCertificateScene {
             AddCertificateScene.course = course.getText();
             AddCertificateScene.review = review.getText();
 
-            addCertificate.addCertificate();
+            addCertificate.addCertificate(AddCertificateScene.userName, AddCertificateScene.studentName, AddCertificateScene.course, AddCertificateScene.review);
         });
     }
 

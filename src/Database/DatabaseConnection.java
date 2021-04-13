@@ -3,7 +3,13 @@ package Database;
 import java.sql.*;
 
 public class DatabaseConnection {
-    private final String connectionUrl = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433\n;";
+    private final String DBNAME = "QuatroOpdracht";
+    private final String USER = "sa";
+    private final String PASSWORD = "12345";
+    private final String PORTNR = "1433";
+    private final String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName="+ DBNAME +";user="+ USER +";password="+ PASSWORD +";portNumber="+ PORTNR +";";
+
+    // OLD: private final String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433;";
 
     public ResultSet executeSqlStatement(String SQL) {
         ResultSet rs = null;
@@ -67,6 +73,6 @@ public class DatabaseConnection {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        return DriverManager.getConnection(connectionUrl);
+        return DriverManager.getConnection(URL);
     }
 }

@@ -41,7 +41,7 @@ public class InputCheck {
         return false;
     }
 
-    public boolean addStudentInputCheck(String userName, String email, Date birthday, String gender, String address, String residence, String country) {
+    public boolean addStudentInputCheck(String userName, String email, String gender, String address, String residence, String country) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);

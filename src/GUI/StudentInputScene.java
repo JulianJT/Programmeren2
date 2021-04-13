@@ -113,12 +113,8 @@ public class StudentInputScene {
             residence = residenceField.getText();
             country = countryField.getText();
 
-            addstudent.addStudent();
-
-
-
+            addstudent.addStudent(userName, email, birthday, gender, address, residence, country);
         });
-
     }
 
     public static String getUsername(){

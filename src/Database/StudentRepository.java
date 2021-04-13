@@ -1,7 +1,6 @@
 package Database;
 
 import Domain.Student;
-import GUI.StudentInputScene;
 import GUI.StudentRemoveScene;
 import GUI.StudentViewScene;
 import javafx.scene.control.Alert;
@@ -32,24 +31,16 @@ public class StudentRepository extends DatabaseConnection {
                     Student student = new Student(name, email);
                     students.add(student);
                 }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return students;
     }
 
-    public void addStudent() {
-        String userName = StudentInputScene.getUsername();
-        String email = StudentInputScene.getEmail();
-        Date birthday = StudentInputScene.getBirthday();
-        String gender = StudentInputScene.getGender();
-        String address = StudentInputScene.getAddress();
-        String residence = StudentInputScene.getResidence();
-        String country = StudentInputScene.getCountry();
-
-        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, birthday, gender, address, residence, country)) {
+    public void addStudent(String userName, String email, Date birthday, String gender, String address, String residence, String country) {
+        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, gender, address, residence, country))
             return;
-        }
 
         String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "')";
         executeSqlStatement(SQL);

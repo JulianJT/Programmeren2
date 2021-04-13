@@ -8,9 +8,7 @@ import java.util.List;
 
 public class RegistrationRepository extends DatabaseConnection {
 
-
     public List<Registration> showStudents() {
-
         ArrayList<Registration> studentRegistration = new ArrayList<>();
         String name;
         String course;
@@ -40,7 +38,6 @@ public class RegistrationRepository extends DatabaseConnection {
     }
 
     public List<Registration> showCourses() {
-
         ArrayList<Registration> coursesRegistration = new ArrayList<>();
         String name;
         String course;

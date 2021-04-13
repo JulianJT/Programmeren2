@@ -20,7 +20,7 @@ public class CertificateStudentListScene {
 
         CertificateRepository rglist = new CertificateRepository();
 
-        ObservableList<Certificate> certificates = FXCollections.observableArrayList(rglist.getCertificate());
+        ObservableList<Certificate> certificates = FXCollections.observableArrayList(rglist.getCertificate(GetCertificateScene.getStudentName()));
         listView = new ListView<>(certificates);
         listView.setPrefWidth(500);
 

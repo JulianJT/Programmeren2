@@ -63,17 +63,17 @@ public class GetCertificateScene {
         searchStudent.setOnAction((event) -> {
             CertificateRepository getCertificate = new CertificateRepository();
             GetCertificateScene.studentName = studentName.getText();
-            getCertificate.getCertificate();
+            getCertificate.getCertificate(GetCertificateScene.getStudentName());
             CertificateStudentListScene certificates = new CertificateStudentListScene();
             GetCertificatePane.getScene().setRoot(certificates.getCertificateStudentPane());
             CertificateRepository list = new CertificateRepository();
-            list.getCertificate();
+            list.getCertificate(GetCertificateScene.getStudentName());
         });
 
         searchPercentage.setOnAction((event) -> {
             CertificateRepository getCertificatePerc = new CertificateRepository();
             GetCertificateScene.gender = gender.getText();
-            percentage = getCertificatePerc.getCertificatePercentage();
+            percentage = getCertificatePerc.getCertificatePercentage(GetCertificateScene.gender);
             percText.setText("Percentage: "+percentage);
         });
     }

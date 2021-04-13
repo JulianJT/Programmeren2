@@ -1,8 +1,6 @@
 package Database;
 
 import Domain.Certificate;
-import GUI.AddCertificateScene;
-import GUI.GetCertificateScene;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,12 +8,7 @@ import java.util.List;
 
 public class CertificateRepository extends DatabaseConnection {
 
-    public void addCertificate() {
-        String userName = AddCertificateScene.getUserName();
-        String studentName = AddCertificateScene.getStudentName();
-        String course = AddCertificateScene.getCourse();
-        String review = AddCertificateScene.getReview();
-
+    public void addCertificate(String userName, String studentName, String course, String review) {
         if (InputCheck.INSTANCE.addCertificateInputCheck(course, userName, studentName, review)) {
             return;
         }
@@ -24,9 +17,8 @@ public class CertificateRepository extends DatabaseConnection {
         executeSqlStatement(SQL);
     }
 
-    public List<Certificate> getCertificate() {
+    public List<Certificate> getCertificate(String studentName) {
         ArrayList<Certificate> certificates = new ArrayList<>();
-        String studentName = GetCertificateScene.getStudentName();
         ResultSet rs;
 
         try {
@@ -48,8 +40,7 @@ public class CertificateRepository extends DatabaseConnection {
         return certificates;
     }
 
-    public int getCertificatePercentage() {
-        String gender = GetCertificateScene.getGender();
+    public int getCertificatePercentage(String gender) {
         if (InputCheck.INSTANCE.getCertificatePercentageInputCheck()) {
             return 0;
         }
