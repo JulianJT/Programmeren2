@@ -22,7 +22,7 @@ public class StudentRepository extends DatabaseConnection {
         try {
 
             String SQL = "SELECT * FROM Student";
-            rs = executeSqlStatement(SQL);
+            rs = selectSqlStatement(SQL);
 
                 while (rs.next()) {
                     name = rs.getString("name");
@@ -31,10 +31,10 @@ public class StudentRepository extends DatabaseConnection {
                     Student student = new Student(name, email);
                     students.add(student);
                 }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
         return students;
     }
 
@@ -43,11 +43,10 @@ public class StudentRepository extends DatabaseConnection {
             return;
 
         String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "')";
-        executeSqlStatement(SQL);
+        insertSqlStatement(SQL);
     }
 
     public String viewStudent() {
-
         StringBuilder studentProfile = new StringBuilder();
         StudentViewScene viewStudent = new StudentViewScene();
         String studentName = viewStudent.getStudentName();
@@ -58,7 +57,6 @@ public class StudentRepository extends DatabaseConnection {
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Oh no, an Error occurred!");
             alert.setContentText("Name field is empty");
-
             alert.showAndWait();
             return null;
         }
@@ -66,7 +64,7 @@ public class StudentRepository extends DatabaseConnection {
         try {
 
             String SQL = "SELECT * FROM Student WHERE Name = '" + studentName + "'";
-            rs = executeSqlStatement(SQL);
+            rs = selectSqlStatement(SQL);
 
             if (!rs.isBeforeFirst()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -85,10 +83,10 @@ public class StudentRepository extends DatabaseConnection {
                     studentProfile.append(rsmd.getColumnName(i)).append(": ").append(rs.getString(i)).append("\n");
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
         return studentProfile.toString();
     }
 
@@ -100,26 +98,24 @@ public class StudentRepository extends DatabaseConnection {
         try {
 
             String SQL = "DELETE FROM Student WHERE Name = '" + studentName + "'";
-            int deleted = executeUpdateStatement(SQL);
+            int deleted = updateSqlStatement(SQL);
 
+            Alert alert;
             if (deleted == 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setHeaderText("Oh no, an Error occurred!");
                 alert.setContentText("Student not found!");
-                alert.showAndWait();
             } else {
-                executeSqlStatement(SQL);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Confirmation Dialog");
                 alert.setHeaderText("Task completed.");
                 alert.setContentText("Student successfully deleted.");
-                alert.showAndWait();
             }
+            alert.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
 

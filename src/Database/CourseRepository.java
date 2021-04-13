@@ -13,18 +13,17 @@ public class CourseRepository extends DatabaseConnection {
         try {
 
             String SQL = "SELECT * FROM Module";
-            rs = executeSqlStatement(SQL);
+            rs = selectSqlStatement(SQL);
 
             while (rs.next()) {
                 modules.append(rs.getString("title"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
         return modules.toString();
     }
-
 
     public void addCourse() {
         String courseName = AddCourseScene.getCourseName();
@@ -33,6 +32,6 @@ public class CourseRepository extends DatabaseConnection {
         String level = AddCourseScene.getLevel();
 
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
-        executeSqlStatement(SQL);
+        insertSqlStatement(SQL);
     }
 }

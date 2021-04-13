@@ -7,15 +7,12 @@ public class DatabaseConnection {
     private final String USER = "sa";
     private final String PASSWORD = "12345";
     private final String PORTNR = "1433";
-    private final String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName="+ DBNAME +";user="+ USER +";password="+ PASSWORD +";portNumber="+ PORTNR +";";
 
-    // OLD: private final String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QuatroOpdracht;user=sa;password=12345;portNumber=1433;";
+    private Statement stmt = null;
+    private Connection con = null;
+    private ResultSet rs;
 
-    public ResultSet executeSqlStatement(String SQL) {
-        ResultSet rs = null;
-        Statement stmt = null;
-        Connection con = null;
-
+    public ResultSet selectSqlStatement(String SQL) {
         try {
             con = getConnection();
             if (con != null) {
@@ -23,56 +20,59 @@ public class DatabaseConnection {
                 rs = stmt.executeQuery(SQL);
                 return rs;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (stmt != null) try {
-                stmt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (con != null) try {
-                con.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception ignored) {
         }
         return null;
     }
 
-    public int executeUpdateStatement(String SQL) {
-        Statement stmt = null;
-        Connection con = null;
-
+    public void insertSqlStatement(String SQL) {
         try {
             con = getConnection();
-            stmt = con.createStatement();
-            return stmt.executeUpdate(SQL);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (con != null) {
+                stmt = con.createStatement();
+                stmt.executeQuery(SQL);
+            }
+        } catch (Exception ignored) {
         } finally {
-            if (stmt != null) try {
-                stmt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+            closeConnection();
+        }
+    }
+
+    public int updateSqlStatement(String SQL) {
+        try {
+            con = getConnection();
+            if (con != null) {
+                stmt = con.createStatement();
+                return stmt.executeUpdate(SQL);
             }
-            if (con != null) try {
-                con.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception ignored) {
+        } finally {
+            closeConnection();
         }
         return 0;
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
+        String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=" + DBNAME + ";user=" + USER + ";password=" + PASSWORD + ";portNumber=" + PORTNR + ";";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(URL);
+    }
+
+    public void closeConnection() {
+        if (rs != null) try {
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (stmt != null) try {
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (con != null) try {
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

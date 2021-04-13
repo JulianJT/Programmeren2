@@ -44,7 +44,7 @@ class StudentListScene {
         StudentRepository stlist = new StudentRepository();
 
         ObservableList<Student> names = FXCollections.observableArrayList(stlist.getAllStudents());
-        listView = new ListView<Student>(names);
+        listView = new ListView<>(names);
         listView.setPrefWidth(500);
 
         list.add(listView, 0, 0);

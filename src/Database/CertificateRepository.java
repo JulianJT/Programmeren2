@@ -14,7 +14,7 @@ public class CertificateRepository extends DatabaseConnection {
         }
 
         String SQL = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
-        executeSqlStatement(SQL);
+        insertSqlStatement(SQL);
     }
 
     public List<Certificate> getCertificate(String studentName) {
@@ -24,7 +24,7 @@ public class CertificateRepository extends DatabaseConnection {
         try {
 
             String SQL = "SELECT certificateID, review, nameWorker FROM Certificate WHERE certificateID IN ( SELECT certificateID FROM Registration INNER JOIN Student ON Registration.emailAddress = Student.emailAddress WHERE name = '" + studentName + "')";
-            rs = executeSqlStatement(SQL);
+            rs = selectSqlStatement(SQL);
 
             while (rs.next()) {
                 String nameWorker = rs.getString("nameWorker");
@@ -33,10 +33,10 @@ public class CertificateRepository extends DatabaseConnection {
 
                 certificates.add(new Certificate(id, review, nameWorker));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
         return certificates;
     }
 
