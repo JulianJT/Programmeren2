@@ -53,8 +53,6 @@ class StudentListScene {
         back.setOnAction((event) -> {
             list.getScene().setRoot(StudentScene.getRootPane());
         });
-
-
     }
 
     public static GridPane getStudentTable() {

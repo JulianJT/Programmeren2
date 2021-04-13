@@ -40,21 +40,21 @@ public class StartScene extends Application {
 
         student.setOnAction((event) -> {
             StudentScene students = new StudentScene();
-            primaryStage.getScene().setRoot(StudentScene.getRootPane());
+            primaryStage.getScene().setRoot(students.getRootPane());
         });
 
         registration.setOnAction((event) -> {
             RegistrationScene registrations = new RegistrationScene();
-            primaryStage.getScene().setRoot(RegistrationScene.getRegistrationPane());
+            primaryStage.getScene().setRoot(registrations.getRegistrationPane());
         });
 
         course.setOnAction((event) -> {
             CourseScene courses = new CourseScene();
-            primaryStage.getScene().setRoot(CourseScene.getCoursePane());
+            primaryStage.getScene().setRoot(courses.getCoursePane());
         });
         certificate.setOnAction((event) -> {
             CertificateScene certificates = new CertificateScene();
-            primaryStage.getScene().setRoot(CertificateScene.getCertificatePane());
+            primaryStage.getScene().setRoot(certificates.getCertificatePane());
         });
 
 

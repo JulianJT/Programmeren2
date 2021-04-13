@@ -1,12 +1,9 @@
 package GUI;
 
 import Database.CertificateRepository;
-import Database.StudentRepository;
-import Domain.Registration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -19,7 +16,6 @@ public class AddCertificateScene {
     private static String studentName;
     private static String course;
     private static String review;
-
 
     private static GridPane AddCertificatePane;
 

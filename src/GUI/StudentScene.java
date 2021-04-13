@@ -67,8 +67,6 @@ class StudentScene {
             StudentViewScene remove = new StudentViewScene();
             studentPane.getScene().setRoot(remove.getStudentViewPane());
         });
-
-
     }
 
     public static Pane getRootPane() {

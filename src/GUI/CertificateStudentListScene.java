@@ -30,8 +30,6 @@ public class CertificateStudentListScene {
         back.setOnAction(actionEvent -> {
             list.getScene().setRoot(GetCertificateScene.getGetCertificatePane());
         });
-
-
     }
 
     public static GridPane getCertificateStudentPane() {

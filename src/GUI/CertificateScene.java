@@ -24,7 +24,7 @@ class CertificateScene {
         Button addCertificate = new Button("Add Certificate");
         Button getCertificate = new Button("View Certificates");
         Button backFromCertificate = new Button("Back");
-        // Add Most Given Certificates (top 3)
+        //TODO: Add Most Given Certificates (top 3)
 
         mainCertVBox.setSpacing(10);
         mainCertVBox.getChildren().addAll(certificateText, certButtonHBox, backFromCertificate);

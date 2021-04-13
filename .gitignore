@@ -32,3 +32,10 @@ hs_err_pid*
 .idea/libraries
 .idea/caches
 .idea/modules.xml
+<<<<<<< Updated upstream
+=======
+
+.vscode
+.idea/runConfigurations
+
+>>>>>>> Stashed changes

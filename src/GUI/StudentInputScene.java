@@ -142,7 +142,6 @@ public class StudentInputScene {
     public static Date getBirthday() {
         return birthday;
     }
-
     public static GridPane getStudentInput() {
         return studentInputPane ;
     }

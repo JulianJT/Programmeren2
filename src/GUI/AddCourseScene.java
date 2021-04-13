@@ -9,8 +9,6 @@ public class AddCourseScene {
     private static String subjectName;
     private static String intro;
     private static String level;
-
-
     private static GridPane AddCoursePane;
 
     public AddCourseScene() {
@@ -19,7 +17,7 @@ public class AddCourseScene {
         AddCoursePane.setHgap(10);
 
 
-        CourseRepository getTitle = new CourseRepository();
+        CourseRepository courseRepository = new CourseRepository();
         Button apply = new Button("Apply");
         Button backFromAddCourse = new Button("Back");
 
@@ -27,12 +25,8 @@ public class AddCourseScene {
         TextField subject = new TextField();
         TextField level = new TextField();
         TextArea introduction = new TextArea();
-        getTitle.Modules();
-        final ComboBox priorityComboBox = new ComboBox();
-        priorityComboBox.getItems().addAll(
-                getTitle.getModules()
-        );
-
+        final ComboBox<String> priorityComboBox = new ComboBox<>();
+        priorityComboBox.getItems().addAll(courseRepository.getModules());
 
         Label nameCourseText = new Label("Course Name:");
         Label subjectText = new Label("Subject:");
