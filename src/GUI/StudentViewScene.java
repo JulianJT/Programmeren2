@@ -2,8 +2,6 @@ package GUI;
 
 import Database.StudentRepository;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -48,17 +46,13 @@ public class StudentViewScene {
         StudentRepository repository = new StudentRepository();
 
         back.setOnAction((event) -> {
-                repository.clearResults();
                 studentViewPane.getScene().setRoot(StudentScene.getRootPane());
         });
 
 
         confirm.setOnAction((event) -> {
-
             studentName = student.getText();
-                repository.viewStudent();
-                    studentInfo.setText(repository.getColumnValues());
-
+            studentInfo.setText(repository.viewStudent());
         });
 
     }
@@ -66,7 +60,6 @@ public class StudentViewScene {
     public GridPane getStudentViewPane() {
         return studentViewPane;
     }
-
     public String getStudentName() {
         return studentName;
     }

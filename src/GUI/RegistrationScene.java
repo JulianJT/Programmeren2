@@ -69,9 +69,8 @@ class RegistrationScene {
 
     }
 
-    public static Pane getRegistrationPane() { return RegistrationPane;
-
-//    public static String
+    public static Pane getRegistrationPane() {
+        return RegistrationPane;
     }
 
 }
