@@ -22,8 +22,5 @@
 # Ide
 .idea
 .vscode
-/out
+out
 *.iml
-
-
-
