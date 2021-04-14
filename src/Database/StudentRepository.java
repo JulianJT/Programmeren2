@@ -22,7 +22,7 @@ public class StudentRepository extends DatabaseConnection {
         try {
 
             String SQL = "SELECT * FROM Student";
-            rs = selectSqlStatement(SQL);
+            rs = executeSelectStatement(SQL);
 
                 while (rs.next()) {
                     name = rs.getString("name");
@@ -43,7 +43,7 @@ public class StudentRepository extends DatabaseConnection {
             return;
 
         String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "')";
-        insertSqlStatement(SQL);
+        executeInsertStatement(SQL);
     }
 
     public String viewStudent() {
@@ -64,7 +64,7 @@ public class StudentRepository extends DatabaseConnection {
         try {
 
             String SQL = "SELECT * FROM Student WHERE Name = '" + studentName + "'";
-            rs = selectSqlStatement(SQL);
+            rs = executeSelectStatement(SQL);
 
             if (!rs.isBeforeFirst()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -98,21 +98,13 @@ public class StudentRepository extends DatabaseConnection {
         try {
 
             String SQL = "DELETE FROM Student WHERE Name = '" + studentName + "'";
-            int deleted = updateSqlStatement(SQL);
+            int deleted = executeUpdateStatement(SQL);
 
-            Alert alert;
             if (deleted == 0) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setHeaderText("Oh no, an Error occurred!");
-                alert.setContentText("Student not found!");
+                showError("Student not found!");
             } else {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Task completed.");
-                alert.setContentText("Student successfully deleted.");
+                showInfo("Student successfully deleted.");
             }
-            alert.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ public class RegistrationRepository extends DatabaseConnection {
             String SQL = "SELECT Student.name, Course.courseName FROM Student " +
                     "LEFT JOIN Registration ON Student.emailAddress=Registration.emailAddress LEFT JOIN Course ON Registration.courseName=Course.courseName ORDER BY name";
 
-            rs = selectSqlStatement(SQL);
+            rs = executeSelectStatement(SQL);
 
             while (rs.next()) {
                 name = rs.getString("name");
@@ -49,7 +49,7 @@ public class RegistrationRepository extends DatabaseConnection {
             String SQL = "SELECT Course.courseName, Student.name FROM Course " +
                     "LEFT JOIN Registration ON Course.courseName=Registration.courseName LEFT JOIN STUDENT ON Registration.emailAddress=Student.emailAddress ORDER BY courseName";
 
-            rs = selectSqlStatement(SQL);
+            rs = executeSelectStatement(SQL);
 
                 while (rs.next()) {
                     course = rs.getString("courseName");
@@ -78,7 +78,7 @@ public class RegistrationRepository extends DatabaseConnection {
                     "LEFT JOIN Registration ON Course.courseName=Registration.courseName " +
                     "LEFT JOIN STUDENT ON Registration.emailAddress=Student.emailAddress";
 
-            rs = selectSqlStatement(SQL);
+            rs = executeSelectStatement(SQL);
 
             if (rs.next()) {
                 return rs.getInt(1);

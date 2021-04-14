@@ -1,18 +1,21 @@
 package Database;
 
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 
 public class DatabaseConnection {
-    private final String DBNAME = "QuatroOpdracht";
-    private final String USER = "sa";
-    private final String PASSWORD = "12345";
-    private final String PORTNR = "1433";
+    private final static String DBNAME = "QuatroOpdracht";
+    private final static String USER = "sa";
+    private final static String PASSWORD = "12345";
+    private final static String PORTNR = "1433";
+    private final static String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=" + DBNAME + ";user=" + USER + ";password=" + PASSWORD + ";portNumber=" + PORTNR + ";";
 
     private Statement stmt = null;
     private Connection con = null;
-    private ResultSet rs;
+    private ResultSet rs = null;
 
-    public ResultSet selectSqlStatement(String SQL) {
+    protected ResultSet executeSelectStatement(String SQL) {
         try {
             con = getConnection();
             if (con != null) {
@@ -20,12 +23,13 @@ public class DatabaseConnection {
                 rs = stmt.executeQuery(SQL);
                 return rs;
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            closeConnection();
         }
         return null;
     }
 
-    public void insertSqlStatement(String SQL) {
+    protected void executeInsertStatement(String SQL) {
         try {
             con = getConnection();
             if (con != null) {
@@ -38,7 +42,7 @@ public class DatabaseConnection {
         }
     }
 
-    public int updateSqlStatement(String SQL) {
+    protected int executeUpdateStatement(String SQL) {
         try {
             con = getConnection();
             if (con != null) {
@@ -52,13 +56,12 @@ public class DatabaseConnection {
         return 0;
     }
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
-        String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=" + DBNAME + ";user=" + USER + ";password=" + PASSWORD + ";portNumber=" + PORTNR + ";";
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(URL);
     }
 
-    public void closeConnection() {
+    protected void closeConnection() {
         if (rs != null) try {
             rs.close();
         } catch (Exception e) {
@@ -74,5 +77,21 @@ public class DatabaseConnection {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected void showInfo(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Task completed.");
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    protected void showError(String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("Oh no, an error occurred!");
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

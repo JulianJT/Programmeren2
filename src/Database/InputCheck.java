@@ -3,15 +3,14 @@ package Database;
 import GUI.GetCertificateScene;
 import javafx.scene.control.Alert;
 
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputCheck {
 
-    public static InputCheck INSTANCE = new InputCheck();
+    protected static InputCheck INSTANCE = new InputCheck();
 
-    public boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
+    protected boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
         if (course.isEmpty()) {
             showAlert("Course is empty");
             return true;
@@ -41,7 +40,7 @@ public class InputCheck {
         return false;
     }
 
-    public boolean addStudentInputCheck(String userName, String email, String gender, String address, String residence, String country) {
+    protected boolean addStudentInputCheck(String userName, String email, String gender, String address, String residence, String country) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
@@ -83,7 +82,7 @@ public class InputCheck {
         return false;
     }
 
-    public boolean getCertificatePercentageInputCheck() {
+    protected boolean getCertificatePercentageInputCheck() {
         String gender = GetCertificateScene.getGender();
 
         if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
@@ -93,7 +92,7 @@ public class InputCheck {
         return false;
     }
 
-    public boolean isInteger(String review) {
+    private boolean isInteger(String review) {
         try {
             Integer.parseInt(review);
             return true;
@@ -103,10 +102,10 @@ public class InputCheck {
         }
     }
 
-    public void showAlert(String content) {
+    private void showAlert(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
-        alert.setHeaderText("Oh no, an Error occurred!");
+        alert.setHeaderText("Oh no, an error occurred!");
         alert.setContentText(content);
         alert.showAndWait();
     }
