@@ -90,15 +90,12 @@ public class AddCourseScene {
     public static String getCourseName() {
         return userName;
     }
-
     public static String getSubjectName() {
         return subjectName;
     }
-
     public static String getIntroduction() {
         return intro;
     }
-
     public static String getLevel() {
         return level;
     }

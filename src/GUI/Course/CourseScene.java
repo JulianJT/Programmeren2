@@ -19,12 +19,14 @@ public class CourseScene {
         Button removeCourses = new Button("Remove course(s)");
         Button viewCourses = new Button("View course(s)");
         Button updateCourses = new Button("Update course(s)");
+        Button addModules = new Button("Add module");
 
         Button back = new Button("Back");
         CoursePane.add(addCourses, 1, 0);
         CoursePane.add(removeCourses, 1, 1);
         CoursePane.add(viewCourses, 2, 0);
         CoursePane.add(updateCourses, 2, 1);
+        CoursePane.add(addModules,3,0);
         CoursePane.add(back, 1, 5);
 
 
@@ -45,7 +47,10 @@ public class CourseScene {
             CourseRemoveScene remove = new CourseRemoveScene();
             CoursePane.getScene().setRoot(remove.getCourseRemovePane());
         });
-
+        addModules.setOnAction((event) -> {
+            AddModuleScene addModuleScene = new AddModuleScene();
+            addModules.getScene().setRoot(AddModuleScene.getAddModulePane());
+        });
 
     }
 
