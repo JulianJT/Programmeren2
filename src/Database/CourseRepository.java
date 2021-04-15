@@ -1,8 +1,12 @@
 package Database;
 
+import Domain.Course;
+import Domain.Student;
 import GUI.AddCourseScene;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseRepository extends DatabaseConnection {
 
@@ -24,6 +28,35 @@ public class CourseRepository extends DatabaseConnection {
         closeConnection();
         return modules.toString();
     }
+
+    public List<Course> getAllCourses() {
+        ArrayList<Course> courses = new ArrayList<>();
+        String name;
+        String subject;
+        String text;
+        ResultSet rs;
+
+        try {
+
+            String SQL = "SELECT * FROM Course";
+            rs = executeSelectStatement(SQL);
+
+            while (rs.next()) {
+                name = rs.getString("courseName");
+                subject = rs.getString("subject");
+                text = rs.getString("introductionText");
+
+                Course course = new Course(name, subject, text);
+                courses.add(course);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeConnection();
+        return courses;
+    }
+
+
 
     public void addCourse() {
         String courseName = AddCourseScene.getCourseName();

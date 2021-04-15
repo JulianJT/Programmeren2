@@ -1,6 +1,8 @@
 package GUI;
 
 
+import Database.CourseRepository;
+import Domain.Course;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -33,6 +35,11 @@ class CourseScene {
         addCourses.setOnAction((event) -> {
             AddCourseScene addCourseScene = new AddCourseScene();
             CoursePane.getScene().setRoot(AddCourseScene.getAddCoursePane());
+        });
+        viewCourses.setOnAction((event) -> {
+            CourseRepository list = new CourseRepository();
+            CourseViewScene courseViewScene = new CourseViewScene();
+            CoursePane.getScene().setRoot(CourseViewScene.getCourseTable());
         });
 
 
