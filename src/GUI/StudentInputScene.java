@@ -1,6 +1,8 @@
 package GUI;
 
 import Database.StudentRepository;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -41,7 +43,14 @@ public class StudentInputScene {
         TextField emailField = new TextField();
         TextField fullName = new TextField();
         DatePicker datePicker = new DatePicker();
-        TextField genderField = new TextField();
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Male",
+                        "Female"
+
+                );
+
+        ComboBox genderField = new ComboBox(options);
         TextField addressField = new TextField();
         TextField residenceField = new TextField();
         TextField countryField = new TextField();
@@ -108,7 +117,7 @@ public class StudentInputScene {
             }
             userName = fullName.getText();
             email = emailField.getText();
-            gender = genderField.getText();
+            gender = (String) genderField.getValue();
             address = addressField.getText();
             residence = residenceField.getText();
             country = countryField.getText();
