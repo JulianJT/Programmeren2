@@ -1,10 +1,8 @@
 package Database;
 
 import Domain.Course;
-import Domain.Student;
-import GUI.AddCourseScene;
-import GUI.CourseRemoveScene;
-import GUI.StudentRemoveScene;
+import GUI.Course.AddCourseScene;
+import GUI.Course.CourseRemoveScene;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

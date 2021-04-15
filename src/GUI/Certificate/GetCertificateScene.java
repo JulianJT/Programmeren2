@@ -1,9 +1,10 @@
-package GUI;
+package GUI.Certificate;
 
 import Database.CertificateRepository;
-import Database.RegistrationRepository;
-import Domain.Certificate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -40,11 +41,13 @@ public class GetCertificateScene {
         Text percText = new Text();
         percText.setFont(new Font(18));
         percText.setTextAlignment(TextAlignment.JUSTIFY);
-        percText.setText("Percentage: "+percentage);
+        percText.setText("Percentage: " + percentage);
 
-        TextField studentName = new TextField("Student Name");
-        TextField gender = new TextField("Gender");
-        Button searchStudent = new Button( "Search");
+        TextField studentName = new TextField();
+        studentName.setPromptText("Student Name");
+        ObservableList<String> options = FXCollections.observableArrayList("Male", "Female");
+        ComboBox gender = new ComboBox(options);
+        Button searchStudent = new Button("Search");
         Button backFromGetCertificate = new Button("Back");
         Button searchPercentage = new Button("Search");
 
@@ -53,8 +56,8 @@ public class GetCertificateScene {
         GetCertificatePane.add(getCertStudentText, 1, 1);
         GetCertificatePane.add(getStudentHbox, 1, 2);
         GetCertificatePane.add(getCertPercText, 1, 4);
-        GetCertificatePane.add(gender, 1, 5);
-        GetCertificatePane.add(getPercHbox, 1, 6);
+        GetCertificatePane.add(gender, 1, 6);
+        GetCertificatePane.add(getPercHbox, 1, 5);
 
         backFromGetCertificate.setOnAction((event) -> {
             GetCertificatePane.getScene().setRoot(CertificateScene.getCertificatePane());
@@ -63,16 +66,16 @@ public class GetCertificateScene {
         searchStudent.setOnAction((event) -> {
             CertificateRepository getCertificate = new CertificateRepository();
             GetCertificateScene.studentName = studentName.getText();
-            getCertificate.getCertificate(GetCertificateScene.getStudentName());
+            getCertificate.getCertificate(GetCertificateScene.studentName);
             CertificateStudentListScene certificates = new CertificateStudentListScene();
             GetCertificatePane.getScene().setRoot(certificates.getCertificateStudentPane());
             CertificateRepository list = new CertificateRepository();
-            list.getCertificate(GetCertificateScene.getStudentName());
+            list.getCertificate(GetCertificateScene.studentName);
         });
 
         searchPercentage.setOnAction((event) -> {
             CertificateRepository getCertificatePerc = new CertificateRepository();
-            GetCertificateScene.gender = gender.getText();
+            GetCertificateScene.gender = (String) gender.getValue();
             percentage = getCertificatePerc.getCertificatePercentage(GetCertificateScene.gender);
             percText.setText("Percentage: "+percentage);
         });

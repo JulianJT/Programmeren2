@@ -15,6 +15,7 @@ public class DatabaseConnection {
     private Connection con = null;
     private ResultSet rs = null;
 
+    // executes SELECT statements, returns results.
     protected ResultSet executeSelectStatement(String SQL) {
         try {
             con = getConnection();
@@ -30,6 +31,7 @@ public class DatabaseConnection {
         return null;
     }
 
+    // executes INSERT statements
     protected void executeInsertStatement(String SQL) {
         try {
             con = getConnection();
@@ -44,6 +46,7 @@ public class DatabaseConnection {
         }
     }
 
+    // executes UPDATE statements
     protected int executeUpdateStatement(String SQL) {
         try {
             con = getConnection();
@@ -59,11 +62,13 @@ public class DatabaseConnection {
         return 0;
     }
 
+    // sets up database connection
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(URL);
     }
 
+    // closes database connection
     protected void closeConnection() {
         if (rs != null) try {
             rs.close();
@@ -82,6 +87,7 @@ public class DatabaseConnection {
         }
     }
 
+    // shows confirmation dialogs
     protected void showInfo(String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Confirmation Dialog");
@@ -90,6 +96,7 @@ public class DatabaseConnection {
         alert.showAndWait();
     }
 
+    // shows error dialogs
     protected void showError(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");

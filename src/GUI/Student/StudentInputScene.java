@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Student;
 
 import Database.StudentRepository;
 import javafx.collections.FXCollections;
@@ -9,11 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-
-import java.sql.*;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
 
 import java.util.Date;
 
@@ -43,13 +38,7 @@ public class StudentInputScene {
         TextField emailField = new TextField();
         TextField fullName = new TextField();
         DatePicker datePicker = new DatePicker();
-        ObservableList<String> options =
-                FXCollections.observableArrayList(
-                        "Male",
-                        "Female"
-
-                );
-
+        ObservableList<String> options = FXCollections.observableArrayList("Male", "Female");
         ComboBox genderField = new ComboBox(options);
         TextField addressField = new TextField();
         TextField residenceField = new TextField();

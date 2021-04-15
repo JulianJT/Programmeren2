@@ -1,6 +1,5 @@
 package Database;
 
-import GUI.GetCertificateScene;
 import javafx.scene.control.Alert;
 
 import java.util.regex.Matcher;
@@ -40,18 +39,13 @@ public class InputCheck {
         return false;
     }
 
-    protected boolean addStudentInputCheck(String userName, String email, String gender, String address, String residence, String country) {
+    protected boolean addStudentInputCheck(String userName, String email, String address, String residence, String country) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
 
         if (!(matcher.matches())) {
             showAlert("Invalid email specified.");
-            return true;
-        }
-
-        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
-            showAlert("Invalid gender specified.");
             return true;
         }
 
@@ -77,16 +71,6 @@ public class InputCheck {
 
         if (country.isEmpty()) {
             showAlert("Country is empty");
-            return true;
-        }
-        return false;
-    }
-
-    protected boolean getCertificatePercentageInputCheck() {
-        String gender = GetCertificateScene.getGender();
-
-        if (!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))) {
-            showAlert("Invalid gender specified. Use \"Male\" or \"Female\".");
             return true;
         }
         return false;

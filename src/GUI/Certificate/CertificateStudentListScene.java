@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Certificate;
 
 import Database.CertificateRepository;
 import Domain.Certificate;
@@ -18,9 +18,9 @@ public class CertificateStudentListScene {
         list.setHgap(8);
         Button back = new Button("Back");
 
-        CertificateRepository rglist = new CertificateRepository();
+        CertificateRepository certList = new CertificateRepository();
 
-        ObservableList<Certificate> certificates = FXCollections.observableArrayList(rglist.getCertificate(GetCertificateScene.getStudentName()));
+        ObservableList<Certificate> certificates = FXCollections.observableArrayList(certList.getCertificate(GetCertificateScene.getStudentName()));
         listView = new ListView<>(certificates);
         listView.setPrefWidth(500);
 

@@ -1,7 +1,8 @@
-package GUI;
+package GUI.Student;
 
 
 import Database.StudentRepository;
+import GUI.StartScene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -11,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-class StudentScene {
+public class StudentScene {
 
     private static GridPane studentPane; // or any other kind of pane, or  Group...
 

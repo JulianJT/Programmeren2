@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Student;
 
 
 import Database.StudentRepository;
@@ -9,12 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
-class StudentListScene {
+public class StudentListScene {
 
     private static GridPane list;
     private static ListView listView;
 
-    public StudentListScene(){
+    public StudentListScene() {
 
         list = new GridPane();
         Button back = new Button("Back");

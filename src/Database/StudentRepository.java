@@ -1,9 +1,8 @@
 package Database;
 
 import Domain.Student;
-import GUI.StudentRemoveScene;
-import GUI.StudentViewScene;
-import javafx.scene.control.Alert;
+import GUI.Student.StudentRemoveScene;
+import GUI.Student.StudentViewScene;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -39,7 +38,7 @@ public class StudentRepository extends DatabaseConnection {
     }
 
     public void addStudent(String userName, String email, Date birthday, String gender, String address, String residence, String country) {
-        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, gender, address, residence, country))
+        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, address, residence, country))
             return;
 
         String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "')";
@@ -53,11 +52,7 @@ public class StudentRepository extends DatabaseConnection {
         ResultSet rs;
 
         if (studentName.equals("")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Oh no, an Error occurred!");
-            alert.setContentText("Name field is empty");
-            alert.showAndWait();
+            showError("Name field is empty");
             return null;
         }
 
@@ -67,11 +62,7 @@ public class StudentRepository extends DatabaseConnection {
             rs = executeSelectStatement(SQL);
 
             if (!rs.isBeforeFirst()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setHeaderText("Oh no, an Error occurred!");
-                alert.setContentText("Student not found.");
-                alert.showAndWait();
+                showError("Student not found.");
                 return null;
             }
 
@@ -91,7 +82,6 @@ public class StudentRepository extends DatabaseConnection {
     }
 
     public void deleteStudent() {
-
         StudentRemoveScene removeStudent = new StudentRemoveScene();
         String studentName = removeStudent.getStudentName();
 

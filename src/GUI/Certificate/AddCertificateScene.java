@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Certificate;
 
 import Database.CertificateRepository;
 import javafx.scene.control.Button;

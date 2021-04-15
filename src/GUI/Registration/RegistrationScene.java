@@ -1,14 +1,19 @@
-package GUI;
+package GUI.Registration;
 
 
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import Database.RegistrationRepository;
+import GUI.StartScene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-class RegistrationScene {
+public class RegistrationScene {
 
     private static GridPane RegistrationPane; // or any other kind of pane, or  Group...
 

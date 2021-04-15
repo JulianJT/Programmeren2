@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Registration;
 
 import Database.RegistrationRepository;
 import Domain.Registration;

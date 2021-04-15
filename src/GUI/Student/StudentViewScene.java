@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Student;
 
 import Database.StudentRepository;
 import javafx.scene.control.Button;

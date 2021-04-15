@@ -1,12 +1,12 @@
-package GUI;
+package GUI.Course;
 
 
 import Database.CourseRepository;
-import Domain.Course;
+import GUI.StartScene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-class CourseScene {
+public class CourseScene {
 
     private static GridPane CoursePane; // or any other kind of pane, or  Group...
 

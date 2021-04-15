@@ -8,22 +8,25 @@ import java.util.List;
 
 public class CertificateRepository extends DatabaseConnection {
 
+    // adds certificate to database
     public void addCertificate(String userName, String studentName, String course, String review) {
         if (InputCheck.INSTANCE.addCertificateInputCheck(course, userName, studentName, review)) {
             return;
         }
 
-        String SQL = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
-        executeInsertStatement(SQL);
+        String insert = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
+        executeInsertStatement(insert);
+        //TODO: Connect this certificate to a registration
     }
 
+    // gets certificate from database for student
     public List<Certificate> getCertificate(String studentName) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         ResultSet rs;
 
         try {
 
-            String SQL = "SELECT certificateID, review, nameWorker FROM Certificate WHERE certificateID IN ( SELECT certificateID FROM Registration INNER JOIN Student ON Registration.emailAddress = Student.emailAddress WHERE name = '" + studentName + "')";
+            String SQL = "SELECT certificateID, review, nameWorker FROM Certificate WHERE certificateID IN (SELECT certificateID FROM Registration WHERE emailAddress in (SELECT emailAddress FROM Student WHERE name = '" + studentName + "'))";
             rs = executeSelectStatement(SQL);
 
             while (rs.next()) {
@@ -40,11 +43,17 @@ public class CertificateRepository extends DatabaseConnection {
         return certificates;
     }
 
+    // returns percentage of people with certificate
     public int getCertificatePercentage(String gender) {
-        if (InputCheck.INSTANCE.getCertificatePercentageInputCheck()) {
-            return 0;
-        }
+
         //TODO: Implement Certificate Percentage
+
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeConnection();
         return 0;
     }
 }
