@@ -1,6 +1,8 @@
 package GUI;
 
 import Database.CourseRepository;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
@@ -13,7 +15,7 @@ public class AddCourseScene {
 
     public AddCourseScene() {
         AddCoursePane = new GridPane();
-        AddCoursePane.setVgap(8);
+        AddCoursePane.setVgap(10);
         AddCoursePane.setHgap(10);
 
 
@@ -23,14 +25,29 @@ public class AddCourseScene {
 
         TextField courseName = new TextField();
         TextField subject = new TextField();
-        TextField level = new TextField();
         TextArea introduction = new TextArea();
+        introduction.setMaxWidth(200);
+        introduction.setMaxHeight(100);
         final ComboBox<String> priorityComboBox = new ComboBox<>();
         priorityComboBox.getItems().addAll(courseRepository.getModules());
 
         Label nameCourseText = new Label("Course Name:");
         Label subjectText = new Label("Subject:");
-        Label levelIndicationText = new Label("Level:");
+
+
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Beginner",
+                        "Advanced",
+                        "Expert"
+
+                );
+
+        ComboBox levelField = new ComboBox(options);
+        Label levelText = new Label("Level: ");
+
+
+
         Label introText = new Label("Introduction:");
 
         GridPane addCourseInput = new GridPane();
@@ -38,15 +55,13 @@ public class AddCourseScene {
         addCourseInput.add(courseName, 0, 1);
         addCourseInput.add(subjectText, 1, 0);
         addCourseInput.add(subject, 1, 1);
-        addCourseInput.add(levelIndicationText, 0, 2);
-        addCourseInput.add(level, 0, 3);
-
-        addCourseInput.add(introText, 0, 4);
-        addCourseInput.add(introduction, 0, 5);
-        addCourseInput.add(priorityComboBox, 0, 6);
-
+        addCourseInput.add(levelText,0,2);
+        addCourseInput.add(levelField, 0, 3);
+        addCourseInput.add(priorityComboBox,1,4);
+        addCourseInput.add(introText, 0, 5);
+        addCourseInput.add(introduction, 0, 6);
         addCourseInput.add(backFromAddCourse, 0, 7);
-        addCourseInput.add(apply, 1, 7);
+        addCourseInput.add(apply, 1, 6);
 
         AddCoursePane.add(addCourseInput, 1, 1);
         addCourseInput.setHgap(8);
@@ -62,7 +77,7 @@ public class AddCourseScene {
             AddCourseScene.userName = courseName.getText();
             AddCourseScene.subjectName = subject.getText();
             AddCourseScene.intro = introduction.getText();
-            AddCourseScene.level = level.getText();
+            AddCourseScene.level = (String) levelField.getValue();
 
             addCourse.addCourse();
         });

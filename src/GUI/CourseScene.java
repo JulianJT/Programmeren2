@@ -41,6 +41,10 @@ class CourseScene {
             CourseViewScene courseViewScene = new CourseViewScene();
             CoursePane.getScene().setRoot(CourseViewScene.getCourseTable());
         });
+        removeCourses.setOnAction((event) -> {
+            CourseRemoveScene remove = new CourseRemoveScene();
+            CoursePane.getScene().setRoot(remove.getCourseRemovePane());
+        });
 
 
     }

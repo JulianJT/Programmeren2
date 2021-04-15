@@ -3,6 +3,8 @@ package Database;
 import Domain.Course;
 import Domain.Student;
 import GUI.AddCourseScene;
+import GUI.CourseRemoveScene;
+import GUI.StudentRemoveScene;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -57,7 +59,6 @@ public class CourseRepository extends DatabaseConnection {
     }
 
 
-
     public void addCourse() {
         String courseName = AddCourseScene.getCourseName();
         String subjectName = AddCourseScene.getSubjectName();
@@ -66,5 +67,25 @@ public class CourseRepository extends DatabaseConnection {
 
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
         executeInsertStatement(SQL);
+    }
+
+    public void deleteCourse() {
+
+        CourseRemoveScene removeCourse = new CourseRemoveScene();
+        String courseName = removeCourse.getCourseName();
+
+        try {
+
+            String SQL = "DELETE FROM course WHERE courseName = '" + courseName + "'";
+            int deleted = executeUpdateStatement(SQL);
+
+            if (deleted == 0) {
+                showError("Course not found!");
+            } else {
+                showInfo("Course successfully deleted.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
