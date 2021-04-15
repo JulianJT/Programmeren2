@@ -24,6 +24,7 @@ public class DatabaseConnection {
                 return rs;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             closeConnection();
         }
         return null;
@@ -34,9 +35,10 @@ public class DatabaseConnection {
             con = getConnection();
             if (con != null) {
                 stmt = con.createStatement();
-                stmt.executeQuery(SQL);
+                stmt.execute(SQL);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             closeConnection();
         }
@@ -49,7 +51,8 @@ public class DatabaseConnection {
                 stmt = con.createStatement();
                 return stmt.executeUpdate(SQL);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             closeConnection();
         }
