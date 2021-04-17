@@ -2,9 +2,13 @@ package Database;
 
 import Domain.Course;
 import GUI.Course.AddCourseScene;
+import GUI.Course.AddModuleScene;
 import GUI.Course.CourseRemoveScene;
+import GUI.Course.UpdateCourseScene;
 
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +70,52 @@ public class CourseRepository extends DatabaseConnection {
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
         executeInsertStatement(SQL);
     }
+
+    public void updateCourse() {
+        String courseName = UpdateCourseScene.getCourseName();
+        String subjectName = UpdateCourseScene.getSubjectName();
+        String intro = UpdateCourseScene.getIntroduction();
+        String level = UpdateCourseScene.getLevel();
+        String oldCourseName = UpdateCourseScene.getOldCourseName();
+
+        String SQL = "Update Course " + "SET" +" "+
+                "courseName='"+ courseName+"', subject='" +subjectName+"', introductionText='"+ intro+"', level_indication='"+ level+"' " +
+                "WHERE courseName='"+oldCourseName +"'";
+
+        String SQL2 = "Update Module " + "SET"+ " "+
+                "courseName='"+ courseName+"' "+
+                "WHERE courseName='"+oldCourseName+ "'";
+
+        System.out.println(SQL);
+        System.out.println(SQL2);
+        executeUpdateStatement(SQL2);
+        executeUpdateStatement(SQL);
+    }
+
+
+    public void addModule() {
+        String title = AddModuleScene.getTitle();
+        Integer version = AddModuleScene.getVersion();
+        String nameOrganization = AddModuleScene.getNameOrganization();
+        Integer contentItemId = AddModuleScene.getContentItemId();
+        String courseName = AddModuleScene.getCourseName();
+        Date publicationDate = AddModuleScene.getPublicationDate();
+        String contentStatus = AddModuleScene.getContentStatus();
+        String emailAddress = AddModuleScene.getEmailAddress();
+        String description = AddModuleScene.getDescription();
+        Integer serialNumber = AddModuleScene.getSerialNumber();
+
+
+
+        String SQL = "SET IDENTITY_INSERT ContentItem ON INSERT INTO ContentItem(contentItemID, PublicationDate, contentStatus) VALUES('" + contentItemId + "','" + publicationDate + "','" + contentStatus + "')" + "SET IDENTITY_INSERT ContentItem OFF";
+        String SQL2 = "SET IDENTITY_INSERT ContentItem ON INSERT INTO Module (title, version, nameOrganization, contentItemId, courseName, description, emailAddress, serialNumber) VALUES('" + title + "','" + version + "','" + nameOrganization + "','" + contentItemId + "','" + courseName + "','" + description + "', '" + emailAddress + "','" + serialNumber+ "')" + "SET IDENTITY_INSERT ContentItem OFF";
+
+        executeInsertStatement(SQL);
+        executeInsertStatement(SQL2);
+
+    }
+
+
 
     public void deleteCourse() {
 

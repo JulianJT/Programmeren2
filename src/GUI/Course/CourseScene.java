@@ -49,19 +49,22 @@ public class CourseScene {
             AddCourseScene addCourseScene = new AddCourseScene();
             coursePane.getScene().setRoot(AddCourseScene.getAddCoursePane());
         });
+        updateCourses.setOnAction((event) -> {
+            UpdateCourseScene updateCourseScene = new UpdateCourseScene();
+            coursePane.getScene().setRoot(updateCourseScene.getUpdateCoursePane());
+        });
         viewCourses.setOnAction((event) -> {
             CourseRepository list = new CourseRepository();
             CourseViewScene courseViewScene = new CourseViewScene();
-            coursePane.getScene().setRoot(CourseViewScene.getCourseTable());
+            coursePane.getScene().setRoot(courseViewScene.getCourseTable());
         });
         removeCourses.setOnAction((event) -> {
             CourseRemoveScene remove = new CourseRemoveScene();
             coursePane.getScene().setRoot(remove.getCourseRemovePane());
         });
-
         addModules.setOnAction((event) -> {
-            AddModuleScene addModuleScene = new AddModuleScene();
-            addModules.getScene().setRoot(AddModuleScene.getAddModulePane());
+            AddModuleScene AddModuleScene = new AddModuleScene();
+            coursePane.getScene().setRoot(AddModuleScene.getAddModulePane());
         });
     }
 
