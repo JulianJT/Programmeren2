@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 public class RegistrationPersonScene{
 
     private static GridPane list;
-    private static ListView listViewke;
 
     public RegistrationPersonScene(){
 
@@ -23,11 +22,11 @@ public class RegistrationPersonScene{
         RegistrationRepository rglist = new RegistrationRepository();
 
         ObservableList<Registration> names = FXCollections.observableArrayList(rglist.showStudents());
-        listViewke = new ListView<Registration>(names);
-        listViewke.setPrefWidth(500);
+        ListView<Registration> listView = new ListView<>(names);
+        listView.setPrefWidth(500);
 
 
-        list.add(listViewke,0,0);
+        list.add(listView,0,0);
         list.add(back,0,3);
 
         back.setOnAction(actionEvent -> {

@@ -48,7 +48,7 @@ public class StudentRemoveScene {
         });
 
         back.setOnAction((event) -> {
-            studentRemovePane.getScene().setRoot(StudentScene.getRootPane());
+            studentRemovePane.getScene().setRoot(StudentScene.getStudentPane());
         });
 
     }

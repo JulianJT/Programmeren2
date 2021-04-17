@@ -46,7 +46,7 @@ public class StudentViewScene {
         StudentRepository repository = new StudentRepository();
 
         back.setOnAction((event) -> {
-                studentViewPane.getScene().setRoot(StudentScene.getRootPane());
+                studentViewPane.getScene().setRoot(StudentScene.getStudentPane());
         });
 
 

@@ -3,9 +3,8 @@ package GUI.Student;
 
 import Database.StudentRepository;
 import GUI.StartScene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -14,15 +13,11 @@ import javafx.scene.text.TextAlignment;
 
 public class StudentScene {
 
-    private static GridPane studentPane; // or any other kind of pane, or  Group...
+    private static VBox studentPane;
 
     public StudentScene() {
-
-        studentPane = new GridPane();
-        studentPane.setVgap(8);
-        studentPane.setHgap(10);
-        VBox mainStVBox = new VBox();
-        HBox stButtonHBox = new HBox();
+        studentPane = new VBox();
+        studentPane.setSpacing(10);
 
         Text studentText = new Text();
         studentText.setFont(new Font(30));
@@ -30,18 +25,18 @@ public class StudentScene {
         studentText.setText("Student Menu");
 
         Button addStudents = new Button("Add student(s)");
+        addStudents.setMaxSize(250,200);
         Button removeStudents = new Button("Remove Student(s)");
+        removeStudents.setMaxSize(250,200);
         Button viewStudents = new Button("View Student(s)");
+        viewStudents.setMaxSize(250,200);
         Button viewProfile = new Button("View profile");
+        viewProfile.setMaxSize(250,200);
         Button back = new Button("Back");
+        back.setMaxSize(250,200);
 
-        mainStVBox.setSpacing(10);
-        mainStVBox.getChildren().addAll(studentText, stButtonHBox, back);
-
-        stButtonHBox.setSpacing(10);
-        stButtonHBox.getChildren().addAll(addStudents, removeStudents, viewStudents, viewProfile);
-
-        studentPane.add(mainStVBox, 1, 1);
+        studentPane.getChildren().addAll(studentText, addStudents, removeStudents, viewStudents, viewProfile, back);
+        studentPane.setAlignment(Pos.CENTER);
 
         back.setOnAction((event) -> {
             studentPane.getScene().setRoot(StartScene.getStartMenu());
@@ -65,12 +60,12 @@ public class StudentScene {
         });
 
         viewProfile.setOnAction((event) -> {
-            StudentViewScene remove = new StudentViewScene();
-            studentPane.getScene().setRoot(remove.getStudentViewPane());
+            StudentViewScene view = new StudentViewScene();
+            studentPane.getScene().setRoot(view.getStudentViewPane());
         });
     }
 
-    public static Pane getRootPane() {
+    public static VBox getStudentPane() {
         return studentPane;
     }
 

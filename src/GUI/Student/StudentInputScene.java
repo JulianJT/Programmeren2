@@ -80,7 +80,7 @@ public class StudentInputScene {
 
 
         back.setOnAction((event) -> {
-            studentInputPane.getScene().setRoot(StudentScene.getRootPane());
+            studentInputPane.getScene().setRoot(StudentScene.getStudentPane());
         });
 
         StudentRepository addstudent = new StudentRepository();

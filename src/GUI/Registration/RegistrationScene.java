@@ -3,9 +3,9 @@ package GUI.Registration;
 
 import Database.RegistrationRepository;
 import GUI.StartScene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -15,67 +15,60 @@ import javafx.scene.text.TextAlignment;
 
 public class RegistrationScene {
 
-    private static GridPane RegistrationPane; // or any other kind of pane, or  Group...
+    private static VBox registrationPane;
 
     private static int amount = 0;
 
     public RegistrationScene() {
 
-        RegistrationPane = new GridPane();
-        RegistrationPane.setVgap(8);
-        RegistrationPane.setHgap(10);
-        VBox RegVBox = new VBox();
-        HBox RegHBox = new HBox();
+        registrationPane = new VBox();
+        registrationPane.setSpacing(10);
+
+        Text registrationText = new Text();
+        registrationText.setFont(new Font(30));
+        registrationText.setTextAlignment(TextAlignment.JUSTIFY);
+        registrationText.setText("Registration Menu");
 
         Button viewPersonRegistrations = new Button("Show persons");
+        viewPersonRegistrations.setMaxSize(250,200);
         Button viewCourseRegistrations = new Button("Show courses");
-        Button showTotalRegistration = new Button("Show");
+        viewCourseRegistrations.setMaxSize(250,200);
+        Button showTotalRegistration = new Button("Show amount of registrations");
+        showTotalRegistration.setMaxSize(250,200);
         Button backFromRegistration = new Button("Back");
+        backFromRegistration.setMaxSize(250,200);
 
-        Text amountText = new Text();
-        amountText.setText("Amount of registrations: "+ amount);
-        Label RegistrationText = new Label("Registration Overview.");
-        RegistrationText.setFont(new Font(30));
-        RegistrationText.setTextAlignment(TextAlignment.JUSTIFY);
-
-        RegVBox.setSpacing(10);
-        RegVBox.getChildren().addAll(RegistrationText, viewPersonRegistrations,
-                viewCourseRegistrations, RegHBox, backFromRegistration );
-
-        RegHBox.setSpacing(10);
-        RegHBox.getChildren().addAll( showTotalRegistration, amountText);
-
-        RegistrationPane.add(RegVBox,1,1);
-
+        registrationPane.getChildren().addAll(registrationText, viewPersonRegistrations, viewCourseRegistrations, showTotalRegistration, backFromRegistration);
+        registrationPane.setAlignment(Pos.CENTER);
 
 
         backFromRegistration.setOnAction((event) -> {
-            RegistrationPane.getScene().setRoot(StartScene.getStartMenu());
+            registrationPane.getScene().setRoot(StartScene.getStartMenu());
         });
 
         viewPersonRegistrations.setOnAction((event) -> {
             RegistrationPersonScene persons = new RegistrationPersonScene();
-            RegistrationPane.getScene().setRoot(persons.getRegistrationPersonPane());
+            registrationPane.getScene().setRoot(persons.getRegistrationPersonPane());
             RegistrationRepository list = new RegistrationRepository();
             list.showStudents();
         });
 
         viewCourseRegistrations.setOnAction((event) -> {
             RegistrationCourseScene courses = new RegistrationCourseScene();
-            RegistrationPane.getScene().setRoot(courses.getRegistrationCoursePane());
+            registrationPane.getScene().setRoot(courses.getRegistrationCoursePane());
         });
 
         showTotalRegistration.setOnAction((event) -> {
             RegistrationRepository getRegistrationAmount = new RegistrationRepository();
             amount = getRegistrationAmount.getRegistrationAmount();
-            amountText.setText("Amount of registrations: "+ amount);
+            showTotalRegistration.setText("Amount of registrations: "+ amount);
         });
 
 
     }
 
-    public static Pane getRegistrationPane() {
-        return RegistrationPane;
+    public static VBox getRegistrationPane() {
+        return registrationPane;
     }
 
 }

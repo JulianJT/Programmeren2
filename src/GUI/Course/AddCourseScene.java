@@ -40,7 +40,6 @@ public class AddCourseScene {
                         "Beginner",
                         "Advanced",
                         "Expert"
-
                 );
 
         ComboBox levelField = new ComboBox(options);

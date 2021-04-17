@@ -2,26 +2,23 @@ package Domain;
 
 public class Student {
     private final String name;
-    private final String address;
-    private String email;
+    private final String email;
 
 
-    public Student(String name, String address) {
+    public Student(String name, String email) {
         this.name = name;
-        this.address = address;
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public String getName() {
         return name;
     }
 
-    public String toString() {
+    public String getEmail() {
+        return email;
+    }
 
-        return "Name: " + name + " | " + "E-mail: " + address + "\n";
+    public String toString() {
+        return "Name: " + name + " | " + "E-mail: " + email + "\n";
     }
 }

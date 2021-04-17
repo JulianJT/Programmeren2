@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 
 public class RegistrationCourseScene{
     private static GridPane list;
-    private static ListView listView;
 
     public RegistrationCourseScene(){
 
@@ -19,10 +18,10 @@ public class RegistrationCourseScene{
         list.setHgap(8);
         Button back = new Button("Back");
 
-        RegistrationRepository rgclist = new RegistrationRepository();
+        RegistrationRepository rgcList = new RegistrationRepository();
 
-        ObservableList<Registration> courses = FXCollections.observableArrayList(rgclist.showCourses());
-        listView = new ListView<Registration>(courses);
+        ObservableList<Registration> courses = FXCollections.observableArrayList(rgcList.showCourses());
+        ListView<Registration> listView = new ListView<>(courses);
         listView.setPrefWidth(500);
 
         list.add(listView,0,0);

@@ -3,59 +3,70 @@ package GUI.Course;
 
 import Database.CourseRepository;
 import GUI.StartScene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class CourseScene {
 
-    private static GridPane CoursePane; // or any other kind of pane, or  Group...
+    private static VBox coursePane;
 
     public CourseScene() {
 
-        CoursePane = new GridPane();
-        CoursePane.setVgap(8);
-        CoursePane.setHgap(10);
+        coursePane = new VBox();
+        coursePane.setSpacing(10);
+
+        Text courseText = new Text();
+        courseText.setFont(new Font(30));
+        courseText.setTextAlignment(TextAlignment.JUSTIFY);
+        courseText.setText("Course Menu");
+
         Button addCourses = new Button("Add course(s)");
+        addCourses.setMaxSize(250,200);
         Button removeCourses = new Button("Remove course(s)");
+        removeCourses.setMaxSize(250,200);
         Button viewCourses = new Button("View course(s)");
+        viewCourses.setMaxSize(250,200);
         Button updateCourses = new Button("Update course(s)");
+        updateCourses.setMaxSize(250,200);
         Button addModules = new Button("Add module");
-
+        addModules.setMaxSize(250, 200);
         Button back = new Button("Back");
-        CoursePane.add(addCourses, 1, 0);
-        CoursePane.add(removeCourses, 1, 1);
-        CoursePane.add(viewCourses, 2, 0);
-        CoursePane.add(updateCourses, 2, 1);
-        CoursePane.add(addModules,3,0);
-        CoursePane.add(back, 1, 5);
+        back.setMaxSize(250,200);
 
+        coursePane.getChildren().addAll(courseText, addCourses, removeCourses, viewCourses, updateCourses, addModules, back);
+        coursePane.setAlignment(Pos.CENTER);
 
         back.setOnAction((event) -> {
-            CoursePane.getScene().setRoot(StartScene.getStartMenu());
+            coursePane.getScene().setRoot(StartScene.getStartMenu());
         });
 
         addCourses.setOnAction((event) -> {
             AddCourseScene addCourseScene = new AddCourseScene();
-            CoursePane.getScene().setRoot(AddCourseScene.getAddCoursePane());
+            coursePane.getScene().setRoot(AddCourseScene.getAddCoursePane());
         });
         viewCourses.setOnAction((event) -> {
             CourseRepository list = new CourseRepository();
             CourseViewScene courseViewScene = new CourseViewScene();
-            CoursePane.getScene().setRoot(CourseViewScene.getCourseTable());
+            coursePane.getScene().setRoot(CourseViewScene.getCourseTable());
         });
         removeCourses.setOnAction((event) -> {
             CourseRemoveScene remove = new CourseRemoveScene();
-            CoursePane.getScene().setRoot(remove.getCourseRemovePane());
+            coursePane.getScene().setRoot(remove.getCourseRemovePane());
         });
+
         addModules.setOnAction((event) -> {
             AddModuleScene addModuleScene = new AddModuleScene();
             addModules.getScene().setRoot(AddModuleScene.getAddModulePane());
         });
-
     }
 
-    public static GridPane getCoursePane() {
-        return CoursePane;
+    public static VBox getCoursePane() {
+        return coursePane;
     }
 
 }

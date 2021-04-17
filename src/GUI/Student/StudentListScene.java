@@ -12,24 +12,22 @@ import javafx.scene.layout.GridPane;
 public class StudentListScene {
 
     private static GridPane list;
-    private static ListView listView;
 
     public StudentListScene() {
 
         list = new GridPane();
         Button back = new Button("Back");
 
-        StudentRepository stlist = new StudentRepository();
+        StudentRepository stList = new StudentRepository();
 
-        ObservableList<Student> names = FXCollections.observableArrayList(stlist.getAllStudents());
-        listView = new ListView<>(names);
+        ObservableList<Student> names = FXCollections.observableArrayList(stList.getAllStudents());
+        ListView<Student> listView = new ListView<>(names);
         listView.setPrefWidth(500);
-
         list.add(listView, 0, 0);
-        list.add(back,0,1);
+        list.add(back, 0, 1);
 
         back.setOnAction((event) -> {
-            list.getScene().setRoot(StudentScene.getRootPane());
+            list.getScene().setRoot(StudentScene.getStudentPane());
         });
     }
 

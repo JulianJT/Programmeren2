@@ -16,15 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StartScene extends Application {
-
-
-
     private static HBox root2;
     public static Pane getStartMenu() {
         return root2;
     }
 
-    // C:\Users\jdtji\Desktop\eo_codecademy_01.jpg
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -63,7 +59,7 @@ public class StartScene extends Application {
 
         student.setOnAction((event) -> {
             StudentScene students = new StudentScene();
-            primaryStage.getScene().setRoot(students.getRootPane());
+            primaryStage.getScene().setRoot(students.getStudentPane());
         });
 
         registration.setOnAction((event) -> {

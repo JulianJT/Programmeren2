@@ -1,6 +1,7 @@
 package GUI.Certificate;
 
 import Database.CertificateRepository;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,21 +18,23 @@ public class AddCertificateScene {
     private static String course;
     private static String review;
 
-    private static GridPane AddCertificatePane;
+    private static GridPane addCertificatePane;
 
     public AddCertificateScene() {
-        AddCertificatePane = new GridPane();
-        AddCertificatePane.setVgap(8);
-        AddCertificatePane.setHgap(10);
+        addCertificatePane = new GridPane();
+        addCertificatePane.setVgap(8);
+        addCertificatePane.setHgap(10);
         VBox addCertVBox = new VBox();
 
         Text addCertText = new Text();
-        addCertText.setFont(new Font(18));
+        addCertText.setFont(new Font(30));
         addCertText.setTextAlignment(TextAlignment.JUSTIFY);
-        addCertText.setText("Here you can add certificates to students.");
+        addCertText.setText("Add certificates");
 
         Button apply = new Button("Apply");
+        apply.setMaxSize(200, 250);
         Button backFromAddCertificate = new Button("Back");
+        backFromAddCertificate.setMaxSize(200, 250);
         TextField studentName = new TextField();
         TextField review = new TextField();
         TextField workerName = new TextField();
@@ -54,14 +57,17 @@ public class AddCertificateScene {
         addCertificateInput.add(backFromAddCertificate, 0, 4);
         addCertificateInput.add(apply, 1, 4);
 
-        AddCertificatePane.add(addCertVBox, 1, 1);
+        addCertificatePane.add(addCertVBox, 1, 1);
         addCertificateInput.setHgap(8);
         addCertificateInput.setVgap(8);
         addCertVBox.setSpacing(10);
         addCertVBox.getChildren().addAll(addCertText, addCertificateInput);
 
+        addCertVBox.setAlignment(Pos.CENTER);
+        addCertificatePane.setAlignment(Pos.CENTER);
+
         backFromAddCertificate.setOnAction((event) -> {
-            AddCertificatePane.getScene().setRoot(CertificateScene.getCertificatePane());
+            addCertificatePane.getScene().setRoot(CertificateScene.getCertificatePane());
         });
 
         CertificateRepository addCertificate = new CertificateRepository();
@@ -77,7 +83,7 @@ public class AddCertificateScene {
     }
 
     public static GridPane getAddCertificatePane() {
-        return AddCertificatePane;
+        return addCertificatePane;
     }
 
     public static String getUserName() {
