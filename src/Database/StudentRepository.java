@@ -12,6 +12,12 @@ import java.util.List;
 
 public class StudentRepository extends DatabaseConnection {
 
+    String studentName;
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
     public List<Student> getAllStudents() {
         ArrayList<Student> students = new ArrayList<>();
         String name;
@@ -37,11 +43,11 @@ public class StudentRepository extends DatabaseConnection {
         return students;
     }
 
-    public void addStudent(String userName, String email, Date birthday, String gender, String address, String residence, String country) {
-        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, address, residence, country))
+    public void addStudent(String userName, String email, Date birthday, String gender, String address, String residence, String country, String zipcode) {
+        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, address, residence, country, zipcode))
             return;
 
-        String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "')";
+        String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country, zipcode) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "','"+ zipcode +"')";
         executeInsertStatement(SQL);
     }
 
@@ -81,9 +87,7 @@ public class StudentRepository extends DatabaseConnection {
         return studentProfile.toString();
     }
 
-    public void deleteStudent() {
-        StudentRemoveScene removeStudent = new StudentRemoveScene();
-        String studentName = removeStudent.getStudentName();
+    public void deleteStudent(String studentName) {
 
         try {
 
@@ -91,10 +95,13 @@ public class StudentRepository extends DatabaseConnection {
             int deleted = executeUpdateStatement(SQL);
 
             if (deleted == 0) {
+                System.out.println("Student not found!");
                 showError("Student not found!");
             } else {
+                System.out.println("Student successfully deleted.");
                 showInfo("Student successfully deleted.");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

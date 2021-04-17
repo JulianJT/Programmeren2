@@ -20,6 +20,7 @@ public class StudentInputScene {
     private static String address;
     private static String residence;
     private static String country;
+    private static String zipcode;
 
     private static GridPane studentInputPane;
 
@@ -43,6 +44,8 @@ public class StudentInputScene {
         TextField addressField = new TextField();
         TextField residenceField = new TextField();
         TextField countryField = new TextField();
+        TextField zipCodeField = new TextField();
+
 
         Label emailText = new Label("E-mail Address");
         Label nameText = new Label("Full name");
@@ -51,6 +54,7 @@ public class StudentInputScene {
         Label addressText = new Label("Address");
         Label residenceText = new Label("Residence");
         Label countryText = new Label("Country");
+        Label zipCodeText = new Label("Zipcode");
         Button back = new Button("Back");
         Button apply = new Button("Apply");
 
@@ -69,6 +73,8 @@ public class StudentInputScene {
         addStudentInput.add(residenceField, 1, 3);
         addStudentInput.add(countryText, 1, 4);
         addStudentInput.add(countryField, 1, 5);
+        addStudentInput.add(zipCodeText, 1 , 6);
+        addStudentInput.add(zipCodeField, 1, 7);
         addStudentInput.add(back, 0, 8);
         addStudentInput.add(apply, 1, 8);
 
@@ -90,7 +96,7 @@ public class StudentInputScene {
             try {
 
                 birthday = java.sql.Date.valueOf(datePicker.getValue());
-
+  
             } catch (NullPointerException e){
 
                 System.out.println("Birthday is empty");
@@ -104,6 +110,8 @@ public class StudentInputScene {
                 return;
 
             }
+
+            zipcode = zipCodeField.getText();
             userName = fullName.getText();
             email = emailField.getText();
             gender = (String) genderField.getValue();
@@ -111,7 +119,7 @@ public class StudentInputScene {
             residence = residenceField.getText();
             country = countryField.getText();
 
-            addstudent.addStudent(userName, email, birthday, gender, address, residence, country);
+            addstudent.addStudent(userName, email, birthday, gender, address, residence, country, zipcode);
         });
     }
 

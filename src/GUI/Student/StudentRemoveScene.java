@@ -44,7 +44,7 @@ public class StudentRemoveScene {
 
         confirm.setOnAction((event) -> {
             studentName = student.getText();
-                repository.deleteStudent();
+                repository.deleteStudent(studentName);
         });
 
         back.setOnAction((event) -> {
