@@ -16,7 +16,7 @@ public class CertificateRepository extends DatabaseConnection {
 
         String insert = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
         executeInsertStatement(insert);
-        //TODO: Connect this certificate to a registration
+        //TODO: Connect this certificate to a registration. Use studentName and course.
     }
 
     // gets certificate from database for student
@@ -57,4 +57,3 @@ public class CertificateRepository extends DatabaseConnection {
         return 0;
     }
 }
-

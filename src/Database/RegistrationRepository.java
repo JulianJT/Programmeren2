@@ -51,17 +51,17 @@ public class RegistrationRepository extends DatabaseConnection {
 
             rs = executeSelectStatement(SQL);
 
-                while (rs.next()) {
-                    course = rs.getString("courseName");
-                    name = rs.getString("name");
+            while (rs.next()) {
+                course = rs.getString("courseName");
+                name = rs.getString("name");
 
-                    if (rs.wasNull()) {
-                        name = "No registrations yet";
-                    }
-
-                    Registration CourseReg = new Registration(course, name);
-                    coursesRegistration.add(CourseReg);
+                if (rs.wasNull()) {
+                    name = "No registrations yet";
                 }
+
+                Registration CourseReg = new Registration(course, name);
+                coursesRegistration.add(CourseReg);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
