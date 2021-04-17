@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 public class InputCheck {
 
-    protected static InputCheck INSTANCE = new InputCheck();
+    public static InputCheck INSTANCE = new InputCheck();
 
-    protected boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
+    public boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
         if (course.isEmpty()) {
             showAlert("Course is empty");
             return true;
@@ -39,7 +39,7 @@ public class InputCheck {
         return false;
     }
 
-    protected boolean addStudentInputCheck(String userName, String email, String address, String residence, String country) {
+    public boolean addStudentInputCheck(String userName, String email, String address, String residence, String country) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
@@ -81,7 +81,6 @@ public class InputCheck {
             Integer.parseInt(review);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }

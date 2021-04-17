@@ -22,7 +22,7 @@ public class StartScene extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         Image image1 = new Image("eo_codecademy_01.jpg");
 
