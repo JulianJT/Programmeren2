@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+// This class creates the add module scene
+
 public class AddModuleScene {
     private static String title;
     private static Integer version;

@@ -12,6 +12,8 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Date;
 
+// This class creates the add student scene.
+
 public class StudentInputScene {
     private static String userName;
     private static String email;

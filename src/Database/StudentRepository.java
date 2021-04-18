@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+// This class contains methods that executes and builds queries for Student
+
 public class StudentRepository extends DatabaseConnection {
 
     String studentName;

@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
+// This class creates the Student List scene.
+
 public class StudentListScene {
 
     private static GridPane list;

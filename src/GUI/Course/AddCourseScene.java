@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+// This class creates the add course scene
+
 public class AddCourseScene {
     private static String userName;
     private static String subjectName;

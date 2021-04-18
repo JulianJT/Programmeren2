@@ -1,5 +1,7 @@
 package Domain;
 
+// Registration object class
+
 public class Registration {
     private final String name;
     private final String course;

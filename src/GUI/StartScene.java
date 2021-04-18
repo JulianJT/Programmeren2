@@ -15,6 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+// This class creates the start scene of the application.
+
 public class StartScene extends Application {
     private static HBox root2;
     public static Pane getStartMenu() {

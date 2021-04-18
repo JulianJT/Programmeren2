@@ -13,6 +13,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+// This class creates the get certificate(s) scene
+
 public class GetCertificateScene {
 
     private static HBox getCertificatePane;

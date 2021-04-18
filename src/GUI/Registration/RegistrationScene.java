@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+// This class generates the main Registration scene
+
 public class RegistrationScene {
 
     private static VBox registrationPane;

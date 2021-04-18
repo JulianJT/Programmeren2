@@ -1,5 +1,7 @@
 package Domain;
 
+// Certificate object class
+
 public class Certificate {
     private final int review;
     private final int certificateId;

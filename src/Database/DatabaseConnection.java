@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
+// This class creates the connection to the database.
+
 public class DatabaseConnection {
     private final static String DBNAME = "QuatroOpdracht";
     private final static String USER = "sa";
@@ -18,12 +20,14 @@ public class DatabaseConnection {
     // executes SELECT statements, returns results.
     protected ResultSet executeSelectStatement(String SQL) {
         try {
+
             con = getConnection();
             if (con != null) {
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(SQL);
                 return rs;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             closeConnection();

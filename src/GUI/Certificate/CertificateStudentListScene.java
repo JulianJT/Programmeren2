@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
+// This class creates the view student list scene.
+
 public class CertificateStudentListScene {
     private static GridPane list;
     private static ListView listView;

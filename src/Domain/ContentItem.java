@@ -1,5 +1,7 @@
 package Domain;
 
+// ContentItem object class
+
 public class ContentItem {
     private final int publicationDate;
     private final int id;

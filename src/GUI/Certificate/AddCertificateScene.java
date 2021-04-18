@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+// This class creates the add certificate scene
+
 public class AddCertificateScene {
 
     private static String userName;

@@ -1,5 +1,7 @@
 package Domain;
 
+// Module object class
+
 public class Module extends ContentItem {
     private final String title;
     private final String versionDescription;

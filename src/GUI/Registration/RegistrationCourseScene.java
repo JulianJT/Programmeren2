@@ -9,6 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+// This class creates the registration course scene.
+
 public class RegistrationCourseScene{
     private static GridPane list;
 

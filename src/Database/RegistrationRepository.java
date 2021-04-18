@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+// This class contains methods that executes and builds queries for Registration
+
 public class RegistrationRepository extends DatabaseConnection {
 
     public List<Registration> showStudents() {

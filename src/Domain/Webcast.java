@@ -1,5 +1,7 @@
 package Domain;
 
+// Student object class
+
 public class Webcast extends ContentItem {
     private final String title;
     private final String description;

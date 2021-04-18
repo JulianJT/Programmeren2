@@ -12,6 +12,8 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+// This class contains methods that executes and builds queries for Courses
+
 public class CourseRepository extends DatabaseConnection {
 
     public String getModules() {

@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-
+// This class creates the course remove scene.
 
 public class CourseRemoveScene {
 

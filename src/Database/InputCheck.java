@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// This class checks the user input in certificate and student.
+
 public class InputCheck {
 
     public static InputCheck INSTANCE = new InputCheck();
@@ -76,6 +78,11 @@ public class InputCheck {
 
         if (zipcode.isEmpty()) {
             showAlert("Zipcode is empty");
+            return true;
+        }
+
+        if (zipcode.length() > 9) {
+            showAlert("Max zipcode size is 9 characters");
             return true;
         }
 

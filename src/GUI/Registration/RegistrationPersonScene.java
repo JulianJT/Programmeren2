@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
+// This class creates the register user scene.
+
 public class RegistrationPersonScene{
 
     private static GridPane list;

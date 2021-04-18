@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+// This class contains methods that executes and builds queries for Certificate
+
 public class CertificateRepository extends DatabaseConnection {
 
     // adds certificate to database

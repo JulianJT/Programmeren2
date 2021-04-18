@@ -9,6 +9,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+// This class creates the Student search scene.
+
 public class StudentViewScene {
 
     private static String studentName;

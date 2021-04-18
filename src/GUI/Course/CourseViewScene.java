@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
+// This class creates the scene where you can view the courses
+
 public class CourseViewScene {
 
     private static GridPane list;
