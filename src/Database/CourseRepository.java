@@ -142,7 +142,7 @@ public class CourseRepository extends DatabaseConnection {
 
         try {
 
-            String SQL = "DELETE FROM course WHERE courseName = '" + courseName + "'";
+            String SQL = "DELETE FROM Course WHERE courseName = '" + courseName + "'";
             int deleted = executeUpdateStatement(SQL);
 
             if (deleted == 0) {
