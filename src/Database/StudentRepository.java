@@ -49,6 +49,7 @@ public class StudentRepository extends DatabaseConnection {
 
         String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country, zipcode) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "','"+ zipcode +"')";
         executeInsertStatement(SQL);
+        showInfo("Student successfully added to database.");
     }
 
     public String viewStudent() {

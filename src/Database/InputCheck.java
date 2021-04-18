@@ -73,6 +73,12 @@ public class InputCheck {
             showAlert("Country is empty");
             return true;
         }
+
+        if (zipcode.isEmpty()) {
+            showAlert("Zipcode is empty");
+            return true;
+        }
+
         return false;
     }
 
