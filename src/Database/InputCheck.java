@@ -9,8 +9,10 @@ import java.util.regex.Pattern;
 
 public class InputCheck {
 
+    private static final String zipcodeRegex = "[1-9]{1}[0-9]{3}[a-zA-Z]{2}";
     private static final String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
     private static final Pattern emailPattern = Pattern.compile(emailRegex);
+    private static final Pattern zipcodePattern = Pattern.compile(zipcodeRegex);
 
     public static InputCheck INSTANCE = new InputCheck();
 
@@ -65,11 +67,17 @@ public class InputCheck {
     }
 
     //This method checks the input values from the AddStudentScene.
-    public boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode) {
+    public boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode, String gender) {
         Matcher matcher = emailPattern.matcher(email);
+        Matcher zipMatcher = zipcodePattern.matcher(zipcode);
 
         if (!(matcher.matches())) {
             showAlert("Invalid email specified.");
+            return true;
+        }
+
+        if (!(zipMatcher.matches())) {
+            showAlert("Invalid zipcode.");
             return true;
         }
 
@@ -98,6 +106,11 @@ public class InputCheck {
             return true;
         }
 
+        if (gender == null) {
+            showAlert("Gender is empty");
+            return true;
+        }
+
         if (zipcode.isEmpty()) {
             showAlert("Zipcode is empty");
             return true;
@@ -107,6 +120,8 @@ public class InputCheck {
             showAlert("Max zipcode size is 9 characters");
             return true;
         }
+
+
 
         return false;
     }
