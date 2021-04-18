@@ -47,15 +47,86 @@ public class CertificateRepository extends DatabaseConnection {
 
     // returns percentage of people with certificate
     public int getCertificatePercentage(String gender) {
+        ResultSet rs;
+        int x = 0;
+        int y = 0;
 
-        //TODO: Implement Certificate Percentage
+        if (gender == "Male") {
+            try {
+                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                        "WHERE gender = 'Male' AND Certificate.certificateID IS NOT NULL";
+                rs = executeSelectStatement(SQL);
+                System.out.println(SQL);
 
-        try {
+                while (rs.next()) {
+                    x++;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                        "WHERE gender = 'Female' AND Certificate.certificateID IS NOT NULL";
+                rs = executeSelectStatement(SQL);
+                System.out.println(SQL);
+
+                while (rs.next()) {
+                    y++;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            closeConnection();
+            int xy = x+y;
+            int z = (x*100);
+            int w = z/xy;
+
+            return w;
+        } else if (gender == "Female") {
+
+            try {
+                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                        "WHERE gender = 'Female' AND Certificate.certificateID IS NOT NULL";
+                rs = executeSelectStatement(SQL);
+                System.out.println(SQL);
+
+                while (rs.next()) {
+                    y++;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                        "WHERE gender = 'Male' AND Certificate.certificateID IS NOT NULL";
+                rs = executeSelectStatement(SQL);
+                System.out.println(SQL);
+
+                while (rs.next()) {
+                    x++;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            closeConnection();
+
+            int xy = x+y;
+            int z = (y*100);
+            int w = z/xy;
+
+            return w;
+
+        }else{
+            return 0;
         }
-        closeConnection();
-        return 0;
     }
 }
