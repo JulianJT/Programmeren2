@@ -1,9 +1,11 @@
 package GUI.Student;
 
 import Database.StudentRepository;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -19,7 +21,9 @@ public class StudentViewScene {
     public StudentViewScene() {
 
         studentViewPane = new GridPane();
+        studentViewPane.setAlignment(Pos.CENTER);
         VBox addStVVbox = new VBox();
+        addStVVbox.setAlignment(Pos.CENTER);
         studentViewPane.setVgap(10);
         studentViewPane.setHgap(8);
 
@@ -31,20 +35,24 @@ public class StudentViewScene {
         TextField student = new TextField();
 
         Button back = new Button("Back");
+        back.setMinWidth(100);
         Button confirm = new Button("OK");
+        confirm.setMinWidth(100);
 
-        GridPane viewStudent = new GridPane();
-        viewStudent.add(instruction, 0,0);
-        viewStudent.add(student, 0, 1);
-        viewStudent.add(back, 0,2);
-        viewStudent.add(confirm, 2,1);
-        viewStudent.add(studentInfo, 0,3);
+        HBox viewStudent = new HBox();
+        viewStudent.setAlignment(Pos.CENTER);
+        viewStudent.setSpacing(10);
+        viewStudent.getChildren().addAll(back, confirm);
+
+
+        VBox vwStudent = new VBox();
+        vwStudent.setAlignment(Pos.CENTER);
+        vwStudent.setSpacing(10);
+        vwStudent.getChildren().addAll(instruction, student);
 
         studentViewPane.add(addStVVbox, 1, 1);
-        viewStudent.setHgap(8);
-        viewStudent.setVgap(8);
         addStVVbox.setSpacing(10);
-        addStVVbox.getChildren().addAll(instruction, viewStudent);
+        addStVVbox.getChildren().addAll(instruction, vwStudent, viewStudent, studentInfo);
         StudentRepository repository = new StudentRepository();
 
         back.setOnAction((event) -> {
@@ -59,9 +67,12 @@ public class StudentViewScene {
 
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public GridPane getStudentViewPane() {
         return studentViewPane;
     }
+
+    //This method retrieves the studentname from this scene.
     public String getStudentName() {
         return studentName;
     }

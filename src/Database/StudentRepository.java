@@ -1,7 +1,6 @@
 package Database;
 
 import Domain.Student;
-import GUI.Student.StudentRemoveScene;
 import GUI.Student.StudentViewScene;
 
 import java.sql.ResultSet;
@@ -14,12 +13,8 @@ import java.util.List;
 
 public class StudentRepository extends DatabaseConnection {
 
-    String studentName;
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
+    //This method shows all the students in the database.
     public List<Student> getAllStudents() {
         ArrayList<Student> students = new ArrayList<>();
         String name;
@@ -31,13 +26,13 @@ public class StudentRepository extends DatabaseConnection {
             String SQL = "SELECT * FROM Student";
             rs = executeSelectStatement(SQL);
 
-                while (rs.next()) {
-                    name = rs.getString("name");
-                    email = rs.getString("emailAddress");
+            while (rs.next()) {
+                name = rs.getString("name");
+                email = rs.getString("emailAddress");
 
-                    Student student = new Student(name, email);
-                    students.add(student);
-                }
+                Student student = new Student(name, email);
+                students.add(student);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,15 +40,17 @@ public class StudentRepository extends DatabaseConnection {
         return students;
     }
 
+    //This method retrieves the information it needs from studentInput and executes a query with these parameters. After this the data gets added to the database.
     public void addStudent(String userName, String email, Date birthday, String gender, String address, String residence, String country, String zipcode) {
         if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, address, residence, country, zipcode))
             return;
 
-        String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country, zipcode) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "','"+ zipcode +"')";
+        String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country, zipcode) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "','" + zipcode + "')";
         executeInsertStatement(SQL);
         showInfo("Student successfully added to database.");
     }
 
+    //This method retrieves a student from the database.
     public String viewStudent() {
         StringBuilder studentProfile = new StringBuilder();
         StudentViewScene viewStudent = new StudentViewScene();
@@ -90,6 +87,7 @@ public class StudentRepository extends DatabaseConnection {
         return studentProfile.toString();
     }
 
+    //This method deletes a specified student from the database. It retrieves its information from studentRemoveScene.
     public void deleteStudent(String studentName) {
 
         try {

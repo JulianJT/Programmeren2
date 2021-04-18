@@ -84,23 +84,13 @@ public class AddCertificateScene {
         });
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getAddCertificatePane() {
         return addCertificatePane;
     }
 
-    public static String getUserName() {
-        return userName;
-    }
-
-    public static String getStudentName() {
-        return studentName;
-    }
-
+    //This method retrieves the course name.
     public static String getCourse() {
         return course;
-    }
-
-    public static String getReview() {
-        return review;
     }
 }

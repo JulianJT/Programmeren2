@@ -3,6 +3,7 @@ package GUI.Course;
 import Database.CourseRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
@@ -17,6 +18,7 @@ public class AddCourseScene {
 
     public AddCourseScene() {
         AddCoursePane = new GridPane();
+        AddCoursePane.setAlignment(Pos.CENTER);
         AddCoursePane.setVgap(10);
         AddCoursePane.setHgap(10);
 
@@ -48,7 +50,6 @@ public class AddCourseScene {
         Label levelText = new Label("Level: ");
 
 
-
         Label introText = new Label("Introduction:");
 
         GridPane addCourseInput = new GridPane();
@@ -56,9 +57,9 @@ public class AddCourseScene {
         addCourseInput.add(courseName, 0, 1);
         addCourseInput.add(subjectText, 1, 0);
         addCourseInput.add(subject, 1, 1);
-        addCourseInput.add(levelText,0,2);
+        addCourseInput.add(levelText, 0, 2);
         addCourseInput.add(levelField, 0, 3);
-        addCourseInput.add(priorityComboBox,1,4);
+        addCourseInput.add(priorityComboBox, 1, 3);
         addCourseInput.add(introText, 0, 5);
         addCourseInput.add(introduction, 0, 6);
         addCourseInput.add(backFromAddCourse, 0, 7);
@@ -84,19 +85,27 @@ public class AddCourseScene {
         });
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getAddCoursePane() {
         return AddCoursePane;
     }
 
+    //This method retrieves the courseName.
     public static String getCourseName() {
         return userName;
     }
+
+    //This method retrieves the subjectname.
     public static String getSubjectName() {
         return subjectName;
     }
+
+    //This method retrieves the introduction.
     public static String getIntroduction() {
         return intro;
     }
+
+    //This method retrieves the level.
     public static String getLevel() {
         return level;
     }

@@ -15,7 +15,7 @@ public class CourseViewScene {
     private static GridPane list;
     private static ListView listview;
 
-    public CourseViewScene(){
+    public CourseViewScene() {
         list = new GridPane();
         Button back = new Button("Back");
 
@@ -25,8 +25,8 @@ public class CourseViewScene {
         listview = new ListView(courses);
         listview.setPrefWidth(500);
 
-        list.add(listview,0,0);
-        list.add(back,0,1);
+        list.add(listview, 0, 0);
+        list.add(back, 0, 1);
 
         back.setOnAction((event) -> {
             list.getScene().setRoot(CourseScene.getCoursePane());
@@ -35,6 +35,7 @@ public class CourseViewScene {
     }
 
 
+    //This method gets the list of courses from the database.
     public static GridPane getCourseTable() {
         return list;
     }

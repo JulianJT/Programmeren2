@@ -1,9 +1,11 @@
 package GUI.Student;
 
 import Database.StudentRepository;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -18,6 +20,7 @@ public class StudentRemoveScene {
 
     public StudentRemoveScene() {
         studentRemovePane = new GridPane();
+        studentRemovePane.setAlignment(Pos.CENTER);
         VBox addStRVbox = new VBox();
         studentRemovePane.setVgap(10);
         studentRemovePane.setHgap(8);
@@ -27,19 +30,24 @@ public class StudentRemoveScene {
         instruction.setTextAlignment(TextAlignment.JUSTIFY);
         TextField student = new TextField();
         Button back = new Button("Back");
+        back.setMinWidth(100);
         Button confirm = new Button("OK");
+        confirm.setMinWidth(100);
 
-        GridPane removeStudent = new GridPane();
-        removeStudent.add(instruction, 0,0);
-        removeStudent.add(student, 0, 1);
-        removeStudent.add(back, 0,2);
-        removeStudent.add(confirm, 2,1);
+        HBox rmvStudent = new HBox();
+        rmvStudent.setAlignment(Pos.CENTER);
+        rmvStudent.setSpacing(10);
+        rmvStudent.getChildren().addAll(back, confirm);
+
+
+        VBox removeStudent = new VBox();
+        removeStudent.setAlignment(Pos.CENTER);
+        removeStudent.setSpacing(10);
+        removeStudent.getChildren().addAll(instruction, student);
 
         studentRemovePane.add(addStRVbox,1,1);
-        removeStudent.setVgap(8);
-        removeStudent.setHgap(8);
         addStRVbox.setSpacing(10);
-        addStRVbox.getChildren().addAll(instruction, removeStudent);
+        addStRVbox.getChildren().addAll(instruction, removeStudent, rmvStudent);
 
 
         StudentRepository repository = new StudentRepository();
@@ -55,12 +63,9 @@ public class StudentRemoveScene {
 
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
    public GridPane getStudentRemovePane() {
         return studentRemovePane;
    }
-
-   public String getStudentName() {
-        return studentName;
-    }
 
 }

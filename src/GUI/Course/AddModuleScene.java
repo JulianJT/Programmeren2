@@ -3,12 +3,12 @@ package GUI.Course;
 import Database.CourseRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 // This class creates the add module scene
 
@@ -28,6 +28,7 @@ public class AddModuleScene {
 
     public AddModuleScene() {
         AddModulePane = new GridPane();
+        AddModulePane.setAlignment(Pos.CENTER);
         AddModulePane.setVgap(10);
         AddModulePane.setHgap(10);
 
@@ -36,9 +37,9 @@ public class AddModuleScene {
 
 
         TextField title = new TextField();
-        Spinner version = new Spinner(1, 10,1999999999);
+        Spinner version = new Spinner(1, 10, 1999999999);
         TextField nameOrganization = new TextField();
-        Spinner contentItemId = new Spinner(1,10,1999999999);
+        Spinner contentItemId = new Spinner(1, 10, 1999999999);
         TextField courseName = new TextField();
         ObservableList<String> statussen = FXCollections.observableArrayList("Concept", "Active", "Archived");
         ComboBox status = new ComboBox(statussen);
@@ -65,25 +66,25 @@ public class AddModuleScene {
         addModuleInput.add(title, 0, 1);
         addModuleInput.add(versionText, 1, 0);
         addModuleInput.add(version, 1, 1);
-        addModuleInput.add(nameOrganizationText,2,0);
-        addModuleInput.add(nameOrganization,2,1);
-        addModuleInput.add(courseNameText,0,2);
-        addModuleInput.add(courseName,0,3);
-        addModuleInput.add(contentItemIDText,1,2);
-        addModuleInput.add(contentItemId,1,3);
-        addModuleInput.add(serialNumberField,2,2);
-        addModuleInput.add(serialNumberText,2,3);
-        addModuleInput.add(emailText,0,4);
-        addModuleInput.add(email,0,5);
-        addModuleInput.add(statusText,1,4);
-        addModuleInput.add(status,1,5);
-        addModuleInput.add(descriptionText,2,4);
-        addModuleInput.add(descriptionField,2,5);
+        addModuleInput.add(nameOrganizationText, 2, 0);
+        addModuleInput.add(nameOrganization, 2, 1);
+        addModuleInput.add(courseNameText, 0, 2);
+        addModuleInput.add(courseName, 0, 3);
+        addModuleInput.add(contentItemIDText, 1, 2);
+        addModuleInput.add(contentItemId, 1, 3);
+        addModuleInput.add(serialNumberField, 2, 2);
+        addModuleInput.add(serialNumberText, 2, 3);
+        addModuleInput.add(emailText, 0, 4);
+        addModuleInput.add(email, 0, 5);
+        addModuleInput.add(statusText, 1, 4);
+        addModuleInput.add(status, 1, 5);
+        addModuleInput.add(descriptionText, 2, 4);
+        addModuleInput.add(descriptionField, 2, 5);
 
         addModuleInput.add(backFromAddModule, 0, 6);
         addModuleInput.add(apply, 1, 6);
 
-        AddModulePane.add(addModuleInput,1,1);
+        AddModulePane.add(addModuleInput, 1, 1);
         addModuleInput.setHgap(8);
         addModuleInput.setVgap(8);
 
@@ -105,9 +106,9 @@ public class AddModuleScene {
 
             try {
 
-                 publicationDate = java.sql.Date.valueOf(LocalDate.now());
+                publicationDate = java.sql.Date.valueOf(LocalDate.now());
 
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
                 System.out.println("Invalid date.");
 
@@ -126,37 +127,57 @@ public class AddModuleScene {
     }
 
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getAddModulePane() {
         return AddModulePane;
     }
 
+    //This method retrieves the title.
     public static String getTitle() {
         return title;
     }
+
+    //This method retrieves the version.
     public static Integer getVersion() {
         return version;
     }
+
+    //This method retrieves the contentItemId.
     public static Integer getContentItemId() {
         return contentItemId;
     }
+
+    //This method retrieves the name of the organization.
     public static String getNameOrganization() {
         return nameOrganization;
     }
+
+    //This method retrieves the courseName.
     public static String getCourseName() {
         return courseName;
     }
+
+    //This method retrieves the publication date.
     public static Date getPublicationDate() {
         return publicationDate;
     }
+
+    //This method retrieves the content status.
     public static String getContentStatus() {
         return contentStatus;
     }
+
+    //This method retrieves the emailaddress.
     public static String getEmailAddress() {
         return emailAddress;
     }
+
+    //This method retrieves the description.
     public static String getDescription() {
         return description;
     }
+
+    //This method retrieves the serialnumber.
     public static Integer getSerialNumber() {
         return serialNumber;
     }

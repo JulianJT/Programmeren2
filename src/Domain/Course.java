@@ -13,19 +13,17 @@ public class Course {
         this.text = text;
     }
 
+    //This method retrieves the course name.
     public String getName() {
         return name;
     }
 
-    public String getSubject() {
-        return subject;
-    }
-
+    //This method retrieves the description of the course.
     public String getText() {
         return text;
     }
 
-
+    //This method converts the objects in course into a string.
     public String toString() {
         return name + ", " + subject + ", " + text;
     }

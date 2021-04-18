@@ -27,17 +27,17 @@ public class CourseScene {
         courseText.setText("Course Menu");
 
         Button addCourses = new Button("Add course(s)");
-        addCourses.setMaxSize(250,200);
+        addCourses.setMaxSize(250, 200);
         Button removeCourses = new Button("Remove course(s)");
-        removeCourses.setMaxSize(250,200);
+        removeCourses.setMaxSize(250, 200);
         Button viewCourses = new Button("View course(s)");
-        viewCourses.setMaxSize(250,200);
+        viewCourses.setMaxSize(250, 200);
         Button updateCourses = new Button("Update course(s)");
-        updateCourses.setMaxSize(250,200);
+        updateCourses.setMaxSize(250, 200);
         Button addModules = new Button("Add module");
         addModules.setMaxSize(250, 200);
         Button back = new Button("Back");
-        back.setMaxSize(250,200);
+        back.setMaxSize(250, 200);
 
         coursePane.getChildren().addAll(courseText, addCourses, removeCourses, viewCourses, updateCourses, addModules, back);
         coursePane.setAlignment(Pos.CENTER);
@@ -52,12 +52,12 @@ public class CourseScene {
         });
         updateCourses.setOnAction((event) -> {
             UpdateCourseScene updateCourseScene = new UpdateCourseScene();
-            coursePane.getScene().setRoot(updateCourseScene.getUpdateCoursePane());
+            coursePane.getScene().setRoot(UpdateCourseScene.getUpdateCoursePane());
         });
         viewCourses.setOnAction((event) -> {
             CourseRepository list = new CourseRepository();
             CourseViewScene courseViewScene = new CourseViewScene();
-            coursePane.getScene().setRoot(courseViewScene.getCourseTable());
+            coursePane.getScene().setRoot(CourseViewScene.getCourseTable());
         });
         removeCourses.setOnAction((event) -> {
             CourseRemoveScene remove = new CourseRemoveScene();
@@ -65,10 +65,11 @@ public class CourseScene {
         });
         addModules.setOnAction((event) -> {
             AddModuleScene AddModuleScene = new AddModuleScene();
-            coursePane.getScene().setRoot(AddModuleScene.getAddModulePane());
+            coursePane.getScene().setRoot(GUI.Course.AddModuleScene.getAddModulePane());
         });
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static VBox getCoursePane() {
         return coursePane;
     }

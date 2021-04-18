@@ -3,6 +3,7 @@ package GUI.Student;
 import Database.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,7 @@ public class StudentInputScene {
     public StudentInputScene() {
 
         studentInputPane = new GridPane();
+        studentInputPane.setAlignment(Pos.CENTER);
         VBox addStVBox = new VBox();
         studentInputPane.setHgap(8);
         studentInputPane.setVgap(10);
@@ -125,27 +127,7 @@ public class StudentInputScene {
         });
     }
 
-    public static String getUsername(){
-        return userName;
-    }
-    public static String getEmail(){
-        return email;
-    }
-    public static String getGender(){
-        return gender;
-    }
-    public static String getAddress(){
-        return address;
-    }
-    public static String getResidence(){
-        return residence;
-    }
-    public static String getCountry(){
-        return country;
-    }
-    public static Date getBirthday() {
-        return birthday;
-    }
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getStudentInput() {
         return studentInputPane ;
     }

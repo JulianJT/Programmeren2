@@ -66,6 +66,7 @@ public class RegistrationScene {
 
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static VBox getRegistrationPane() {
         return registrationPane;
     }

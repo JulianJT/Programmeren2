@@ -23,6 +23,8 @@ public class StartScene extends Application {
         return root2;
     }
 
+
+    //This class creates a primary stage (HOMEPAGE)
     @Override
     public void start(Stage primaryStage) {
 
@@ -44,7 +46,7 @@ public class StartScene extends Application {
         Button registration = new Button("Registrations");
         registration.setMaxSize(500,200);
         Button certificate = new Button("Certificates");
-        certificate.setMaxSize(500,200);
+        certificate.setMaxSize(500,220);
 
         root.getChildren().addAll(imageView, student, course, registration, certificate);
 
@@ -53,7 +55,7 @@ public class StartScene extends Application {
         root2.setAlignment(Pos.CENTER);
         root.setAlignment(Pos.CENTER);
 
-        Scene view = new Scene(root2, 500, 300);
+        Scene view = new Scene(root2, 500, 325);
 
         primaryStage.setTitle("Julian Tjintjelaar (2173067) | Sten Reijerse (2175709) | Wesley Snijdelaar (2176710) | Mohamed Haddouch (2177710)");
         primaryStage.setScene(view);

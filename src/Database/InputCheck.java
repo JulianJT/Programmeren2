@@ -11,6 +11,7 @@ public class InputCheck {
 
     public static InputCheck INSTANCE = new InputCheck();
 
+    //This method checks the input for certificate whether or not they're empty.
     public boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
         if (course.isEmpty()) {
             showAlert("Course is empty");
@@ -41,6 +42,7 @@ public class InputCheck {
         return false;
     }
 
+    //This method checks the values from the addstudentscene.
     public boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode) {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(regex);
@@ -89,6 +91,7 @@ public class InputCheck {
         return false;
     }
 
+    //This method checks whether or not the review is an integer.
     private boolean isInteger(String review) {
         try {
             Integer.parseInt(review);
@@ -98,6 +101,7 @@ public class InputCheck {
         }
     }
 
+    //This method shows an alertBox with a message.
     private void showAlert(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");

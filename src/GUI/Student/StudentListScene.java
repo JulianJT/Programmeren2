@@ -33,6 +33,7 @@ public class StudentListScene {
         });
     }
 
+    //This method gets the list with all the students from the database.
     public static GridPane getStudentTable() {
         return list;
     }

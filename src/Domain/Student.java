@@ -12,14 +12,12 @@ public class Student {
         this.email = email;
     }
 
+    //This method retrieves the student name.
     public String getName() {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
+    //This method converts the objects in student into a string.
     public String toString() {
         return "Name: " + name + " | " + "E-mail: " + email + "\n";
     }

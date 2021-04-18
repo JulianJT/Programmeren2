@@ -11,10 +11,10 @@ import javafx.scene.layout.Pane;
 
 // This class creates the registration course scene.
 
-public class RegistrationCourseScene{
+public class RegistrationCourseScene {
     private static GridPane list;
 
-    public RegistrationCourseScene(){
+    public RegistrationCourseScene() {
 
         list = new GridPane();
         list.setHgap(8);
@@ -26,8 +26,8 @@ public class RegistrationCourseScene{
         ListView<Registration> listView = new ListView<>(courses);
         listView.setPrefWidth(500);
 
-        list.add(listView,0,0);
-        list.add(back,0,1);
+        list.add(listView, 0, 0);
+        list.add(back, 0, 1);
 
         back.setOnAction((event) -> {
             list.getScene().setRoot(RegistrationScene.getRegistrationPane());
@@ -35,8 +35,9 @@ public class RegistrationCourseScene{
 
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static Pane getRegistrationCoursePane() {
-        return list ;
+        return list;
     }
 
 }

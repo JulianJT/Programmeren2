@@ -10,11 +10,11 @@ import javafx.scene.layout.GridPane;
 
 // This class creates the register user scene.
 
-public class RegistrationPersonScene{
+public class RegistrationPersonScene {
 
     private static GridPane list;
 
-    public RegistrationPersonScene(){
+    public RegistrationPersonScene() {
 
         list = new GridPane();
         list.setHgap(8);
@@ -28,19 +28,19 @@ public class RegistrationPersonScene{
         listView.setPrefWidth(500);
 
 
-        list.add(listView,0,0);
-        list.add(back,0,3);
+        list.add(listView, 0, 0);
+        list.add(back, 0, 3);
 
         back.setOnAction(actionEvent -> {
             list.getScene().setRoot(RegistrationScene.getRegistrationPane());
         });
 
 
-
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getRegistrationPersonPane() {
-        return list ;
+        return list;
     }
 
 }

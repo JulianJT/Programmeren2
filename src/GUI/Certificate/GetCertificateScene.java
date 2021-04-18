@@ -48,17 +48,17 @@ public class GetCertificateScene {
 
         TextField studentName = new TextField();
         studentName.setPromptText("Student Name");
-        studentName.setMaxSize(250,200);
+        studentName.setMaxSize(250, 200);
 
         ObservableList<String> options = FXCollections.observableArrayList("Male", "Female");
         ComboBox gender = new ComboBox(options);
         gender.setMaxSize(250, 200);
         Button searchStudent = new Button("Search");
-        searchStudent.setMaxSize(250,200);
+        searchStudent.setMaxSize(250, 200);
         Button backFromGetCertificate = new Button("Back");
-        backFromGetCertificate.setMaxSize(250,200);
+        backFromGetCertificate.setMaxSize(250, 200);
         Button searchPercentage = new Button("Search");
-        searchPercentage.setMaxSize(250,200);
+        searchPercentage.setMaxSize(250, 200);
 
         getPercVbox.getChildren().addAll(getCertPercText, gender, searchPercentage, percText);
         getCertVbox.getChildren().addAll(getCertStudentText, studentName, searchStudent, backFromGetCertificate);
@@ -77,7 +77,7 @@ public class GetCertificateScene {
             GetCertificateScene.studentName = studentName.getText();
             getCertificate.getCertificate(GetCertificateScene.studentName);
             CertificateStudentListScene certificates = new CertificateStudentListScene();
-            getCertificatePane.getScene().setRoot(certificates.getCertificateStudentPane());
+            getCertificatePane.getScene().setRoot(CertificateStudentListScene.getCertificateStudentPane());
             CertificateRepository list = new CertificateRepository();
             list.getCertificate(GetCertificateScene.studentName);
         });
@@ -90,14 +90,12 @@ public class GetCertificateScene {
         });
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static HBox getGetCertificatePane() {
         return getCertificatePane;
     }
 
-    public static String getGender() {
-        return gender;
-    }
-
+    //This method retrieves the student name.
     public static String getStudentName() {
         return studentName;
     }

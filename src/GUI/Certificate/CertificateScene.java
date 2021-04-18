@@ -23,11 +23,11 @@ public class CertificateScene {
         certificateText.setText("Certificate Menu");
 
         Button addCertificate = new Button("Add Certificate");
-        addCertificate.setMaxSize(250,200);
+        addCertificate.setMaxSize(250, 200);
         Button getCertificate = new Button("View Certificates");
-        getCertificate.setMaxSize(250,200);
+        getCertificate.setMaxSize(250, 200);
         Button backFromCertificate = new Button("Back");
-        backFromCertificate.setMaxSize(250,200);
+        backFromCertificate.setMaxSize(250, 200);
         //TODO: Add Most Given Certificates (top 3)
 
         certificatePane.getChildren().addAll(certificateText, addCertificate, getCertificate, backFromCertificate);
@@ -35,12 +35,12 @@ public class CertificateScene {
 
         getCertificate.setOnAction((event) -> {
             GetCertificateScene getCertificateScene = new GetCertificateScene();
-            certificatePane.getScene().setRoot(getCertificateScene.getGetCertificatePane());
+            certificatePane.getScene().setRoot(GetCertificateScene.getGetCertificatePane());
         });
 
         addCertificate.setOnAction((event) -> {
             AddCertificateScene addCertificateScene = new AddCertificateScene();
-            certificatePane.getScene().setRoot(addCertificateScene.getAddCertificatePane());
+            certificatePane.getScene().setRoot(AddCertificateScene.getAddCertificatePane());
         });
 
         backFromCertificate.setOnAction((event) -> {
@@ -48,6 +48,7 @@ public class CertificateScene {
         });
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static VBox getCertificatePane() {
         return certificatePane;
     }

@@ -13,6 +13,7 @@ public class Certificate {
         this.certificateId = certificateId;
     }
 
+    //This method converts the objects in certificate into a string.
     public String toString() {
         return "ID: " + certificateId + " | " + "Review: " + review + " | " + "Worker Name: " + nameWorker + "\n";
     }

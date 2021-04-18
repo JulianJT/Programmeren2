@@ -26,16 +26,17 @@ public class CertificateStudentListScene {
         listView = new ListView<>(certificates);
         listView.setPrefWidth(500);
 
-        list.add(listView,0,0);
-        list.add(back,0,1);
+        list.add(listView, 0, 0);
+        list.add(back, 0, 1);
 
         back.setOnAction(actionEvent -> {
             list.getScene().setRoot(GetCertificateScene.getGetCertificatePane());
         });
     }
 
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getCertificateStudentPane() {
-        return list ;
+        return list;
     }
 
 }

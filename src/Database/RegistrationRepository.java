@@ -10,6 +10,7 @@ import java.util.List;
 
 public class RegistrationRepository extends DatabaseConnection {
 
+    //This method shows all the students who are registered for a course from the database.
     public List<Registration> showStudents() {
         ArrayList<Registration> studentRegistration = new ArrayList<>();
         String name;
@@ -40,6 +41,7 @@ public class RegistrationRepository extends DatabaseConnection {
         return studentRegistration;
     }
 
+    //This method shows all the courses from the database.
     public List<Registration> showCourses() {
         ArrayList<Registration> coursesRegistration = new ArrayList<>();
         String name;
@@ -71,6 +73,7 @@ public class RegistrationRepository extends DatabaseConnection {
         return coursesRegistration;
     }
 
+    //This method gets the total registered students.
     public int getRegistrationAmount() {
         ResultSet rs;
 

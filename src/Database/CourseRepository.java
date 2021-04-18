@@ -8,7 +8,6 @@ import GUI.Course.UpdateCourseScene;
 
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,8 @@ import java.util.List;
 
 public class CourseRepository extends DatabaseConnection {
 
+
+    //This methods retrieves all the modules from the database.
     public String getModules() {
         StringBuilder modules = new StringBuilder();
         ResultSet rs;
@@ -35,6 +36,7 @@ public class CourseRepository extends DatabaseConnection {
         return modules.toString();
     }
 
+    //This method retrieves all the courses from the database.
     public List<Course> getAllCourses() {
         ArrayList<Course> courses = new ArrayList<>();
         String name;
@@ -63,6 +65,7 @@ public class CourseRepository extends DatabaseConnection {
     }
 
 
+    //This method adds a course to the database.
     public void addCourse() {
         String courseName = AddCourseScene.getCourseName();
         String subjectName = AddCourseScene.getSubjectName();
@@ -71,8 +74,11 @@ public class CourseRepository extends DatabaseConnection {
 
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
         executeInsertStatement(SQL);
+
+        showInfo("Course succesfully added.");
     }
 
+    //This method updates a course from the database.
     public void updateCourse() {
         String courseName = UpdateCourseScene.getCourseName();
         String subjectName = UpdateCourseScene.getSubjectName();
@@ -80,21 +86,23 @@ public class CourseRepository extends DatabaseConnection {
         String level = UpdateCourseScene.getLevel();
         String oldCourseName = UpdateCourseScene.getOldCourseName();
 
-        String SQL = "Update Course " + "SET" +" "+
-                "courseName='"+ courseName+"', subject='" +subjectName+"', introductionText='"+ intro+"', level_indication='"+ level+"' " +
-                "WHERE courseName='"+oldCourseName +"'";
+        String SQL = "Update Course " + "SET" + " " +
+                "courseName='" + courseName + "', subject='" + subjectName + "', introductionText='" + intro + "', level_indication='" + level + "' " +
+                "WHERE courseName='" + oldCourseName + "'";
 
-        String SQL2 = "Update Module " + "SET"+ " "+
-                "courseName='"+ courseName+"' "+
-                "WHERE courseName='"+oldCourseName+ "'";
+        String SQL2 = "Update Module " + "SET" + " " +
+                "courseName='" + courseName + "' " +
+                "WHERE courseName='" + oldCourseName + "'";
 
         System.out.println(SQL);
         System.out.println(SQL2);
         executeUpdateStatement(SQL2);
         executeUpdateStatement(SQL);
+
+        showInfo("Course succesfully updated.");
     }
 
-
+    //This method adds a module to the database.
     public void addModule() {
         String title = AddModuleScene.getTitle();
         Integer version = AddModuleScene.getVersion();
@@ -108,17 +116,17 @@ public class CourseRepository extends DatabaseConnection {
         Integer serialNumber = AddModuleScene.getSerialNumber();
 
 
-
         String SQL = "SET IDENTITY_INSERT ContentItem ON INSERT INTO ContentItem(contentItemID, PublicationDate, contentStatus) VALUES('" + contentItemId + "','" + publicationDate + "','" + contentStatus + "')" + "SET IDENTITY_INSERT ContentItem OFF";
-        String SQL2 = "SET IDENTITY_INSERT ContentItem ON INSERT INTO Module (title, version, nameOrganization, contentItemId, courseName, description, emailAddress, serialNumber) VALUES('" + title + "','" + version + "','" + nameOrganization + "','" + contentItemId + "','" + courseName + "','" + description + "', '" + emailAddress + "','" + serialNumber+ "')" + "SET IDENTITY_INSERT ContentItem OFF";
+        String SQL2 = "SET IDENTITY_INSERT ContentItem ON INSERT INTO Module (title, version, nameOrganization, contentItemId, courseName, description, emailAddress, serialNumber) VALUES('" + title + "','" + version + "','" + nameOrganization + "','" + contentItemId + "','" + courseName + "','" + description + "', '" + emailAddress + "','" + serialNumber + "')" + "SET IDENTITY_INSERT ContentItem OFF";
 
         executeInsertStatement(SQL);
         executeInsertStatement(SQL2);
 
+        showInfo("Module succesfully added.");
+
     }
 
-
-
+    //This method deletes a course from the database.
     public void deleteCourse() {
 
         CourseRemoveScene removeCourse = new CourseRemoveScene();

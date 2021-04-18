@@ -3,6 +3,7 @@ package GUI.Course;
 import Database.CourseRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
@@ -20,6 +21,7 @@ public class UpdateCourseScene {
 
     public UpdateCourseScene() {
         UpdateCoursePane = new GridPane();
+        UpdateCoursePane.setAlignment(Pos.CENTER);
         UpdateCoursePane.setVgap(10);
         UpdateCoursePane.setHgap(10);
 
@@ -32,8 +34,6 @@ public class UpdateCourseScene {
         TextArea introductionText = new TextArea();
         introductionText.setMaxWidth(200);
         introductionText.setMaxHeight(100);
-
-
 
 
         Label selectCourse = new Label("Name of the course you want to change:");
@@ -55,19 +55,18 @@ public class UpdateCourseScene {
         Label levelText = new Label("Level: ");
 
 
-
         Label introText = new Label("Introduction:");
 
         GridPane updateCourseInput = new GridPane();
         updateCourseInput.add(nameCourseText, 1, 0);
         updateCourseInput.add(courseName, 1, 1);
 
-        updateCourseInput.add(selectCourse,0,0);
-        updateCourseInput.add(oldCourseNames,0,1);
+        updateCourseInput.add(selectCourse, 0, 0);
+        updateCourseInput.add(oldCourseNames, 0, 1);
 
         updateCourseInput.add(subjectLabel, 1, 2);
         updateCourseInput.add(subjectText, 1, 3);
-        updateCourseInput.add(levelText,0,2);
+        updateCourseInput.add(levelText, 0, 2);
         updateCourseInput.add(levelField, 0, 3);
 
         updateCourseInput.add(introText, 0, 5);
@@ -94,21 +93,34 @@ public class UpdateCourseScene {
             updateCourse.updateCourse();
         });
     }
+
+    //This method gets the Gridpane for navigation to the next/previous scene.
     public static GridPane getUpdateCoursePane() {
         return UpdateCoursePane;
     }
 
+    //This method retrieves the courseName.
     public static String getCourseName() {
         return courseNameNew;
     }
+
+    //This method retrieves the subjectName.
     public static String getSubjectName() {
         return subject;
     }
+
+    //this method retrieves the introduction.
     public static String getIntroduction() {
         return introduction;
     }
+
+    //This method retrieves the level.
     public static String getLevel() {
         return level;
     }
-    public static String getOldCourseName(){return oldCourseName;}
+
+    //This method retrieves the old courseName.
+    public static String getOldCourseName() {
+        return oldCourseName;
+    }
 }
