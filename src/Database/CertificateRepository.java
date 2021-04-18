@@ -46,7 +46,7 @@ public class CertificateRepository extends DatabaseConnection {
 
     // returns percentage of people with certificate
     public int getCertificatePercentage(String gender) {
-        if (gender != null && !gender.isEmpty()) {
+        if (gender != null) {
             ResultSet rs;
             int x = 0;
             int y = 0;

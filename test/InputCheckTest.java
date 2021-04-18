@@ -38,28 +38,28 @@ public class InputCheckTest {
     @Test
     @DisplayName("AddStudent: Incorrect Email")
     public void testStudentInput1() {
-        boolean bl = addStudentInputCheck("user", "notEmail", "address", "residence", "country", "4562LW");
+        boolean bl = addStudentInputCheck("user", "notEmail", "address", "residence", "country", "4562LW", "Male");
         assertTrue(bl);
     }
 
     @Test
     @DisplayName("AddStudent: Empty Field")
     public void testStudentInput2() {
-        boolean bl = addStudentInputCheck("", "student@outlook.com", "address", "residence", "country", "4562LW");
+        boolean bl = addStudentInputCheck("", "student@outlook.com", "address", "residence", "country", "4562LW", "Female");
         assertTrue(bl);
     }
 
     @Test
     @DisplayName("AddStudent: Incorrect Zipcode")
     public void testStudentInput3() {
-        boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "L32lXW");
+        boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "L32lXW", "Male");
         assertTrue(bl);
     }
 
     @Test
     @DisplayName("AddStudent: Correct Input")
     public void testStudentInput4() {
-        boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "4562LW");
+        boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "4562LW", "Female");
         assertFalse(bl);
     }
 
@@ -139,7 +139,7 @@ public class InputCheckTest {
     }
 
     // addStudentInputCheck without Alert Dialogs
-    private boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode) {
+    private boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode, String gender) {
         Matcher matcher = emailPattern.matcher(email);
         Matcher zipMatcher = zipcodePattern.matcher(zipcode);
 
@@ -153,6 +153,9 @@ public class InputCheckTest {
             return true;
 
         if (email.isEmpty())
+            return true;
+
+        if (gender == null)
             return true;
 
         if (address.isEmpty())
@@ -186,7 +189,7 @@ public class InputCheckTest {
         if (courseName.isEmpty())
             return true;
 
-        if (contentStatus.isEmpty())
+        if (contentStatus == null)
             return true;
 
         if (emailAddress.isEmpty())
@@ -206,7 +209,7 @@ public class InputCheckTest {
         if (intro.isEmpty())
             return true;
 
-        return level.isEmpty();
+        return level == null;
     }
 
     // updateCourseInputCheck without Alert Dialogs
@@ -220,7 +223,7 @@ public class InputCheckTest {
         if (intro.isEmpty())
             return true;
 
-        if (level.isEmpty())
+        if (level == null)
             return true;
 
         return oldCourseName.isEmpty();

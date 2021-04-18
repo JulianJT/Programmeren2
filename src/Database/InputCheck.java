@@ -150,7 +150,7 @@ public class InputCheck {
             return true;
         }
 
-        if (contentStatus.isEmpty()) {
+        if (contentStatus == null) {
             showAlert("Content status is empty");
             return true;
         }
@@ -185,7 +185,7 @@ public class InputCheck {
             return true;
         }
 
-        if (level.isEmpty()) {
+        if (level == null) {
             showAlert("Level is empty");
             return true;
         }
@@ -210,7 +210,7 @@ public class InputCheck {
             return true;
         }
 
-        if (level.isEmpty()) {
+        if (level == null) {
             showAlert("Level is empty");
             return true;
         }
