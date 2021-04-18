@@ -44,13 +44,13 @@ public class StudentScene {
         });
 
         addStudents.setOnAction((event) -> {
-            StudentInputScene input = new StudentInputScene();
+            new StudentInputScene();
             studentPane.getScene().setRoot(StudentInputScene.getStudentInput());
         });
 
         viewStudents.setOnAction((event) -> {
             StudentRepository list = new StudentRepository();
-            StudentListScene studentTable = new StudentListScene();
+            new StudentListScene();
             studentPane.getScene().setRoot(StudentListScene.getStudentTable());
             list.getAllStudents();
         });

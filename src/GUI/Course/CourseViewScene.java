@@ -13,16 +13,15 @@ import javafx.scene.layout.GridPane;
 public class CourseViewScene {
 
     private static GridPane list;
-    private static ListView listview;
 
     public CourseViewScene() {
         list = new GridPane();
         Button back = new Button("Back");
 
-        CourseRepository crlist = new CourseRepository();
+        CourseRepository crList = new CourseRepository();
 
-        ObservableList<Course> courses = FXCollections.observableArrayList(crlist.getAllCourses());
-        listview = new ListView(courses);
+        ObservableList<Course> courses = FXCollections.observableArrayList(crList.getAllCourses());
+        ListView<Course> listview = new ListView<>(courses);
         listview.setPrefWidth(500);
 
         list.add(listview, 0, 0);

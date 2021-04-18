@@ -10,7 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class InputCheckTest {
     private static final String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final String zipcodeRegex = "[1-9]{1}[0-9]{3}[a-zA-Z]{2}";
     private static final Pattern emailPattern = Pattern.compile(emailRegex);
+    private static final Pattern zipcodePattern = Pattern.compile(zipcodeRegex);
 
     @Test
     @DisplayName("AddCertificate: Non-integers")
@@ -50,7 +52,7 @@ public class InputCheckTest {
     @Test
     @DisplayName("AddStudent: Incorrect Zipcode")
     public void testStudentInput3() {
-        boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "45682332LW");
+        boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "L32lXW");
         assertTrue(bl);
     }
 
@@ -64,7 +66,7 @@ public class InputCheckTest {
     @Test
     @DisplayName("AddModule: Incorrect Email")
     public void testModuleInput1() {
-        boolean bl =  addModuleInputCheck("Title", "Organization", "Course", "Status", "Email", "Description");
+        boolean bl = addModuleInputCheck("Title", "Organization", "Course", "Status", "Email", "Description");
         assertTrue(bl);
     }
 
@@ -85,14 +87,14 @@ public class InputCheckTest {
     @Test
     @DisplayName("AddCourse: Empty Field")
     public void testCourseInput1() {
-        boolean bl = addCourseInputCheck("Course", "Subject", "", "Advanced");
+        boolean bl = addCourseInputCheck("Course", "Subject", "", "Beginner");
         assertTrue(bl);
     }
 
     @Test
     @DisplayName("AddCourse: Correct Input")
     public void testCourseInput2() {
-        boolean bl = addCourseInputCheck("Course", "Subject", "Introduction", "Advanced");
+        boolean bl = addCourseInputCheck("Course", "Subject", "Introduction", "Expert");
         assertFalse(bl);
     }
 
@@ -139,8 +141,12 @@ public class InputCheckTest {
     // addStudentInputCheck without Alert Dialogs
     private boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode) {
         Matcher matcher = emailPattern.matcher(email);
+        Matcher zipMatcher = zipcodePattern.matcher(zipcode);
 
         if (!(matcher.matches()))
+            return true;
+
+        if (!(zipMatcher.matches()))
             return true;
 
         if (userName.isEmpty())

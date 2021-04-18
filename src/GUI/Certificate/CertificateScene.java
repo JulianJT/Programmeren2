@@ -34,12 +34,12 @@ public class CertificateScene {
         certificatePane.setAlignment(Pos.CENTER);
 
         getCertificate.setOnAction((event) -> {
-            GetCertificateScene getCertificateScene = new GetCertificateScene();
+            new GetCertificateScene();
             certificatePane.getScene().setRoot(GetCertificateScene.getGetCertificatePane());
         });
 
         addCertificate.setOnAction((event) -> {
-            AddCertificateScene addCertificateScene = new AddCertificateScene();
+            new AddCertificateScene();
             certificatePane.getScene().setRoot(AddCertificateScene.getAddCertificatePane());
         });
 

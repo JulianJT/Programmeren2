@@ -46,15 +46,15 @@ public class RegistrationScene {
         });
 
         viewPersonRegistrations.setOnAction((event) -> {
-            RegistrationPersonScene persons = new RegistrationPersonScene();
-            registrationPane.getScene().setRoot(persons.getRegistrationPersonPane());
+            new RegistrationPersonScene();
+            registrationPane.getScene().setRoot(RegistrationPersonScene.getRegistrationPersonPane());
             RegistrationRepository list = new RegistrationRepository();
             list.showStudents();
         });
 
         viewCourseRegistrations.setOnAction((event) -> {
-            RegistrationCourseScene courses = new RegistrationCourseScene();
-            registrationPane.getScene().setRoot(courses.getRegistrationCoursePane());
+            new RegistrationCourseScene();
+            registrationPane.getScene().setRoot(RegistrationCourseScene.getRegistrationCoursePane());
         });
 
         showTotalRegistration.setOnAction((event) -> {

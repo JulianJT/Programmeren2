@@ -44,7 +44,7 @@ public class StudentInputScene {
         TextField fullName = new TextField();
         DatePicker datePicker = new DatePicker();
         ObservableList<String> options = FXCollections.observableArrayList("Male", "Female");
-        ComboBox genderField = new ComboBox(options);
+        ComboBox<String> genderField = new ComboBox<>(options);
         genderField.setMaxSize(250, 200);
         genderField.setPromptText("Gender");
         TextField addressField = new TextField();
@@ -123,7 +123,7 @@ public class StudentInputScene {
             zipcode = zipCodeField.getText();
             userName = fullName.getText();
             email = emailField.getText();
-            gender = (String) genderField.getValue();
+            gender = genderField.getValue();
             address = addressField.getText();
             residence = residenceField.getText();
             country = countryField.getText();

@@ -84,7 +84,6 @@ public class AddCourseScene {
             AddCourseScene.subjectName = subject.getText();
             AddCourseScene.intro = introduction.getText();
             AddCourseScene.level = levelField.getValue();
-
             addCourse.addCourse();
         });
     }

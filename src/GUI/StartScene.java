@@ -62,22 +62,22 @@ public class StartScene extends Application {
         primaryStage.show();
 
         student.setOnAction((event) -> {
-            StudentScene students = new StudentScene();
-            primaryStage.getScene().setRoot(students.getStudentPane());
+            new StudentScene();
+            primaryStage.getScene().setRoot(StudentScene.getStudentPane());
         });
 
         registration.setOnAction((event) -> {
-            RegistrationScene registrations = new RegistrationScene();
-            primaryStage.getScene().setRoot(registrations.getRegistrationPane());
+            new RegistrationScene();
+            primaryStage.getScene().setRoot(RegistrationScene.getRegistrationPane());
         });
 
         course.setOnAction((event) -> {
-            CourseScene courses = new CourseScene();
-            primaryStage.getScene().setRoot(courses.getCoursePane());
+            new CourseScene();
+            primaryStage.getScene().setRoot(CourseScene.getCoursePane());
         });
         certificate.setOnAction((event) -> {
-            CertificateScene certificates = new CertificateScene();
-            primaryStage.getScene().setRoot(certificates.getCertificatePane());
+            new CertificateScene();
+            primaryStage.getScene().setRoot(CertificateScene.getCertificatePane());
         });
 
 
