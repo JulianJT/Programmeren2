@@ -44,7 +44,7 @@ public class AddCertificateScene {
 
         Label nameStudentText = new Label("Student Name");
         Label reviewText = new Label("Review [1-10]");
-        Label workerNameText = new Label("Username");
+        Label workerNameText = new Label("Name of employer");
         Label courseText = new Label("Course");
 
         GridPane addCertificateInput = new GridPane();

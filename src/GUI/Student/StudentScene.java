@@ -27,9 +27,9 @@ public class StudentScene {
 
         Button addStudents = new Button("Add student(s)");
         addStudents.setMaxSize(250,200);
-        Button removeStudents = new Button("Remove Student(s)");
+        Button removeStudents = new Button("Remove student(s)");
         removeStudents.setMaxSize(250,200);
-        Button viewStudents = new Button("View Student(s)");
+        Button viewStudents = new Button("View student(s)");
         viewStudents.setMaxSize(250,200);
         Button viewProfile = new Button("View profile");
         viewProfile.setMaxSize(250,200);

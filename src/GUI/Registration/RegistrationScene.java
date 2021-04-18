@@ -28,7 +28,7 @@ public class RegistrationScene {
         registrationText.setTextAlignment(TextAlignment.JUSTIFY);
         registrationText.setText("Registration Menu");
 
-        Button viewPersonRegistrations = new Button("Show persons");
+        Button viewPersonRegistrations = new Button("Show students");
         viewPersonRegistrations.setMaxSize(250,200);
         Button viewCourseRegistrations = new Button("Show courses");
         viewCourseRegistrations.setMaxSize(250,200);
