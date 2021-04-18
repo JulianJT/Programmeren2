@@ -42,7 +42,7 @@ public class StudentRepository extends DatabaseConnection {
 
     //This method retrieves the information it needs from studentInput and executes a query with these parameters. After this the data gets added to the database.
     public void addStudent(String userName, String email, Date birthday, String gender, String address, String residence, String country, String zipcode) {
-        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, address, residence, country, zipcode))
+        if (InputCheck.INSTANCE.addStudentInputCheck(userName, email, address, residence, country, zipcode, gender))
             return;
 
         String SQL = "INSERT INTO Student (emailAddress, name, dateOfBirth, gender, address, residence, country, zipcode) VALUES('" + email + "','" + userName + "','" + birthday + "','" + gender + "','" + address + "','" + residence + "','" + country + "','" + zipcode + "')";
