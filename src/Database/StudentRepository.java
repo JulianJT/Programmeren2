@@ -90,10 +90,16 @@ public class StudentRepository extends DatabaseConnection {
     //This method deletes a specified student from the database. It retrieves its information from studentRemoveScene.
     public void deleteStudent(String studentName) {
 
+
         try {
 
             String SQL = "DELETE FROM Student WHERE Name = '" + studentName + "'";
+            System.out.println(SQL);
+
             int deleted = executeUpdateStatement(SQL);
+
+
+
 
             if (deleted == 0) {
                 System.out.println("Student not found!");

@@ -50,7 +50,7 @@ public class UpdateCourseScene {
         Label subjectLabel = new Label("Subject:");
 
 
-        ObservableList<String> options = FXCollections.observableArrayList("Beginner", "Advanced", "Expert");
+        ObservableList<String> options = FXCollections.observableArrayList("Beginner", "Intermediate", "Expert");
         ComboBox levelField = new ComboBox(options);
         levelField.setPromptText("Level");
         levelField.setMaxSize(250, 200);
