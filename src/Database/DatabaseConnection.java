@@ -36,18 +36,22 @@ public class DatabaseConnection {
     }
 
     // executes INSERT statements
-    protected void executeInsertStatement(String SQL) {
+    protected boolean executeInsertStatement(String SQL) {
+        boolean bl = false;
         try {
             con = getConnection();
             if (con != null) {
                 stmt = con.createStatement();
                 stmt.execute(SQL);
+                bl = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             closeConnection();
         }
+        return bl;
     }
 
     // executes UPDATE statements

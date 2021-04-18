@@ -17,8 +17,8 @@ public class CourseRepository extends DatabaseConnection {
 
 
     //This methods retrieves all the modules from the database.
-    public String getModules() {
-        StringBuilder modules = new StringBuilder();
+    public List<String> getModules() {
+        List<String> modules = new ArrayList<>();
         ResultSet rs;
 
         try {
@@ -27,13 +27,13 @@ public class CourseRepository extends DatabaseConnection {
             rs = executeSelectStatement(SQL);
 
             while (rs.next()) {
-                modules.append(rs.getString("title"));
+                modules.add(rs.getString("title"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         closeConnection();
-        return modules.toString();
+        return modules;
     }
 
     //This method retrieves all the courses from the database.
@@ -76,9 +76,12 @@ public class CourseRepository extends DatabaseConnection {
             return;
 
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
-        executeInsertStatement(SQL);
+        boolean bl = executeInsertStatement(SQL);
 
-        showInfo("Course succesfully added.");
+        if (bl)
+            showInfo("Course succesfully added.");
+        else
+            showError("Failed to add course.");
     }
 
     //This method updates a course from the database.
@@ -96,16 +99,13 @@ public class CourseRepository extends DatabaseConnection {
                 "courseName='" + courseName + "', subject='" + subjectName + "', introductionText='" + intro + "', level_indication='" + level + "' " +
                 "WHERE courseName='" + oldCourseName + "'";
 
-        String SQL2 = "Update Module " + "SET" + " " +
-                "courseName='" + courseName + "' " +
-                "WHERE courseName='" + oldCourseName + "'";
-
         System.out.println(SQL);
-        System.out.println(SQL2);
-        executeUpdateStatement(SQL2);
-        executeUpdateStatement(SQL);
 
-        showInfo("Course succesfully updated.");
+        int updated = executeUpdateStatement(SQL);
+        if (updated != 0)
+            showInfo("Course successfully updated.");
+        else
+            showError("Failed to update course.");
     }
 
     //This method adds a module to the database.
@@ -127,10 +127,13 @@ public class CourseRepository extends DatabaseConnection {
         String SQL = "SET IDENTITY_INSERT ContentItem ON INSERT INTO ContentItem(contentItemID, PublicationDate, contentStatus) VALUES('" + contentItemId + "','" + publicationDate + "','" + contentStatus + "')" + "SET IDENTITY_INSERT ContentItem OFF";
         String SQL2 = "SET IDENTITY_INSERT ContentItem ON INSERT INTO Module (title, version, nameOrganization, contentItemId, courseName, description, emailAddress, serialNumber) VALUES('" + title + "','" + version + "','" + nameOrganization + "','" + contentItemId + "','" + courseName + "','" + description + "', '" + emailAddress + "','" + serialNumber + "')" + "SET IDENTITY_INSERT ContentItem OFF";
 
-        executeInsertStatement(SQL);
-        executeInsertStatement(SQL2);
+        boolean bl = executeInsertStatement(SQL);
+        boolean bl2 = executeInsertStatement(SQL2);
 
-        showInfo("Module succesfully added.");
+        if (bl && bl2)
+            showInfo("Module successfully added.");
+        else
+            showError("Failed to add module.");
 
     }
 

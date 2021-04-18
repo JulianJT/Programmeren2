@@ -47,9 +47,9 @@ public class AddModuleScene {
         addModuleText.setText("Add a module");
 
         TextField title = new TextField();
-        Spinner<Integer> version = new Spinner<>(1, 10, 1999999999);
+        Spinner<Integer> version = new Spinner<>(1, Integer.MAX_VALUE, 1);
         TextField nameOrganization = new TextField();
-        Spinner<Integer> contentItemId = new Spinner<>(1, 10, 1999999999);
+        Spinner<Integer> contentItemId = new Spinner<>(1, Integer.MAX_VALUE, 1);
         TextField courseName = new TextField();
         ObservableList<String> statuses = FXCollections.observableArrayList("Concept", "Active", "Archived");
         ComboBox<String> status = new ComboBox<>(statuses);
