@@ -9,9 +9,31 @@ import java.util.regex.Pattern;
 
 public class InputCheck {
 
+    private static final String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final Pattern emailPattern = Pattern.compile(emailRegex);
+
     public static InputCheck INSTANCE = new InputCheck();
 
-    //This method checks the input for certificate whether or not they're empty.
+    //This method checks whether or not a String can be converted to an Integer.
+    public static boolean isInteger(String integer) {
+        try {
+            Integer.parseInt(integer);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    //This method shows an alertBox with a message.
+    public static void showAlert(String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("Oh no, an error occurred!");
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    //This method checks the input values from the AddCertificateScene
     public boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
         if (course.isEmpty()) {
             showAlert("Course is empty");
@@ -42,11 +64,9 @@ public class InputCheck {
         return false;
     }
 
-    //This method checks the values from the addstudentscene.
+    //This method checks the input values from the AddStudentScene.
     public boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode) {
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
+        Matcher matcher = emailPattern.matcher(email);
 
         if (!(matcher.matches())) {
             showAlert("Invalid email specified.");
@@ -91,22 +111,100 @@ public class InputCheck {
         return false;
     }
 
-    //This method checks whether or not the review is an integer.
-    private boolean isInteger(String review) {
-        try {
-            Integer.parseInt(review);
+    //This method checks the input values from the AddModuleScene
+    public boolean addModuleInputCheck(String title, String nameOrganization, String courseName, String contentStatus, String emailAddress, String description) {
+        Matcher matcher = emailPattern.matcher(emailAddress);
+
+        if (!(matcher.matches())) {
+            showAlert("Invalid email specified.");
             return true;
-        } catch (Exception e) {
-            return false;
         }
+
+        if (title.isEmpty()) {
+            showAlert("Title is empty");
+            return true;
+        }
+
+        if (nameOrganization.isEmpty()) {
+            showAlert("Organization name is empty");
+            return true;
+        }
+
+        if (courseName.isEmpty()) {
+            showAlert("Course name is empty");
+            return true;
+        }
+
+        if (contentStatus.isEmpty()) {
+            showAlert("Content status is empty");
+            return true;
+        }
+
+        if (emailAddress.isEmpty()) {
+            showAlert("Email is empty");
+            return true;
+        }
+
+        if (description.isEmpty()) {
+            showAlert("Description is empty");
+            return true;
+        }
+
+        return false;
     }
 
-    //This method shows an alertBox with a message.
-    private void showAlert(String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Dialog");
-        alert.setHeaderText("Oh no, an error occurred!");
-        alert.setContentText(content);
-        alert.showAndWait();
+    //This method checks the input values from the AddCourseScene
+    public boolean addCourseInputCheck(String courseName, String subjectName, String intro, String level) {
+        if (courseName.isEmpty()) {
+            showAlert("New course name is empty");
+            return true;
+        }
+
+        if (subjectName.isEmpty()) {
+            showAlert("Subject name is empty");
+            return true;
+        }
+
+        if (intro.isEmpty()) {
+            showAlert("Introduction is empty");
+            return true;
+        }
+
+        if (level.isEmpty()) {
+            showAlert("Level is empty");
+            return true;
+        }
+
+        return false;
+    }
+
+    //This method checks the input values for the UpdateCourseScene
+    public boolean updateCourseInputCheck(String courseName, String subjectName, String intro, String level, String oldCourseName) {
+        if (courseName.isEmpty()) {
+            showAlert("Course name is empty");
+            return true;
+        }
+
+        if (subjectName.isEmpty()) {
+            showAlert("Subject name is empty");
+            return true;
+        }
+
+        if (intro.isEmpty()) {
+            showAlert("Introduction is empty");
+            return true;
+        }
+
+        if (level.isEmpty()) {
+            showAlert("Level is empty");
+            return true;
+        }
+
+        if (oldCourseName.isEmpty()) {
+            showAlert("Old course name is empty");
+            return true;
+        }
+
+        return false;
     }
 }

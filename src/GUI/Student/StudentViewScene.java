@@ -27,12 +27,14 @@ public class StudentViewScene {
         studentViewPane.setVgap(10);
         studentViewPane.setHgap(8);
 
-        Text instruction = new Text("Specify whose profile you would like to view(First and lastname)");
-        instruction.setFont(new Font(14));
+        Text instruction = new Text("View a student profile");
+        instruction.setFont(new Font(24));
         instruction.setTextAlignment(TextAlignment.JUSTIFY);
         Text studentInfo = new Text("");
 
         TextField student = new TextField();
+        student.setPromptText("First and last name");
+        student.setFocusTraversable(false);
 
         Button back = new Button("Back");
         back.setMinWidth(100);

@@ -29,7 +29,7 @@ public class AddCertificateScene {
         VBox addCertVBox = new VBox();
 
         Text addCertText = new Text();
-        addCertText.setFont(new Font(30));
+        addCertText.setFont(new Font(24));
         addCertText.setTextAlignment(TextAlignment.JUSTIFY);
         addCertText.setText("Add certificates");
 

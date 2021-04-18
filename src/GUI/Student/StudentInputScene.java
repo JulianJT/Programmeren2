@@ -36,15 +36,17 @@ public class StudentInputScene {
         studentInputPane.setVgap(10);
 
         Text addStudentText = new Text();
-        addStudentText.setFont(new Font(18));
+        addStudentText.setFont(new Font(24));
         addStudentText.setTextAlignment(TextAlignment.JUSTIFY);
-        addStudentText.setText("Here you can add a student to the database.");
+        addStudentText.setText("Add a student");
 
         TextField emailField = new TextField();
         TextField fullName = new TextField();
         DatePicker datePicker = new DatePicker();
         ObservableList<String> options = FXCollections.observableArrayList("Male", "Female");
         ComboBox genderField = new ComboBox(options);
+        genderField.setMaxSize(250, 200);
+        genderField.setPromptText("Gender");
         TextField addressField = new TextField();
         TextField residenceField = new TextField();
         TextField countryField = new TextField();
@@ -60,7 +62,9 @@ public class StudentInputScene {
         Label countryText = new Label("Country");
         Label zipCodeText = new Label("Zipcode");
         Button back = new Button("Back");
+        back.setMaxSize(250, 200);
         Button apply = new Button("Apply");
+        apply.setMaxSize(250, 200);
 
         GridPane addStudentInput = new GridPane();
         addStudentInput.add(emailText, 0, 0);
@@ -88,6 +92,7 @@ public class StudentInputScene {
         addStVBox.setSpacing(10);
         addStVBox.getChildren().addAll(addStudentText, addStudentInput);
 
+        addStVBox.setAlignment(Pos.CENTER);
 
         back.setOnAction((event) -> {
             studentInputPane.getScene().setRoot(StudentScene.getStudentPane());

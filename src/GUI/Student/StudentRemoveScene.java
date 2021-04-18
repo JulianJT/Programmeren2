@@ -25,10 +25,12 @@ public class StudentRemoveScene {
         studentRemovePane.setVgap(10);
         studentRemovePane.setHgap(8);
 
-        Text instruction = new Text("Specify which student you would like to remove(First and lastname)");
-        instruction.setFont(new Font(14));
+        Text instruction = new Text("Remove a student profile");
+        instruction.setFont(new Font(24));
         instruction.setTextAlignment(TextAlignment.JUSTIFY);
         TextField student = new TextField();
+        student.setPromptText("First and last name");
+        student.setFocusTraversable(false);
         Button back = new Button("Back");
         back.setMinWidth(100);
         Button confirm = new Button("OK");
@@ -48,7 +50,6 @@ public class StudentRemoveScene {
         studentRemovePane.add(addStRVbox,1,1);
         addStRVbox.setSpacing(10);
         addStRVbox.getChildren().addAll(instruction, removeStudent, rmvStudent);
-
 
         StudentRepository repository = new StudentRepository();
 

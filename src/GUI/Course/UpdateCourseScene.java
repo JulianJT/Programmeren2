@@ -6,6 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 // This class creates the update course scene
 
@@ -16,48 +20,45 @@ public class UpdateCourseScene {
     private static String subject;
     private static String oldCourseName;
 
-
-    private static GridPane UpdateCoursePane;
+    private static VBox updateCoursePane;
 
     public UpdateCourseScene() {
-        UpdateCoursePane = new GridPane();
-        UpdateCoursePane.setAlignment(Pos.CENTER);
-        UpdateCoursePane.setVgap(10);
-        UpdateCoursePane.setHgap(10);
+        updateCoursePane = new VBox();
+        updateCoursePane.setAlignment(Pos.CENTER);
+        updateCoursePane.setSpacing(10);
 
         Button update = new Button("Update");
         Button backFromUpdateCourse = new Button("Back");
+        backFromUpdateCourse.setMaxSize(200, 200);
+        update.setMaxSize(200, 200);
 
+        Text updateCourseText = new Text();
+        updateCourseText.setFont(new Font(24));
+        updateCourseText.setTextAlignment(TextAlignment.JUSTIFY);
+        updateCourseText.setText("Update course");
 
         TextField courseName = new TextField();
         TextField subjectText = new TextField();
         TextArea introductionText = new TextArea();
-        introductionText.setMaxWidth(200);
-        introductionText.setMaxHeight(100);
+        introductionText.setMaxWidth(150);
+        introductionText.setMaxHeight(80);
 
-
-        Label selectCourse = new Label("Name of the course you want to change:");
+        Label selectCourse = new Label("Old course name");
         TextField oldCourseNames = new TextField();
 
-        Label nameCourseText = new Label("(New) course Name:");
+        Label nameCourseText = new Label("New course name:");
         Label subjectLabel = new Label("Subject:");
 
 
-        ObservableList<String> options =
-                FXCollections.observableArrayList(
-                        "Beginner",
-                        "Advanced",
-                        "Expert"
-
-                );
-
+        ObservableList<String> options = FXCollections.observableArrayList("Beginner", "Advanced", "Expert");
         ComboBox levelField = new ComboBox(options);
-        Label levelText = new Label("Level: ");
-
-
+        levelField.setPromptText("Level");
+        levelField.setMaxSize(250, 200);
+        Label levelText = new Label("Level:");
         Label introText = new Label("Introduction:");
 
         GridPane updateCourseInput = new GridPane();
+        updateCourseInput.setAlignment(Pos.CENTER);
         updateCourseInput.add(nameCourseText, 1, 0);
         updateCourseInput.add(courseName, 1, 1);
 
@@ -72,14 +73,14 @@ public class UpdateCourseScene {
         updateCourseInput.add(introText, 0, 5);
         updateCourseInput.add(introductionText, 0, 6);
         updateCourseInput.add(backFromUpdateCourse, 0, 7);
-        updateCourseInput.add(update, 1, 6);
+        updateCourseInput.add(update, 1, 7);
 
-        UpdateCoursePane.add(updateCourseInput, 1, 1);
-        updateCourseInput.setHgap(8);
-        updateCourseInput.setVgap(8);
+        updateCoursePane.getChildren().addAll(updateCourseText, updateCourseInput);
+        updateCourseInput.setHgap(10);
+        updateCourseInput.setVgap(10);
 
         backFromUpdateCourse.setOnAction((event) -> {
-            UpdateCoursePane.getScene().setRoot(CourseScene.getCoursePane());
+            updateCoursePane.getScene().setRoot(CourseScene.getCoursePane());
         });
 
         CourseRepository updateCourse = new CourseRepository();
@@ -94,9 +95,9 @@ public class UpdateCourseScene {
         });
     }
 
-    //This method gets the Gridpane for navigation to the next/previous scene.
-    public static GridPane getUpdateCoursePane() {
-        return UpdateCoursePane;
+    //This method gets the VBox for navigation to the next/previous scene.
+    public static VBox getUpdateCoursePane() {
+        return updateCoursePane;
     }
 
     //This method retrieves the courseName.

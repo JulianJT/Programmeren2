@@ -1,11 +1,16 @@
 package GUI.Course;
 
 import Database.CourseRepository;
+import Database.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,48 +25,54 @@ public class AddModuleScene {
     private static String courseName;
     private static Date publicationDate;
     private static String contentStatus;
-    private static GridPane AddModulePane;
+    private static VBox addModulePane;
 
     private static String description;
     private static String emailAddress;
     private static Integer serialNumber;
 
     public AddModuleScene() {
-        AddModulePane = new GridPane();
-        AddModulePane.setAlignment(Pos.CENTER);
-        AddModulePane.setVgap(10);
-        AddModulePane.setHgap(10);
+        addModulePane = new VBox();
+        addModulePane.setAlignment(Pos.CENTER);
+        addModulePane.setSpacing(10);
 
         Button apply = new Button("Apply");
         Button backFromAddModule = new Button("Back");
+        apply.setMaxSize(200, 200);
+        backFromAddModule.setMaxSize(200, 200);
 
+        Text addModuleText = new Text();
+        addModuleText.setFont(new Font(24));
+        addModuleText.setTextAlignment(TextAlignment.JUSTIFY);
+        addModuleText.setText("Add a module");
 
         TextField title = new TextField();
-        Spinner version = new Spinner(1, 10, 1999999999);
+        Spinner<Integer> version = new Spinner<>(1, 10, 1999999999);
         TextField nameOrganization = new TextField();
-        Spinner contentItemId = new Spinner(1, 10, 1999999999);
+        Spinner<Integer> contentItemId = new Spinner<>(1, 10, 1999999999);
         TextField courseName = new TextField();
-        ObservableList<String> statussen = FXCollections.observableArrayList("Concept", "Active", "Archived");
-        ComboBox status = new ComboBox(statussen);
+        ObservableList<String> statuses = FXCollections.observableArrayList("Concept", "Active", "Archived");
+        ComboBox<String> status = new ComboBox<>(statuses);
+        status.setPromptText("Status");
         status.setPrefWidth(150);
         TextArea descriptionField = new TextArea();
-        descriptionField.setMaxHeight(75);
+        descriptionField.setMaxHeight(40);
         descriptionField.setMaxWidth(150);
         TextField email = new TextField();
         TextField serialNumberText = new TextField();
 
-
         Label titleText = new Label("Module title:");
         Label versionText = new Label("Version:");
         Label nameOrganizationText = new Label("Name of the organization:");
-        Label contentItemIDText = new Label("Content item ID:");
+        Label contentItemIDText = new Label("Content Item ID:");
         Label courseNameText = new Label("Add to which course?");
         Label statusText = new Label("Status:");
         Label descriptionText = new Label("Description:");
-        Label emailText = new Label("eMail organization:");
+        Label emailText = new Label("Email organization:");
         Label serialNumberField = new Label("SerialNumber:");
 
         GridPane addModuleInput = new GridPane();
+        addModuleInput.setAlignment(Pos.CENTER);
         addModuleInput.add(titleText, 0, 0);
         addModuleInput.add(title, 0, 1);
         addModuleInput.add(versionText, 1, 0);
@@ -84,52 +95,48 @@ public class AddModuleScene {
         addModuleInput.add(backFromAddModule, 0, 6);
         addModuleInput.add(apply, 1, 6);
 
-        AddModulePane.add(addModuleInput, 1, 1);
+        addModulePane.getChildren().addAll(addModuleText, addModuleInput);
         addModuleInput.setHgap(8);
         addModuleInput.setVgap(8);
 
         backFromAddModule.setOnAction((event) -> {
-            AddModulePane.getScene().setRoot(CourseScene.getCoursePane());
+            addModulePane.getScene().setRoot(CourseScene.getCoursePane());
         });
 
         CourseRepository addModule = new CourseRepository();
         apply.setOnAction((event) -> {
             AddModuleScene.title = title.getText();
-            AddModuleScene.version = (Integer) version.getValue();
-            AddModuleScene.contentItemId = (Integer) contentItemId.getValue();
+            AddModuleScene.version = version.getValue();
+            AddModuleScene.contentItemId = contentItemId.getValue();
             AddModuleScene.nameOrganization = nameOrganization.getText();
             AddModuleScene.courseName = courseName.getText();
-            AddModuleScene.contentStatus = (String) status.getValue();
+            AddModuleScene.contentStatus = status.getValue();
             AddModuleScene.description = descriptionField.getText();
             AddModuleScene.emailAddress = email.getText();
-            AddModuleScene.serialNumber = Integer.valueOf(serialNumberText.getText());
+
+            if (InputCheck.isInteger(serialNumberText.getText()))
+                AddModuleScene.serialNumber = Integer.valueOf(serialNumberText.getText());
+            else {
+                InputCheck.showAlert("Failed to parse serialnumber");
+                return;
+            }
 
             try {
 
                 publicationDate = java.sql.Date.valueOf(LocalDate.now());
 
             } catch (NullPointerException e) {
-
-                System.out.println("Invalid date.");
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setHeaderText("Oh no, an Error occurred!");
-                alert.setContentText("Date is invalid.");
-                alert.showAndWait();
-
+                InputCheck.showAlert("Date is invalid.");
                 return;
-
             }
-
             addModule.addModule();
         });
     }
 
 
-    //This method gets the Gridpane for navigation to the next/previous scene.
-    public static GridPane getAddModulePane() {
-        return AddModulePane;
+    //This method gets the VBox for navigation to the next/previous scene.
+    public static VBox getAddModulePane() {
+        return addModulePane;
     }
 
     //This method retrieves the title.

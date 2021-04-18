@@ -12,9 +12,8 @@ public class CertificateRepository extends DatabaseConnection {
 
     // adds certificate to database
     public void addCertificate(String userName, String studentName, String course, String review) {
-        if (InputCheck.INSTANCE.addCertificateInputCheck(course, userName, studentName, review)) {
+        if (InputCheck.INSTANCE.addCertificateInputCheck(course, userName, studentName, review))
             return;
-        }
 
         String insert = "INSERT INTO Certificate (review, nameWorker) VALUES(" + review + ",'" + userName + "')";
         executeInsertStatement(insert);

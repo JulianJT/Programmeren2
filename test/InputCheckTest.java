@@ -1,4 +1,5 @@
 
+import Database.InputCheck;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,8 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InputCheckTest {
+    private static final String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final Pattern emailPattern = Pattern.compile(emailRegex);
 
     @Test
     @DisplayName("AddCertificate: Non-integers")
@@ -31,105 +34,189 @@ public class InputCheckTest {
     }
 
     @Test
-    @DisplayName("Student: Incorrect Email")
+    @DisplayName("AddStudent: Incorrect Email")
     public void testStudentInput1() {
         boolean bl = addStudentInputCheck("user", "notEmail", "address", "residence", "country", "4562LW");
         assertTrue(bl);
     }
 
     @Test
-    @DisplayName("Student: Empty Field")
+    @DisplayName("AddStudent: Empty Field")
     public void testStudentInput2() {
         boolean bl = addStudentInputCheck("", "student@outlook.com", "address", "residence", "country", "4562LW");
         assertTrue(bl);
     }
 
     @Test
-    @DisplayName("Student: Incorrect Zipcode")
+    @DisplayName("AddStudent: Incorrect Zipcode")
     public void testStudentInput3() {
         boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "45682332LW");
         assertTrue(bl);
     }
 
     @Test
-    @DisplayName("Student: Correct Input")
+    @DisplayName("AddStudent: Correct Input")
     public void testStudentInput4() {
         boolean bl = addStudentInputCheck("user", "student@outlook.com", "address", "residence", "country", "4562LW");
         assertFalse(bl);
     }
 
-    // addCertificateInputCheck without Alert Dialogs.
+    @Test
+    @DisplayName("AddModule: Incorrect Email")
+    public void testModuleInput1() {
+        boolean bl =  addModuleInputCheck("Title", "Organization", "Course", "Status", "Email", "Description");
+        assertTrue(bl);
+    }
+
+    @Test
+    @DisplayName("AddModule: Empty Field")
+    public void testModuleInput2() {
+        boolean bl =  addModuleInputCheck("Title", "Organization", "Course", "", "student@gmail.com", "Description");
+        assertTrue(bl);
+    }
+
+    @Test
+    @DisplayName("AddModule: Correct Input")
+    public void testModuleInput3() {
+        boolean bl =  addModuleInputCheck("Title", "Organization", "Course", "Status", "student@gmail.com", "Description");
+        assertFalse(bl);
+    }
+
+    @Test
+    @DisplayName("AddCourse: Empty Field")
+    public void testCourseInput1() {
+        boolean bl = addCourseInputCheck("Course", "Subject", "", "Advanced");
+        assertTrue(bl);
+    }
+
+    @Test
+    @DisplayName("AddCourse: Correct Input")
+    public void testCourseInput2() {
+        boolean bl = addCourseInputCheck("Course", "Subject", "Introduction", "Advanced");
+        assertFalse(bl);
+    }
+
+    @Test
+    @DisplayName("UpdateCourse: Empty Field")
+    public void testUpdateCourseInput1() {
+        boolean bl = updateCourseInputCheck("", "Subject", "Introduction", "Beginner", "Old Course");
+        assertTrue(bl);
+    }
+
+    @Test
+    @DisplayName("UpdateCourse: Correct Input")
+    public void testUpdateCourseInput2() {
+        boolean bl = updateCourseInputCheck("Course", "Subject", "Introduction", "Beginner", "Old Course");
+        assertFalse(bl);
+    }
+
+    /**
+     * All of the methods below are identical copies of the InputCheck methods used in the application.
+     * If we were to call the methods directly, it would fail because of Alert Dialogs.
+     * Some methods here may look slightly different at first, but they function identical.
+     */
+
+    // addCertificateInputCheck without Alert Dialogs
     private boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
-        if (course.isEmpty()) {
+        if (course.isEmpty())
             return true;
-        }
 
-        if (studentName.isEmpty()) {
+        if (studentName.isEmpty())
             return true;
-        }
 
-        if (userName.isEmpty()) {
+        if (userName.isEmpty())
             return true;
-        }
 
-        if (!isInteger(review)) {
+        if (!InputCheck.isInteger(review))
             return true;
-        }
 
-        if (!review.isEmpty()) {
+        if (!review.isEmpty())
             return Integer.parseInt(review) < 1 || Integer.parseInt(review) > 10;
-        }
 
         return false;
     }
 
-    // addStudentInputCheck without Alert Dialogs.
+    // addStudentInputCheck without Alert Dialogs
     private boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode) {
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
+        Matcher matcher = emailPattern.matcher(email);
 
-        if (!(matcher.matches())) {
+        if (!(matcher.matches()))
             return true;
-        }
 
-        if (userName.isEmpty()) {
+        if (userName.isEmpty())
             return true;
-        }
 
-        if (email.isEmpty()) {
+        if (email.isEmpty())
             return true;
-        }
 
-        if (address.isEmpty()) {
+        if (address.isEmpty())
             return true;
-        }
 
-        if (residence.isEmpty()) {
+        if (residence.isEmpty())
             return true;
-        }
 
-        if (country.isEmpty()) {
+        if (country.isEmpty())
             return true;
-        }
 
-        if (zipcode.isEmpty()) {
+        if (zipcode.isEmpty())
             return true;
-        }
 
-        if (zipcode.length() > 9) {
-            return true;
-        }
-
-        return false;
+        return zipcode.length() > 9;
     }
 
-    private boolean isInteger(String review) {
-        try {
-            Integer.parseInt(review);
+    // addModuleInputCheck without Alert Dialogs
+    public boolean addModuleInputCheck(String title, String nameOrganization, String courseName, String contentStatus, String emailAddress, String description) {
+        Matcher matcher = emailPattern.matcher(emailAddress);
+
+        if (!(matcher.matches()))
             return true;
-        } catch (Exception e) {
-            return false;
-        }
+
+        if (title.isEmpty())
+            return true;
+
+        if (nameOrganization.isEmpty())
+            return true;
+
+        if (courseName.isEmpty())
+            return true;
+
+        if (contentStatus.isEmpty())
+            return true;
+
+        if (emailAddress.isEmpty())
+            return true;
+
+        return description.isEmpty();
+    }
+
+    // addCourseInputCheck without Alert Dialogs
+    public boolean addCourseInputCheck(String courseName, String subjectName, String intro, String level) {
+        if (courseName.isEmpty())
+            return true;
+
+        if (subjectName.isEmpty())
+            return true;
+
+        if (intro.isEmpty())
+            return true;
+
+        return level.isEmpty();
+    }
+
+    // updateCourseInputCheck without Alert Dialogs
+    public boolean updateCourseInputCheck(String courseName, String subjectName, String intro, String level, String oldCourseName) {
+        if (courseName.isEmpty())
+            return true;
+
+        if (subjectName.isEmpty())
+            return true;
+
+        if (intro.isEmpty())
+            return true;
+
+        if (level.isEmpty())
+            return true;
+
+        return oldCourseName.isEmpty();
     }
 }

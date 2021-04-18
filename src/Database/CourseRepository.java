@@ -72,6 +72,9 @@ public class CourseRepository extends DatabaseConnection {
         String intro = AddCourseScene.getIntroduction();
         String level = AddCourseScene.getLevel();
 
+        if (InputCheck.INSTANCE.addCourseInputCheck(courseName, subjectName, intro, level))
+            return;
+
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
         executeInsertStatement(SQL);
 
@@ -85,6 +88,9 @@ public class CourseRepository extends DatabaseConnection {
         String intro = UpdateCourseScene.getIntroduction();
         String level = UpdateCourseScene.getLevel();
         String oldCourseName = UpdateCourseScene.getOldCourseName();
+
+        if (InputCheck.INSTANCE.updateCourseInputCheck(courseName, subjectName, intro, level, oldCourseName))
+            return;
 
         String SQL = "Update Course " + "SET" + " " +
                 "courseName='" + courseName + "', subject='" + subjectName + "', introductionText='" + intro + "', level_indication='" + level + "' " +
@@ -115,6 +121,8 @@ public class CourseRepository extends DatabaseConnection {
         String description = AddModuleScene.getDescription();
         Integer serialNumber = AddModuleScene.getSerialNumber();
 
+        if (InputCheck.INSTANCE.addModuleInputCheck(title, nameOrganization, courseName, contentStatus, emailAddress, description))
+            return;
 
         String SQL = "SET IDENTITY_INSERT ContentItem ON INSERT INTO ContentItem(contentItemID, PublicationDate, contentStatus) VALUES('" + contentItemId + "','" + publicationDate + "','" + contentStatus + "')" + "SET IDENTITY_INSERT ContentItem OFF";
         String SQL2 = "SET IDENTITY_INSERT ContentItem ON INSERT INTO Module (title, version, nameOrganization, contentItemId, courseName, description, emailAddress, serialNumber) VALUES('" + title + "','" + version + "','" + nameOrganization + "','" + contentItemId + "','" + courseName + "','" + description + "', '" + emailAddress + "','" + serialNumber + "')" + "SET IDENTITY_INSERT ContentItem OFF";

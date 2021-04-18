@@ -24,33 +24,31 @@ public class CourseRemoveScene {
         courseRemovePane.setHgap(8);
         courseRemovePane.setVgap(10);
 
-        Text instruction = new Text("Specify which course you would like to remove(only coursename)");
-        instruction.setFont(new Font(15));
+        Text instruction = new Text("Remove a course");
+        instruction.setFont(new Font(24));
         instruction.setTextAlignment(TextAlignment.JUSTIFY);
         TextField course = new TextField();
-        course.setMaxWidth(300);
+        course.setPromptText("Course name");
+        course.setFocusTraversable(false);
         Button confirm = new Button("Ok");
         confirm.setMinWidth(100);
         Button back = new Button("Back");
         back.setMinWidth(100);
 
-        HBox rmvCOurse = new HBox();
-        rmvCOurse.setAlignment(Pos.CENTER);
-        rmvCOurse.setSpacing(10);
-        rmvCOurse.getChildren().addAll(back, confirm);
-
+        HBox rmvCourse = new HBox();
+        rmvCourse.setAlignment(Pos.CENTER);
+        rmvCourse.setSpacing(10);
+        rmvCourse.getChildren().addAll(back, confirm);
 
         VBox removeCourse = new VBox();
         removeCourse.setAlignment(Pos.CENTER);
         removeCourse.setSpacing(10);
         removeCourse.getChildren().addAll(instruction, course);
 
-
-        courseRemovePane.add(addCoRVbox,1,1);
+        courseRemovePane.add(addCoRVbox, 1, 1);
         courseRemovePane.setAlignment(Pos.CENTER);
         addCoRVbox.setSpacing(10);
-        addCoRVbox.getChildren().addAll(instruction, removeCourse, rmvCOurse);
-
+        addCoRVbox.getChildren().addAll(instruction, removeCourse, rmvCourse);
 
         CourseRepository repository = new CourseRepository();
 

@@ -52,6 +52,7 @@ public class GetCertificateScene {
 
         ObservableList<String> options = FXCollections.observableArrayList("Male", "Female");
         ComboBox gender = new ComboBox(options);
+        gender.setPromptText("Gender");
         gender.setMaxSize(250, 200);
         Button searchStudent = new Button("Search");
         searchStudent.setMaxSize(250, 200);
