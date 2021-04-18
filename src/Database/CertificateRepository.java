@@ -46,86 +46,90 @@ public class CertificateRepository extends DatabaseConnection {
 
     // returns percentage of people with certificate
     public int getCertificatePercentage(String gender) {
-        ResultSet rs;
-        int x = 0;
-        int y = 0;
+        if (gender != null && !gender.isEmpty()) {
+            ResultSet rs;
+            int x = 0;
+            int y = 0;
 
-        if (gender == "Male") {
-            try {
-                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
-                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
-                        "WHERE gender = 'Male' AND Certificate.certificateID IS NOT NULL";
-                rs = executeSelectStatement(SQL);
-                System.out.println(SQL);
+            if (gender.equals("Male")) {
+                try {
+                    String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                            "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                            "WHERE gender = 'Male' AND Certificate.certificateID IS NOT NULL";
+                    rs = executeSelectStatement(SQL);
+                    System.out.println(SQL);
 
-                while (rs.next()) {
-                    x++;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
-                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
-                        "WHERE gender = 'Female' AND Certificate.certificateID IS NOT NULL";
-                rs = executeSelectStatement(SQL);
-                System.out.println(SQL);
-
-                while (rs.next()) {
-                    y++;
+                    while (rs.next()) {
+                        x++;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            closeConnection();
-            int xy = x+y;
-            int z = (x*100);
-            int w = z/xy;
+                try {
+                    String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                            "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                            "WHERE gender = 'Female' AND Certificate.certificateID IS NOT NULL";
+                    rs = executeSelectStatement(SQL);
+                    System.out.println(SQL);
 
-            return w;
-        } else if (gender == "Female") {
+                    while (rs.next()) {
+                        y++;
+                    }
 
-            try {
-                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
-                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
-                        "WHERE gender = 'Female' AND Certificate.certificateID IS NOT NULL";
-                rs = executeSelectStatement(SQL);
-                System.out.println(SQL);
-
-                while (rs.next()) {
-                    y++;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                closeConnection();
+                int xy = x + y;
+                int z = (x * 100);
+                int w = 0;
+                if (xy != 0) {
+                    w = z / xy;
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                return w;
+            } else if (gender.equals("Female")) {
+                try {
+                    String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                            "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                            "WHERE gender = 'Female' AND Certificate.certificateID IS NOT NULL";
+                    rs = executeSelectStatement(SQL);
+                    System.out.println(SQL);
 
-            try {
-                String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
-                        "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
-                        "WHERE gender = 'Male' AND Certificate.certificateID IS NOT NULL";
-                rs = executeSelectStatement(SQL);
-                System.out.println(SQL);
+                    while (rs.next()) {
+                        y++;
+                    }
 
-                while (rs.next()) {
-                    x++;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    String SQL = "SELECT gender FROM Student LEFT JOIN Registration ON Student.emailAddress = Registration.emailAddress " +
+                            "LEFT JOIN Certificate ON Registration.certificateID = Certificate.certificateID " +
+                            "WHERE gender = 'Male' AND Certificate.certificateID IS NOT NULL";
+                    rs = executeSelectStatement(SQL);
+                    System.out.println(SQL);
+
+                    while (rs.next()) {
+                        x++;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                closeConnection();
+
+                int xy = x + y;
+                int z = (y * 100);
+                int w = 0;
+                if (xy != 0) {
+                    w = z / xy;
+                }
+                return w;
             }
-            closeConnection();
-
-            int xy = x+y;
-            int z = (y*100);
-            int w = z/xy;
-
-            return w;
-
-        }else{
-            return 0;
         }
+        return 0;
     }
 }
