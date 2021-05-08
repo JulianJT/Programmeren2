@@ -8,11 +8,8 @@ import java.util.regex.Pattern;
 // This class checks the user input in certificate and student.
 
 public class InputCheck {
-
-    private static final String zipcodeRegex = "[1-9]{1}[0-9]{3}[a-zA-Z]{2}";
-    private static final String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-    private static final Pattern emailPattern = Pattern.compile(emailRegex);
-    private static final Pattern zipcodePattern = Pattern.compile(zipcodeRegex);
+    private static final Pattern emailPattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+    private static final Pattern zipcodePattern = Pattern.compile("[1-9]{1}[0-9]{3}[a-zA-Z]{2}");
 
     public static InputCheck INSTANCE = new InputCheck();
 
@@ -35,191 +32,72 @@ public class InputCheck {
         alert.showAndWait();
     }
 
-    //This method checks the input values from the AddCertificateScene
-    public boolean addCertificateInputCheck(String course, String userName, String studentName, String review) {
-        if (course.isEmpty()) {
-            showAlert("Course is empty");
-            return true;
-        }
-
-        if (studentName.isEmpty()) {
-            showAlert("Studentname is empty");
-            return true;
-        }
-
-        if (userName.isEmpty()) {
-            showAlert("Username is empty");
-            return true;
-        }
-
-        if (!isInteger(review)) {
-            showAlert("Review is not a number");
-            return true;
-        }
-
-        if (!review.isEmpty()) {
-            if (Integer.parseInt(review) < 1 || Integer.parseInt(review) > 10) {
-                showAlert("Review is invalid. Use a number between 1 and 10.");
+    // This method loops through all given inputs to check if null or empty.
+    public static boolean checkIfEmpty(String... args) {
+        for (String s : args) {
+            if (s == null || s.isEmpty())
                 return true;
-            }
         }
         return false;
+    }
+
+    //This method checks the input values from the AddCertificateScene
+    public String addCertificateInputCheck(String course, String userName, String studentName, String review) {
+        if (checkIfEmpty(course, userName, studentName, review))
+            return "Empty field.";
+
+        if (!isInteger(review))
+            return "Review is not a number";
+
+        if (!review.isEmpty()) {
+            if (Integer.parseInt(review) < 1 || Integer.parseInt(review) > 10)
+                return "Review is invalid. Use a number between 1 and 10.";
+        }
+        return null;
     }
 
     //This method checks the input values from the AddStudentScene.
-    public boolean addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode, String gender) {
+    public String addStudentInputCheck(String userName, String email, String address, String residence, String country, String zipcode, String gender) {
         Matcher matcher = emailPattern.matcher(email);
         Matcher zipMatcher = zipcodePattern.matcher(zipcode);
 
-        if (!(matcher.matches())) {
-            showAlert("Invalid email specified.");
-            return true;
-        }
+        if (checkIfEmpty(userName, email, address, residence, country, gender, zipcode))
+            return "Empty field.";
 
-        if (!(zipMatcher.matches())) {
-            showAlert("Invalid zipcode.");
-            return true;
-        }
+        if (!(matcher.matches()))
+            return "Invalid email specified.";
 
-        if (userName.isEmpty()) {
-            showAlert("Name is empty");
-            return true;
-        }
+        if (!(zipMatcher.matches()))
+            return "Invalid zipcode.";
 
-        if (email.isEmpty()) {
-            showAlert("Email is empty");
-            return true;
-        }
-
-        if (address.isEmpty()) {
-            showAlert("Address is empty");
-            return true;
-        }
-
-        if (residence.isEmpty()) {
-            showAlert("Residence is empty");
-            return true;
-        }
-
-        if (country.isEmpty()) {
-            showAlert("Country is empty");
-            return true;
-        }
-
-        if (gender == null) {
-            showAlert("Gender is empty");
-            return true;
-        }
-
-        if (zipcode.isEmpty()) {
-            showAlert("Zipcode is empty");
-            return true;
-        }
-
-        if (zipcode.length() > 9) {
-            showAlert("Max zipcode size is 9 characters");
-            return true;
-        }
-
-
-
-        return false;
+        if (zipcode.length() > 9)
+            return "Max zipcode size is 9 characters";
+        return null;
     }
 
     //This method checks the input values from the AddModuleScene
-    public boolean addModuleInputCheck(String title, String nameOrganization, String courseName, String contentStatus, String emailAddress, String description) {
+    public String addModuleInputCheck(String title, String nameOrganization, String courseName, String contentStatus, String emailAddress, String description) {
         Matcher matcher = emailPattern.matcher(emailAddress);
 
-        if (!(matcher.matches())) {
-            showAlert("Invalid email specified.");
-            return true;
-        }
+        if (checkIfEmpty(title, nameOrganization, courseName, contentStatus, emailAddress, description))
+            return "Empty field.";
 
-        if (title.isEmpty()) {
-            showAlert("Title is empty");
-            return true;
-        }
-
-        if (nameOrganization.isEmpty()) {
-            showAlert("Organization name is empty");
-            return true;
-        }
-
-        if (courseName.isEmpty()) {
-            showAlert("Course name is empty");
-            return true;
-        }
-
-        if (contentStatus == null) {
-            showAlert("Content status is empty");
-            return true;
-        }
-
-        if (emailAddress.isEmpty()) {
-            showAlert("Email is empty");
-            return true;
-        }
-
-        if (description.isEmpty()) {
-            showAlert("Description is empty");
-            return true;
-        }
-
-        return false;
+        if (!(matcher.matches()))
+            return "Invalid email specified.";
+        return null;
     }
 
     //This method checks the input values from the AddCourseScene
-    public boolean addCourseInputCheck(String courseName, String subjectName, String intro, String level) {
-        if (courseName.isEmpty()) {
-            showAlert("New course name is empty");
-            return true;
-        }
-
-        if (subjectName.isEmpty()) {
-            showAlert("Subject name is empty");
-            return true;
-        }
-
-        if (intro.isEmpty()) {
-            showAlert("Introduction is empty");
-            return true;
-        }
-
-        if (level == null) {
-            showAlert("Level is empty");
-            return true;
-        }
-
-        return false;
+    public String addCourseInputCheck(String courseName, String subjectName, String intro, String level) {
+        if (checkIfEmpty(courseName, subjectName, intro, level))
+            return "Empty field.";
+        return null;
     }
 
     //This method checks the input values for the UpdateCourseScene
-    public boolean updateCourseInputCheck(String courseName, String subjectName, String intro, String level, String oldCourseName) {
-        if (courseName.isEmpty()) {
-            showAlert("Course name is empty");
-            return true;
-        }
-
-        if (subjectName.isEmpty()) {
-            showAlert("Subject name is empty");
-            return true;
-        }
-
-        if (intro.isEmpty()) {
-            showAlert("Introduction is empty");
-            return true;
-        }
-
-        if (level == null) {
-            showAlert("Level is empty");
-            return true;
-        }
-
-        if (oldCourseName.isEmpty()) {
-            showAlert("Old course name is empty");
-            return true;
-        }
-
-        return false;
+    public String updateCourseInputCheck(String courseName, String subjectName, String intro, String level, String oldCourseName) {
+        if (checkIfEmpty(courseName, subjectName, intro, level, oldCourseName))
+            return "Empty field.";
+        return null;
     }
 }

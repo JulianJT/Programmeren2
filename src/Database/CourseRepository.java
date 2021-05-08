@@ -72,8 +72,11 @@ public class CourseRepository extends DatabaseConnection {
         String intro = AddCourseScene.getIntroduction();
         String level = AddCourseScene.getLevel();
 
-        if (InputCheck.INSTANCE.addCourseInputCheck(courseName, subjectName, intro, level))
+        String error;
+        if ((error = InputCheck.INSTANCE.addCourseInputCheck(courseName, subjectName, intro, level)) != null) {
+            showError(error);
             return;
+        }
 
         String SQL = "INSERT INTO Course (courseName, subject, introductionText, level_indication) VALUES('" + courseName + "','" + subjectName + "','" + intro + "','" + level + "')";
         boolean bl = executeInsertStatement(SQL);
@@ -92,8 +95,11 @@ public class CourseRepository extends DatabaseConnection {
         String level = UpdateCourseScene.getLevel();
         String oldCourseName = UpdateCourseScene.getOldCourseName();
 
-        if (InputCheck.INSTANCE.updateCourseInputCheck(courseName, subjectName, intro, level, oldCourseName))
+        String error;
+        if ((error = InputCheck.INSTANCE.updateCourseInputCheck(courseName, subjectName, intro, level, oldCourseName)) != null) {
+            showError(error);
             return;
+        }
 
         String SQL = "Update Course " + "SET" + " " +
                 "courseName='" + courseName + "', subject='" + subjectName + "', introductionText='" + intro + "', level_indication='" + level + "' " +
@@ -121,8 +127,11 @@ public class CourseRepository extends DatabaseConnection {
         String description = AddModuleScene.getDescription();
         Integer serialNumber = AddModuleScene.getSerialNumber();
 
-        if (InputCheck.INSTANCE.addModuleInputCheck(title, nameOrganization, courseName, contentStatus, emailAddress, description))
+        String error;
+        if ((error = InputCheck.INSTANCE.addModuleInputCheck(title, nameOrganization, courseName, contentStatus, emailAddress, description)) != null) {
+            showError(error);
             return;
+        }
 
         String SQL = "SET IDENTITY_INSERT ContentItem ON INSERT INTO ContentItem(contentItemID, PublicationDate, contentStatus) VALUES('" + contentItemId + "','" + publicationDate + "','" + contentStatus + "')" + "SET IDENTITY_INSERT ContentItem OFF";
         String SQL2 = "SET IDENTITY_INSERT ContentItem ON INSERT INTO Module (title, version, nameOrganization, contentItemId, courseName, description, emailAddress, serialNumber) VALUES('" + title + "','" + version + "','" + nameOrganization + "','" + contentItemId + "','" + courseName + "','" + description + "', '" + emailAddress + "','" + serialNumber + "')" + "SET IDENTITY_INSERT ContentItem OFF";
